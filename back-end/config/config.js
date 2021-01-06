@@ -2,22 +2,22 @@ module.exports = {
   development: {
     username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: "Trybeer",
+    database: 'Trybeer',
     host: process.env.HOSTNAME,
-    dialect: "mysql",
+    dialect: 'mysql',
   },
   test: {
     username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: "Trybeer",
+    database: 'Trybeer',
     host: process.env.HOSTNAME,
-    dialect: "mysql",
+    dialect: 'mysql',
   },
   production: {
     username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
-    database: "Trybeer",
+    database: 'Trybeer',
     host: process.env.HOSTNAME,
-    dialect: "mysql",
+    dialect: 'mysql',
   },
 };

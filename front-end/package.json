@@ -49,7 +49,6 @@
   "jest": {
     "coveragePathIgnorePatterns": [
       "index.js",
-      "serviceWorker.js",
       "./services/renderWithRouter",
       "./services/history",
       "Apptest.js"
