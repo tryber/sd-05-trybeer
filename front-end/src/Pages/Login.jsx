@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import Input from '../Components/Input';
@@ -22,7 +23,6 @@ const Login = ({ submitLogin }) => {
     validaInput(email, password);
   }, [email, password]);
 
-
   return (
     <div id="Login">
       <h1>Login</h1>
@@ -30,28 +30,31 @@ const Login = ({ submitLogin }) => {
         <Input
           test="email-input"
           placeholder="Digite seu e-mail"
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={ (e) => setEmail(e.target.value) }
         />
         <Input
           type="password"
           test="password-input"
           placeholder="Digite sua senha"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={ (e) => setPassword(e.target.value) }
         />
       </form>
-        <button
-          disabled={isDisabled}
-          type="submit"
-          onClick={(event) => {
-            event.preventDefault();
-            submitLogin({ email, password })}
-
-          }
-        >
+      <button
+        disabled={ isDisabled }
+        type="submit"
+        onClick={ (event) => {
+          event.preventDefault();
+          submitLogin({ email, password });
+        } }
+      >
         Entrar
       </button>
     </div>
   );
+};
+
+Login.propTypes = {
+  submitLogin: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -60,8 +63,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  submitLogin: (data) =>
-    dispatch(getUserDataAct(data)),
+  submitLogin: (data) => dispatch(getUserDataAct(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

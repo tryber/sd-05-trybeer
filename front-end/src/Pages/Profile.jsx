@@ -1,28 +1,49 @@
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Header from '../Components/Header';
-import PropTypes from 'prop-types';
 
 import { getUserDataAct } from '../Redux/Actions/user';
 
-function Profile(props) {
-  const { name, email, refreshUser } = props;
-
+function Profile({
+  name, email, refreshUser, history,
+}) {
   useEffect(() => {
     refreshUser();
   }, [refreshUser]); // lint pediu pra por o refreshUser
 
   return (
     <div className="container-main">
-      <Header pathname={props.history.location.pathname} />
+      <Header pathname={ history.location.pathname } />
       <div className="container-page">
         <strong>Perfil</strong>
-        <div>Nome: <span>{ name }</span></div>
-        <div>Email: <span>{ email }</span></div>
+        <div>
+          <p>
+            Nome:
+            <span>{name}</span>
+          </p>
+        </div>
+        <div>
+          <p>
+            Email:
+            <span>{email}</span>
+          </p>
+        </div>
       </div>
     </div>
   );
 }
+
+Profile.propTypes = {
+  email: PropTypes.string,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
+  name: PropTypes.string,
+  refreshUser: PropTypes.func.isRequired,
+};
 
 Profile.protoTypes = {
   name: PropTypes.string,
