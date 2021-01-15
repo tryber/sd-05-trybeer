@@ -6,7 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import {
-  Login, Register, Products, Orders, Profile, Checkout,
+  Login, Register, Products, Orders, Profile, Checkout, OrdersDetails,
 } from '.';
 
 const Home = () => (
@@ -22,6 +22,8 @@ const Home = () => (
       <Route exact path="/admin/profile" component={ Profile } />
       <Route exact path="/checkout" component={ Checkout } />
       <Route exact path="/admin/orders" component={ Orders } />
+      {/*  usado UM em"/orders/1" p/teste */}
+      <Route exact path="/orders/1" component={ OrdersDetails } />
     </Switch>
   </Router>
 );
