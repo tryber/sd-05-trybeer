@@ -1,0 +1,48 @@
+.adminTitle {
+  font-size: 30px;
+  text-align: center;
+}
+
+.adminSideBar {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  text-decoration: none;
+  width: 35%;
+}
+
+.adminMenuBtnContainer {
+  color: aqua;
+  border: solid;
+  border-radius: 50px;
+  display: flex;
+  margin: 15px;
+  flex-direction: column;
+}
+
+.adminMenuBtn {
+  font-size: larger;
+}
+
+.App {
+  display: flex;
+} 
+
+.adminData {
+  width: 65%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.footer {
+  margin: 0;
+}
