@@ -1,4 +1,4 @@
-import { clientSalesByUserId } from '../Services/index';
+import { clientSalesByUserId } from '../../Helper/fetch';
 
 export const REQUEST_USER_SALES_SUCCESS = 'REQUEST_USER_SALES_SUCCESS';
 export const REQUEST_USER_SALES_ERROR = 'REQUEST_USER_SALES_ERROR';

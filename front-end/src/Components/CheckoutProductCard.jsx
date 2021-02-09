@@ -9,23 +9,24 @@ const cssProvisorio = {
   justifyContent: 'space-between',
   width: '35%',
 };
+
 // Me falem se tinha melhor opção que usar várias divs, por favor, Paulo
-function CheckoutProductCard({ item, i, triggerDelete }) {
+function CheckoutProductCard({ item, index, callbackDelete }) {
   const { quantity, name, price, id } = item;
   return (
     <div style={ cssProvisorio }>
-      <div data-testid={ `${i}-product-qtd-input` }>{quantity}</div>
-      <div data-testid={ `${i}-product-name` }>{name}</div>
-      <div data-testid={ `${i}-product-total-value` }>
+      <div data-testid={ `${index}-product-qtd-input` }>{ quantity }</div>
+      <div data-testid={ `${index}-product-name` }>{ name }</div>
+      <div data-testid={ `${index}-product-total-value` }>
         {`R$ ${helper.transformPrice(Number(quantity) * Number(price))}`}
       </div>
-      <div data-testid={ `${i}-product-unit-price` }>
+      <div data-testid={ `${index}-product-unit-price` }>
         {`(R$ ${helper.transformPrice(price)} un)`}
       </div>
       <button
-        onClick={ () => triggerDelete(i, id) }
+        onClick={ () => callbackDelete(id) }
         type="button"
-        data-testid={ `${i}-removal-button` }
+        data-testid={ `${index}-removal-button` }
       >
         X
       </button>

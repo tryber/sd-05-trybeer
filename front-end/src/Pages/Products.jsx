@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 import Header from '../Components/Header';
 import ProductCard from '../Components/ProductCard';
-import Helpers from '../Helper/index';
+import Helpers from '../Helper';
 import Restrict from '../Components/Restrict';
 
-import { getProducts } from '../Redux/Services';
+import { getProducts } from '../Helper/fetch';
 
 const INITIAL_VALUE = 0;
 

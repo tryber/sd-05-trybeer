@@ -1,26 +1,26 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import CheckoutProductCard from './CheckoutProductCard';
 import helper from '../Helper/index';
 
-const zero = 0;
-// const toFixedParam = 2;
-
-const CheckoutProductsList = ({ cart }) => {
-
+const CheckoutProductsList = ({ cart, onUpdate }) => {
   return (
     <div>
       {(cart.itemArray || []).map((item, index) => (
         <CheckoutProductCard
           key={ item.id }
           item={ item }
-          i={ index }
-          triggerDelete={ () => {} }
+          index={ index }
+          callbackDelete={ (id) => { 
+            helper.removeProductFromCartById(id);
+            onUpdate(helper.getCartInfo());
+          }}
         />
       ))}
-      <div data-testid="order-total-value">{
-        `Total: R$ ${helper.transformPrice(cart.total)}`
-      }</div>
+      <div data-testid="order-total-value">
+        { cart.total || <p>Não há produtos no carrinho</p> }
+        { `Total: R$ ${helper.transformPrice(cart.total)}` }
+      </div>
     </div>
   );
 };

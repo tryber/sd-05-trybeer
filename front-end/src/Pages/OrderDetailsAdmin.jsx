@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import Restrict from '../Components/Restrict';
-import { salesById, updateDeliveryStatus } from '../Redux/Services';
-import Helper from '../Helper/index';
+import { salesById, updateDeliveryStatus } from '../Helper/fetch';
+import Helper from '../Helper';
 import AdminSideBar from '../Components/AdminSideBar';
 
 const OrderDetailsAdmin = ({

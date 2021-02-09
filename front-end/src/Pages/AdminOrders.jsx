@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminSideBar from '../Components/AdminSideBar';
-import { getSalesOrder } from '../Redux/Services/index';
-import Helper from '../Helper/index';
+import { getSalesOrder } from '../Helper/fetch';
+import Helper from '../Helper';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);

@@ -6,12 +6,13 @@ import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Restrict from '../Components/Restrict';
 
-import helpers from '../Helper/';
+import { submitOrderFetch } from '../Helper/fetch';
+import helpers from '../Helper';
 
 const TIMEOUT = 3000;
 
 function Checkout({
-  history, userData, submitOrder
+  history, submitOrder
 }) {
   const [buttonShoulBeDisabled, setbuttonShoulBeDisabled] = useState(false);
   const [street, setStreet] = useState('');
@@ -19,12 +20,7 @@ function Checkout({
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  const [cart] = useState(helpers.getCartInfo());
-
-  useEffect(() => {
-    const c = helpers.getCartInfo();
-    console.log(c);
-  }, []);
+  const [cart, setCart] = useState(helpers.getCartInfo());
 
   useEffect(() => {
     if (false || street === '' || houseNumber === '') {
@@ -36,12 +32,7 @@ function Checkout({
 
   function submitHandler() {
     setShouldRedirect(true);
-    submitOrder({
-      cart,
-      userData,
-      street,
-      houseNumber,
-    });
+    submitOrderFetch({ cart, street, houseNumber });
   }
 
   if (shouldRedirect) {
@@ -55,7 +46,7 @@ function Checkout({
     <Restrict>
       <Header pathname={ history.location.pathname } />
       <h3>Produtos</h3>
-      <CheckoutProductsList cart={ cart } />
+      <CheckoutProductsList cart={ cart } onUpdate={ setCart } />
       <h3>Endereço</h3>
       <p>Rua:</p>
       <br />

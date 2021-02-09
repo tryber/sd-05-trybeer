@@ -1,4 +1,4 @@
-import { getProducts, submitOrderFetch } from '../Services/index';
+import { getProducts, submitOrderFetch } from '../../Helper/fetch';
 
 export const REQUESTING_PRODUCTS = 'REQUESTING_PRODUCTS';
 export const REQUEST_PRODUCTS_SUCCESS = 'REQUEST_PRODUCTS_SUCCESS';

@@ -1,4 +1,4 @@
-import { getDataByKey } from '../../Services/localStorage';
+import { getDataByKey } from './localStorageHandle';
 
 const localhostURL = 'http://localhost:3001';
 

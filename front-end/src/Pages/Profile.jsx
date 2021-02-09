@@ -31,7 +31,7 @@ function Profile({ history, updateUser }) {
         <div className="container-page">
           <strong>Perfil</strong>
           <form>
-            <p>Nome :</p>
+            <p>Nome:</p>
             <input
               type="text"
               data-testid="profile-name-input"

@@ -12,8 +12,9 @@ import Register from './Pages/Register';
 import OrderDetailsClient from './Pages/OrderDetailsClient';
 import AdminProfile from './Pages/AdminProfile';
 import AdminOrders from './Pages/AdminOrders';
-import './App.css';
 import OrderDetailsAdmin from './Pages/OrderDetailsAdmin';
+
+import './App.css';
 
 // prettier-ignore
 function App({ ProductsAPI }) {

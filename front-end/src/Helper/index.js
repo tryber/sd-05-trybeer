@@ -45,7 +45,7 @@ const setProductToCart = (product, amount) => {
   return item.quantity;
 };
 
-const deleteProductById = (productID) => {
+const removeProductFromCartById = (productID) => {
   const currentCart = getDataByKey(CART);
   const { [productID]: product, ...cart } = currentCart;
   registerData({ cart });
@@ -61,7 +61,7 @@ const transformDate = (date) => new Date(date)
 // Essa função gera chaves aleatórias para as iterações de map
 const generateKey = (prefix) => `${prefix}-${Math.random()}`;
 
-const initialAccumulator = 0;
+const initialAccumulator = MIN;
 const totalPriceOfProducts = (products) => products.reduce(
   (acc, product) => acc + product.quantity * product.price,
   initialAccumulator,
@@ -72,7 +72,7 @@ export default {
   generateKey,
   transformPrice,
   setProductToCart,
-  deleteProductById,
+  removeProductFromCartById,
   transformDate,
   totalPriceOfProducts,
   getProductFromCartById,

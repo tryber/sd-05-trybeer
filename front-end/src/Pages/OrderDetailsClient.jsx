@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Restrict from '../Components/Restrict';
 import Header from '../Components/Header';
 import Helper from '../Helper';
-import { salesById } from '../Redux/Services';
+import { salesById } from '../Helper/fetch';
 
 const NOONE = 0;
 const INITIAL = 0;

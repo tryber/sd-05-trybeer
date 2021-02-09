@@ -1,4 +1,4 @@
-import { getUser, updateUser, registerUser } from '../Services/index';
+import { getUser, updateUser, registerUser } from '../../Helper/fetch';
 import { registerData } from '../../Services/localStorage';
 
 export const REQUESTING_USER = 'REQUESTING_USER';
