@@ -7,7 +7,7 @@ const LAST = -1;
 const sidebarStyle = {
   display: 'flex',
   alignItems: 'center',
-  backgroundColor: 'var(--darkest)',
+  backgroundColor: 'var(--orange-bright)',
   padding: '8px 16px',
   margin: '1px',
 };

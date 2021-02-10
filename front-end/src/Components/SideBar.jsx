@@ -6,7 +6,7 @@ import { clear } from '../Redux/Actions/user';
 import Item from './SidebarItem';
 
 const sideBarStyle = {
-  background: 'var(--dark)',
+  background: 'var(--orange)',
   color: 'var(--white)',
 };
 

@@ -5,6 +5,13 @@
   --darkest: #1d1d1d;
   --white: #F8F8F8;
   --dandrea: red;
+  --azul-medio:#219EBC;
+  --orange:  #FB8500;
+  --orange-bright:  #ff9113;
+}
+
+body {
+  background-color: #8ECAE6;
 }
 
 /* Materialize */
@@ -12,9 +19,28 @@
   margin: 8px 0;
 }
 
+.card {
+  padding: 16px;
+}
+
+input:focus {
+  border-bottom: 1px solid #023047 !important;
+  box-shadow: 0 1px 0 0#023047 !important;
+}
+
+label.active {
+  color: #023047 !important;
+}
+
+label {
+  color:#023047 !important;
+}
+
+
 /* Common */
 
 .container-main {
+  background-color: #8ECAE6;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -28,3 +54,39 @@
   flex-direction: column;
   padding: 0 16px;
 }
+
+.container-pages {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* padding: 0 16px; */
+}
+
+.yellow-main-bg {
+  background-color: #FFB703;
+}
+
+.blue-mid-bg {
+  background-color: #219EBC;
+}
+
+.white-bg {
+  background-color: white;
+}
+
+.orange-bg {
+  background-color: #FB8500;
+}
+
+.white-mid-cl {
+  color: white;
+}
+
+.margin-small {
+  margin: 16px;
+}
+
+.width-80 {
+  width: 85vw;
+}
+

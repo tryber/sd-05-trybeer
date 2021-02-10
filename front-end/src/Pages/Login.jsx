@@ -54,6 +54,7 @@ const Login = () => {
   return (
     <div className="container-main" style={ pageStyle }>
       <div className="container-screen" style={ containerStyle }>
+        <div className='card'>
         <Input
           test="email-input"
           label="Email"
@@ -70,7 +71,7 @@ const Login = () => {
         />
         <div style={ { display: 'flex', flexDirection: 'column' } }>
           <button
-            className="btn btn-large"
+            className="btn btn-large yellow-main-bg"
             disabled={ isDisabled }
             data-testid="signin-btn"
             type="submit"
@@ -80,18 +81,20 @@ const Login = () => {
                 registerData({ token: res?.user.token });
                 setUserData(res?.user.user);
               }
-              M.toast({ html: '<p>Email ou senha incorretos!</p>', classes: 'red lighten-2' })
+              M.toast({ html: '<p>Email ou senha incorretos!</p>', classes: 'orange-bg' })
             }}
           >
             ENTRAR
           </button>
           <button
-            className="btn btn-small"
+            className="btn btn-small blue-mid-bg"
             data-testid="no-account-btn"
             onClick={ () => setRegister(true) }
           >
             Ainda não tenho conta
           </button>
+
+        </div>
         </div>
       </div>
     </div>

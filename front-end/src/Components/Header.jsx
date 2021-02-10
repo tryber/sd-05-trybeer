@@ -10,7 +10,7 @@ import M from 'materialize-css';
 const headerStyle = {
   display: 'flex',
   justifyContent: 'space-between',
-  background: 'var(--dark)',
+  background: 'var(--orange)',
   color: 'var(--white)',
   margin: 0,
   padding: '8px',
