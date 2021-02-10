@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const salesModel = require('../models/sales.model');
+const salesModel = require('../models2/sales.model');
 
 const addSale = rescue(async (req, _res, next) => {
   const { cart, userData, total, street, houseNumber } = req.body;

@@ -1,7 +1,9 @@
 const Joi = require('@hapi/joi');
 const rescue = require('express-rescue');
 const jwt = require('../auth/jwt.auth');
-const userModel = require('../models/user.model');
+const userModel = require('../models2/user.model');
+const { findUserbyEmailAndPassword } = require('../services/usersRequests');
+
 // prettier-ignore
 const LOGIN_SCHEMA = Joi.object({
   email: Joi.string().email()
@@ -34,7 +36,7 @@ const UPDATE_SCHEMA = Joi.object({
 const login = rescue(async (req, _res, next) => {
   console.log(req.body);
   const { error } = LOGIN_SCHEMA.validate(req.body);
-  const user = await userModel.findUserbyEmailAndPassword(req.body);
+  const user = await findUserbyEmailAndPassword(req.body);
   // console.log(user);
   if (error) throw new Error(error);
   if (!user) throw new Error('Email ou senha inválidos');
