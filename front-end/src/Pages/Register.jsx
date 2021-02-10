@@ -4,6 +4,12 @@ import { Redirect } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { registerUserAct } from '../Redux/Actions/user';
 
+import Input from '../Components/Input';
+
+const pageStyle = {
+  justifyContent: 'center',
+};
+
 const Register = ({ registerUser, userError }) => {
   const [name, setName] = useState(null);
   const [email, setEmail] = useState(null);
@@ -40,67 +46,56 @@ const Register = ({ registerUser, userError }) => {
   }
 
   return (
-    <div className="container-main" id="Register">
-      <div className="container-page">
-        <h1>Register</h1>
-        { /* Se usar o component Input o lint não o reconhece como 'controle do label form' */ }
-        <label htmlFor="name">
-          Nome
-          <input
-            data-testid="signup-name"
-            id="name"
-            placeholder="Digite seu nome"
-            onChange={ (e) => {
-              setName(e.target.value);
-              validate();
-            } }
-          />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
-            data-testid="signup-email"
-            id="email"
-            placeholder="Digite seu e-mail"
-            onChange={ (e) => {
-              setEmail(e.target.value);
-              validate();
-            } }
-          />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
-            type="password"
-            data-testid="signup-password"
-            id="password"
-            placeholder="Digite sua senha"
-            onChange={ (e) => {
-              setPassword(e.target.value);
-              validate();
-            } }
-          />
-        </label>
-        <label htmlFor="quero-vender">
-          Quero Vender
+    <div className="container-main" id="Register" style={ pageStyle }>
+      <div className="container-screen">
+        <Input 
+          test="signup-name"
+          label="Nome"
+          placeholder="Digite seu nome"
+          onChange={ (e) => {
+            setName(e.target.value);
+            validate();
+          } }
+        />
+        <Input 
+          test="signup-email"
+          label="Email"
+          type="email"
+          placeholder="Digite seu e-mail"
+          onChange={ (e) => {
+            setEmail(e.target.value);
+            validate();
+          } }
+        />
+        <Input 
+          test="signup-password"
+          label="Senha"
+          type="password"
+          placeholder="Digite sua senha"
+          onChange={ (e) => {
+            setPassword(e.target.value);
+            validate();
+          } }
+        />
+        <label data-testid="signup-seller">
           <input
             type="checkbox"
-            id="quero-vender"
-            data-testid="signup-seller"
             onChange={ ({ target: { checked } }) => {
               setIsSeller(checked);
             } }
           />
+          <span>Quero Vender</span>
         </label>
         <button
           disabled={ isDisabled }
           type="button"
+          className="btn btn-large"
           data-testid="signup-btn"
           onClick={ () => registerHandle() }
         >
           Cadastrar
         </button>
-        {userError && <p>E-mail already in database.</p>}
+        { userError && <p>E-mail already in database.</p> }
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const myInitWithBody = (data, token) => ({
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token || '',
+    Authorization: token || getDataByKey('token') || '',
   },
   body: JSON.stringify(data),
 });
@@ -41,6 +41,15 @@ export const getUser = (data) => (
       .catch((err) => Promise.reject(err))))
 );
 
+export const login = ({ email, password }) => (
+  fetch(`${localhostURL}/`, myInitWithBody({ email, password }))
+    .then((response) => (
+      response
+        .json()
+        .then((json) => Promise.resolve(json))
+        .catch((err) => Promise.reject(err))))
+);
+
 // prettier-ignore
 export const updateUser = (data) => {
   const token = getDataByKey('token');
@@ -52,6 +61,7 @@ export const updateUser = (data) => {
   );
 };
 
+// [REFATORAR] - Precisamos retornar o status da requisição para saber se houve um erro
 export const submitOrderFetch = (data) => (
   fetch(`${localhostURL}/sales`, myInitWithBody(data)).then((response) => (
     response

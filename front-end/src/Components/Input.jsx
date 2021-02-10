@@ -1,26 +1,22 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const Input = ({
-  type = 'text', placeholder, onChange, test, id, name,
+  type = 'text', className, placeholder, onChange, test, name, label
 }) => (
-  <input
-    data-testid={ test }
-    id={ id }
-    name={ name }
-    onChange={ onChange }
-    placeholder={ placeholder }
-    type={ type }
-  />
+  <div style={{ width: '100%' }}>
+    <label htmlFor={`input_${label || name}`}>
+      { label }
+      <input
+        id={`input_${label || name}`}
+        type={type}
+        className={ className }
+        name={ name }
+        onChange={ onChange }
+        data-testid={test}
+        placeholder={ placeholder || '' }
+      />     
+    </label>
+  </div>
 );
 
 export default Input;
-
-Input.propTypes = {
-  name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  test: PropTypes.string.isRequired,
-};
