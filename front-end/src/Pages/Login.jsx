@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { TextField, Button } from '@material-ui/core';
-import { getUserDataAct } from '../Redux/Actions/user';
+import { login } from '../Helper/fetch';
+import Input from '../Components/Input';
+import { registerData } from '../Helper/localStorageHandle';
+import getUserData from '../Helper/getUserData';
+
+import M from 'materialize-css';
 
 const pageStyle = {
   justifyContent: 'center',
@@ -14,12 +16,21 @@ const containerStyle = {
   height: '250px',
 };
 
-const Login = ({ submitLogin, userData }) => {
+const loginUser = async ({ email, password }) => {
+  const {
+    message = null,
+    ...user
+  } = await login({ email, password });
+  if (message) return { error: message };
+  return { user };
+}
+
+const Login = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [isDisabled, isSetDisabled] = useState(true);
   const [register, setRegister] = useState(false);
-  const [isAnInvalidEmail, setIsAnInvalidEmail] = useState(false);
+  const [userData, setUserData] = useState(getUserData());
 
   function validaInput(xEmail, xSenha) {
     const regexEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
@@ -36,73 +47,55 @@ const Login = ({ submitLogin, userData }) => {
   }, [email, password]);
 
   if (register) return <Redirect to="/register" />;
-  if (userData.message && isAnInvalidEmail === false) return setIsAnInvalidEmail(true);
-  if (userData.user) {
-    if (userData.user.role === 'client') return <Redirect to="/products" />;
-    if (userData.user.role === 'administrator') return <Redirect to="/admin/orders" />;
+  if (userData) {
+    if (userData.role === 'client') return <Redirect to="/products" />;
+    if (userData.role === 'administrator') return <Redirect to="/admin/orders" />;
   }
   return (
     <div className="container-main" style={ pageStyle }>
       <div className="container-screen" style={ containerStyle }>
-        <TextField
-          data-testid="email-input"
+        <Input
+          test="email-input"
           label="Email"
-          variant="outlined"
           type="email"
+          id="input_email"
           onChange={ (e) => setEmail(e.target.value) }
         />
-        <TextField
-          data-testid="password-input"
+        <Input
+          test="password-input"
           label="Senha"
-          variant="outlined"
           type="password"
+          id="input_password"
           onChange={ (e) => setPassword(e.target.value) }
         />
         <div style={ { display: 'flex', flexDirection: 'column' } }>
-          <Button
-            color="primary"
-            variant="outlined"
+          <button
+            className="btn btn-large"
             disabled={ isDisabled }
             data-testid="signin-btn"
             type="submit"
-            onClick={ (ev) => {
-              ev.preventDefault();
-              submitLogin({ email, password });
-            } }
+            onClick={ async () => {
+              const res = await loginUser({ email, password });
+              if (!res.error) {
+                registerData({ token: res?.user.token });
+                setUserData(res?.user.user);
+              }
+              M.toast({ html: '<p>Email ou senha incorretos!</p>', classes: 'red lighten-2' })
+            }}
           >
             ENTRAR
-          </Button>
-          <Button
+          </button>
+          <button
+            className="btn btn-small"
             data-testid="no-account-btn"
             onClick={ () => setRegister(true) }
           >
             Ainda não tenho conta
-          </Button>
+          </button>
         </div>
-        {isAnInvalidEmail && (<p>Email ou senha inválidos</p>) }
       </div>
     </div>
   );
 };
 
-Login.propTypes = {
-  submitLogin: PropTypes.func.isRequired,
-  userData: PropTypes.shape({
-    message: PropTypes.string,
-    user: PropTypes.shape({
-      role: PropTypes.string,
-    }).isRequired,
-  }).isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  products: state.productsRequestReducer.products,
-  shouldRedirect: state.userRequestReducer.shouldRedirect,
-  userData: state.userRequestReducer.userData,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  submitLogin: (data) => dispatch(getUserDataAct(data)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

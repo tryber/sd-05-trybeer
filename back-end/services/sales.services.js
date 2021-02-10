@@ -1,10 +1,23 @@
 const rescue = require('express-rescue');
+<<<<<<< HEAD
 const salesModel = require('../models2/sales.model');
+=======
+const salesModel = require('../models/sales.model');
+const { checkToken } = require('../auth/jwt.auth');
+>>>>>>> Lizzard/clear
 
+// [REFATORAR] - Somatória dos preços usando o banco e não a requisição do front
 const addSale = rescue(async (req, _res, next) => {
-  const { cart, userData, total, street, houseNumber } = req.body;
+  const { cart, street, houseNumber } = req.body;
+  const { authorization } = req.headers;
+  const { payload: { id } } = checkToken(authorization);
+
+  const total = cart.itemArray.reduce((total, { price, quantity }) => (
+    total + (price * Number(quantity))
+  ), 0);
+
   const salesData = [
-    userData.user.id,
+    id,
     total,
     street,
     houseNumber,
@@ -15,13 +28,13 @@ const addSale = rescue(async (req, _res, next) => {
     .insertSale(salesData)
     .then((product) => product[0].insertId);
   if (!saleId) throw new Error('deu ruim no addSale');
-  const salesProductData = cart.map((inCart) => [
+  const salesProductData = cart.itemArray.map((inCart) => [
     saleId,
     inCart.id,
     inCart.quantity,
   ]);
   const productSale = await salesModel.insertProductSale(salesProductData);
-  if (productSale[0].affectedRows !== 2) throw new Error('Deu ruim na hora de inserir sales_products');
+  if (productSale[0].affectedRows !== 1) throw new Error('Deu ruim na hora de inserir sales_products');
   req.data = { message: `pedido ${saleId} realizado com sucesso!` };
   next();
 });

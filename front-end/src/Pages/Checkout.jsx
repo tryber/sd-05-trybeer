@@ -30,9 +30,9 @@ function Checkout({
     }
   }, [setbuttonShoulBeDisabled, street, houseNumber]);
 
-  function submitHandler() {
+  const submitHandler = () => async () => {
+    await submitOrderFetch({ cart, street, houseNumber });
     setShouldRedirect(true);
-    submitOrderFetch({ cart, street, houseNumber });
   }
 
   if (shouldRedirect) {
@@ -67,7 +67,7 @@ function Checkout({
         disabled={ buttonShoulBeDisabled }
         data-testid="checkout-finish-btn"
         type="button"
-        onClick={ () => submitHandler() }
+        onClick={ submitHandler() }
       >
         Finalizar Pedido
       </button>

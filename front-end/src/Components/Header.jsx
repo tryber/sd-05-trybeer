@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 
 import titleForHeader from '../Helper/titleForHeader';
 import SideBar from './SideBar';
+
+import M from 'materialize-css';
 
 const headerStyle = {
   display: 'flex',
@@ -23,11 +22,13 @@ const Header = ({ pathname }) => {
 
   // func que retorna o título do header baseado no caminho
   const title = titleForHeader(pathname);
+
+  useEffect(() => {
+    const sidenav = document.querySelector('.sidenav');
+    M.Sidenav.init(sidenav, {});
+  }, [])
   
-  const toggleDrawer = () => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
+  const toggleDrawer = () => () => {
     setShowSideBar(!showSideBar);
   };
 
@@ -36,24 +37,28 @@ const Header = ({ pathname }) => {
   return (
     <div pathname={ pathname }>
       <div style={ headerStyle }>
-        <Button onClick={ toggleDrawer() } data-testid="top-hamburguer">
+        <button
+          data-target="slide-out"
+          data-testid="top-hamburguer"
+          className="sidenav-trigger btn-flat"
+          onClick={ toggleDrawer() }
+        >
           <i
             className="material-icons"
-            style={ { color: 'var(--white)', fontSize: '32px' } }
-          >
-            menu
+            style={ { color: 'var(--white)', fontSize: '32px' } }>
+              menu
           </i>
-        </Button>
+        </button>
         <h3 data-testid="top-title">{ title }</h3>
         <div style={ { marginRight: '70px' } } />
-        <span className="side-menu-container" style={ { display: showSideBar ? 'block' : 'none' } }>.</span>
-        <Drawer open={ showSideBar } onClose={ toggleDrawer() }>
-          <SideBar
-            toggleDrawer={ toggleDrawer }
-            redirect={ setRedirect }
-          />
-        </Drawer>
+        <span
+          className="side-menu-container"
+          style={ { display: showSideBar ? 'block' : 'none' } }
+        >
+          .
+        </span>
       </div>
+      <SideBar redirect={ setRedirect }/>
     </div>
   );
 };

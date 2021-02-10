@@ -1,5 +1,5 @@
 import { getUser, updateUser, registerUser } from '../../Helper/fetch';
-import { registerData } from '../../Services/localStorage';
+import { registerData, clearAll } from '../../Helper/localStorageHandle';
 
 export const REQUESTING_USER = 'REQUESTING_USER';
 export const REQUEST_USER_SUCCESS = 'REQUEST_USER_SUCCESS';
@@ -89,6 +89,7 @@ export function registerUserAct(body) {
 
 export function clear() {
   return (dispatch) => {
+    clearAll();
     dispatch(clearUser());
     return {};
   };

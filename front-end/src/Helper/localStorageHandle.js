@@ -2,6 +2,11 @@ const trybeerData = {
   token: '',
 };
 
+export const clearAll = () => {
+  if (!window.localStorage) throw new Error('Localstorage not suported');
+  localStorage.removeItem('trybeer');
+};
+
 export const registerData = (data) => {
   if (!window.localStorage) throw new Error('Localstorage not suported');
   const current = localStorage.getItem('trybeer');

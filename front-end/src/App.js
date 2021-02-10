@@ -14,6 +14,7 @@ import AdminProfile from './Pages/AdminProfile';
 import AdminOrders from './Pages/AdminOrders';
 import OrderDetailsAdmin from './Pages/OrderDetailsAdmin';
 
+import 'materialize-css/dist/css/materialize.min.css';
 import './App.css';
 
 // prettier-ignore
