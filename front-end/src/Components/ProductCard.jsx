@@ -37,7 +37,7 @@ function ProductCard({ product, onRefresh }) {
 
           <div className="qty-btns">
             <button
-              className="waves-effect waves-teal btn-flat  yellow-main-bg white-mid-cl"
+              className="waves-effect waves-light btn-flat  yellow-main-bg white-mid-cl"
               type="button"
               data-testid={`${id - 1}-product-minus`}
               onClick={() => {

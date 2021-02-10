@@ -36,6 +36,10 @@ label {
   color:#023047 !important;
 }
 
+button:focus {
+  background-color: #FB8500 !important;
+}
+
 
 /* Common */
 

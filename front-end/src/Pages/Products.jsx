@@ -49,9 +49,9 @@ function Products({ history, isLoading }) {
               ))}
             </div>
           </div>
-            <h4 className='white-mid-cl' on data-testid="checkout-bottom-btn-value">
+            <h3 className='white-mid-cl' on data-testid="checkout-bottom-btn-value">
               {`R$ ${Helpers.transformPrice(total)}`}
-            </h4>
+            </h3>
 
           <button
             type="button"
@@ -59,7 +59,7 @@ function Products({ history, isLoading }) {
             data-testid="checkout-bottom-btn"
             onClick={() => setRedirect('/checkout')}
             to="/checkout"
-            className="btn  btn-large orange-bg blue-mid-cl width-80"
+            className="btn  btn-large orange-bg blue-mid-cl width-80 margin-small"
           >
             Ver Carrinho
           </button>
