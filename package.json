@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/betrybe/sd-0x-trybeer#readme",
   "dependencies": {
-    "materialize-css": "^1.0.0-rc.2",
+    "materialize-css": "^1.0.0",
     "mysql2": "^2.2.5",
     "sequelize": "^6.3.4"
   },

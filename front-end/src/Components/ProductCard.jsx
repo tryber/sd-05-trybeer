@@ -12,10 +12,6 @@ function ProductCard({ product, onRefresh }) {
   return (
     <div className="card blue-mid-bg margin-small">
       <div class="card-content white-text">
-        <h6
-          data-testid={`${id - 1}-product-price`}
-        >{`R$ ${Helpers.transformPrice(price)}`}</h6>
-
         <div className="card-image">
           <img
             data-testid={`${id - 1}-product-img`}
@@ -24,31 +20,47 @@ function ProductCard({ product, onRefresh }) {
           />
         </div>
 
-        <div className='card-title' data-testid={`${id - 1}-product-name`}>{name}</div>
-        
-        <button
-          className="waves-effect waves-teal btn-flat yellow-main-bg white-mid-cl"
-          type="button"
-          data-testid={`${id - 1}-product-minus`}
-          onClick={() => {
-            setQuantity(Helpers.setProductToCart(product, -1));
-            onRefresh();
-          }}
-        >
-          -
-        </button>
-        <span data-testid={`${id - 1}-product-qtd`}>{quantity || '0'}</span>
-        <button
-          className="waves-effect waves-teal btn-flat yellow-main-bg white-mid-cl"
-          type="button"
-          data-testid={`${id - 1}-product-plus`}
-          onClick={() => {
-            setQuantity(Helpers.setProductToCart(product, 1));
-            onRefresh();
-          }}
-        >
-          +
-        </button>
+        <h6 data-testid={`${id - 1}-product-price`}>
+          {`R$ ${Helpers.transformPrice(price)}`}
+        </h6>
+
+        <div className="card-title" data-testid={`${id - 1}-product-name`}>
+          {name}
+        </div>
+
+        <div className="quantity-and-btn">
+          <div className="card-quantity">
+            <div className='quantity'>
+              <h6 data-testid={`${id - 1}-product-qtd`}>{quantity || '0'}</h6>
+            </div>
+          </div>
+
+          <div className="qty-btns">
+            <button
+              className="waves-effect waves-teal btn-flat  yellow-main-bg white-mid-cl"
+              type="button"
+              data-testid={`${id - 1}-product-minus`}
+              onClick={() => {
+                setQuantity(Helpers.setProductToCart(product, -1));
+                onRefresh();
+              }}
+            >
+              -
+            </button>
+
+            <button
+              className="waves-effect waves-teal btn-flat yellow-main-bg white-mid-cl"
+              type="button"
+              data-testid={`${id - 1}-product-plus`}
+              onClick={() => {
+                setQuantity(Helpers.setProductToCart(product, 1));
+                onRefresh();
+              }}
+            >
+              +
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -59,7 +59,7 @@ function Products({ history, isLoading }) {
             data-testid="checkout-bottom-btn"
             onClick={() => setRedirect('/checkout')}
             to="/checkout"
-            className="btn orange-bg blue-mid-cl width-80"
+            className="btn  btn-large orange-bg blue-mid-cl width-80"
           >
             Ver Carrinho
           </button>
