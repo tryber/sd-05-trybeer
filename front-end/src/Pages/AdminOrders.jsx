@@ -12,56 +12,56 @@ const AdminOrders = () => {
   }, []);
 
   return (
-    <div>
-      Admin - Pedidos
+    <div className="space-between">
       <AdminSideBar />
       <div>
-        <div>
-          {orders
-            && orders.map(
-              (
-                {
-                  id: orderNumber,
-                  total_price: orderPrice,
-                  delivery_address: address,
-                  delivery_number: addressNumber,
-                  status,
-                },
-                index,
-              ) => (
-                <Link to={ `/admin/orders/${orderNumber}` } key={ orderNumber }>
-                  <div>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-number` }
-                    >
-                      {`Pedido ${orderNumber}`}
-                    </h4>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-address` }
-                    >
-                      {`${address}, ${addressNumber}`}
-                    </h4>
-                  </div>
-                  <div>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-total-value` }
-                    >
-                      {`R$ ${Helper.transformPrice(orderPrice)}`}
-                    </h4>
-                  </div>
-                  <div
-                    data-testid={ `${index}-order-status` }
-                    className="order-status"
+
+      {orders &&
+        orders.map(
+          (
+            {
+              id: orderNumber,
+              total_price: orderPrice,
+              delivery_address: address,
+              delivery_number: addressNumber,
+              status,
+            },
+            index,
+          ) => (
+            <Link to={`/admin/orders/${orderNumber}`} key={orderNumber}>
+              <div className="blue-mid-bg white-text card margin-small">
+                <div>
+                  <span
+                    className="elements"
+                    data-testid={`${index}-order-number`}
                   >
-                    {status}
-                  </div>
-                </Link>
-              ),
-            )}
-        </div>
+                    {`Pedido ${orderNumber}`}
+                  </span>
+                </div>
+                <span
+                  className="elements"
+                  data-testid={`${index}-order-address`}
+                >
+                  {`${address}, ${addressNumber}`}
+                </span>
+                <div>
+                  <span
+                    className="elements"
+                    data-testid={`${index}-order-total-value`}
+                  >
+                    {`R$ ${Helper.transformPrice(orderPrice)}`}
+                  </span>
+                </div>
+                <span
+                  data-testid={`${index}-order-status`}
+                  className="elements"
+                >
+                  {status}
+                </span>
+              </div>
+            </Link>
+          ),
+        )}
       </div>
     </div>
   );

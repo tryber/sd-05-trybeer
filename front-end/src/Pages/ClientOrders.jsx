@@ -27,7 +27,7 @@ const Orders = ({
     <Restrict>
       <Header pathname={ history.location.pathname } />
       {salesList ? (
-        <div className="container">
+        <div className="container-main">
           <ul>
             {salesList.map((ordered, index) => (
               <li key={ helper.generateKey('order') }>

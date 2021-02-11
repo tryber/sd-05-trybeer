@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { registerUserAct } from '../Redux/Actions/user';
 
 import Input from '../Components/Input';
+
+import M from 'materialize-css';
+
 
 const pageStyle = {
   justifyContent: 'center',
@@ -26,6 +29,15 @@ const Register = ({ registerUser, userError }) => {
     else isSetDisabled(true);
   }
 
+  useEffect(() => {
+    if (userError) {
+      M.toast({
+        html: '<p>E-mail already in database.</p>',
+        classes: 'orange-bg',
+      });
+    }
+  }, [userError]);
+
   if (shouldRedirect && !userError) {
     if (!isSeller) {
       return <Redirect to="/products" />;
@@ -46,56 +58,63 @@ const Register = ({ registerUser, userError }) => {
   }
 
   return (
-    <div className="container-main" id="Register" style={ pageStyle }>
+    <div className="container-main" id="Register" style={pageStyle}>
       <div className="container-screen">
-        <Input 
-          test="signup-name"
-          label="Nome"
-          placeholder="Digite seu nome"
-          onChange={ (e) => {
-            setName(e.target.value);
-            validate();
-          } }
-        />
-        <Input 
-          test="signup-email"
-          label="Email"
-          type="email"
-          placeholder="Digite seu e-mail"
-          onChange={ (e) => {
-            setEmail(e.target.value);
-            validate();
-          } }
-        />
-        <Input 
-          test="signup-password"
-          label="Senha"
-          type="password"
-          placeholder="Digite sua senha"
-          onChange={ (e) => {
-            setPassword(e.target.value);
-            validate();
-          } }
-        />
-        <label data-testid="signup-seller">
-          <input
-            type="checkbox"
-            onChange={ ({ target: { checked } }) => {
-              setIsSeller(checked);
-            } }
+        <div className="card">
+          <Input
+            test="signup-name"
+            label="Nome"
+            placeholder="Digite seu nome"
+            onChange={(e) => {
+              setName(e.target.value);
+              validate();
+            }}
           />
-          <span>Quero Vender</span>
-        </label>
-        <button
-          disabled={ isDisabled }
-          type="button"
-          className="btn btn-large"
-          data-testid="signup-btn"
-          onClick={ () => registerHandle() }
-        >
-          Cadastrar
-        </button>
-        { userError && <p>E-mail already in database.</p> }
+          <Input
+            test="signup-email"
+            label="Email"
+            type="email"
+            placeholder="Digite seu e-mail"
+            onChange={(e) => {
+              setEmail(e.target.value);
+              validate();
+            }}
+          />
+          <Input
+            test="signup-password"
+            label="Senha"
+            type="password"
+            placeholder="Digite sua senha"
+            onChange={(e) => {
+              setPassword(e.target.value);
+              validate();
+            }}
+          />
+          <div
+            style={{ display: 'flex', flexDirection: 'column' }}
+            className="space-between"
+          >
+            <label data-testid="signup-seller">
+              <input
+                type="checkbox"
+                onChange={({ target: { checked } }) => {
+                  setIsSeller(checked);
+                }}
+              />
+              <span>Quero Vender</span>
+            </label>
+            <button
+              disabled={isDisabled}
+              type="button"
+              className="btn btn-large yellow-main-bg"
+              data-testid="signup-btn"
+              onClick={() => registerHandle()}
+            >
+              Cadastrar
+            </button>
+            {/* {userError && <p>E-mail already in database.</p>} */}
+          </div>
+        </div>
       </div>
     </div>
   );

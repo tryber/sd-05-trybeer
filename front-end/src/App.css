@@ -157,6 +157,16 @@ button:hover {
   justify-content: space-between;
 }
 
+.space-around {
+  display: flex;
+  justify-content: space-around;
+}
+
+.horizontal-center {
+  display: flex;
+  justify-content: center;
+}
+
 .padding-8px {
   padding: 8px !important;
 }
