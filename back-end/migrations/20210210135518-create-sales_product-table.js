@@ -5,19 +5,27 @@ module.exports = {
     return queryInterface.createTable(
       'sales_products',
       {
-        id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-          primaryKey: true,
-          autoIncrement: true,
-        },
         sale_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          primaryKey: true,
+          references: {
+            model: 'sales',
+            key: 'id',
+          },
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
         },
         product_id: {
           type: Sequelize.INTEGER,
           allowNull: false,
+          primaryKey: true,
+          references: {
+            model: 'products',
+            key: 'id',
+          },
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE',
         },
         quantity: {
           type: Sequelize.INTEGER,

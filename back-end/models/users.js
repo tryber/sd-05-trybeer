@@ -10,6 +10,7 @@ const user = (sequelize, DataTypes) => {
     { timestamps: false },
   );
 
+
   return table;
 };
 

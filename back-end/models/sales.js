@@ -14,6 +14,10 @@ const sale = (sequelize, DataTypes) => {
     { timestamps: false },
   );
 
+  table.associate = (models) => {
+    table.hasMany(models.sales_product, { foreignKey: 'sale_id' });
+  };
+
   return table;
 };
 
