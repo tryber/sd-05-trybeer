@@ -1,13 +1,10 @@
-const sale = (sequelize, DataTypes) => {
+const sales_product = (sequelize, DataTypes) => {
   const table = sequelize.define(
     'sales_product',
     {
-      user_id: DataTypes.INTEGER,
-      total_price: DataTypes.FLOAT,
-      delivery_address: DataTypes.STRING,
-      delivery_number: DataTypes.STRING,
-      sale_date:DataTypes.DATE,
-      status: DataTypes.STRING,
+      sale_id: DataTypes.INTEGER,
+      product_id: DataTypes.INTEGER,
+      quantity: DataTypes.INTEGER,
     },
     { timestamps: false },
   );
@@ -15,4 +12,4 @@ const sale = (sequelize, DataTypes) => {
   return table;
 };
 
-module.exports = sale;
+module.exports = sales_product;

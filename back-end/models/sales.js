@@ -6,7 +6,7 @@ const sale = (sequelize, DataTypes) => {
       total_price: DataTypes.FLOAT,
       delivery_address: DataTypes.STRING,
       delivery_number: DataTypes.STRING,
-      sale_date:DataTypes.DATE,
+      sale_date: DataTypes.DATE,
       status: DataTypes.STRING,
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

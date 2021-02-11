@@ -2,6 +2,7 @@ const user = (sequelize, DataTypes) => {
   const table = sequelize.define(
     'user',
     {
+      name: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       role: DataTypes.STRING,

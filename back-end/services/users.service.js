@@ -2,7 +2,12 @@ const Joi = require('@hapi/joi');
 const rescue = require('express-rescue');
 const jwt = require('../auth/jwt.auth');
 const userModel = require('../models2/user.model');
-const { findUserbyEmailAndPassword } = require('../services/usersRequests');
+const {
+  findUserbyEmailAndPassword,
+  findUserById,
+  createUser,
+  updateUser,
+} = require('../services/usersRequests');
 
 // prettier-ignore
 const LOGIN_SCHEMA = Joi.object({
@@ -27,9 +32,7 @@ const REGISTER_SCHEMA = Joi.object({
 
 const UPDATE_SCHEMA = Joi.object({
   id: Joi.number().required(),
-  name: Joi.string().min(3)
-    .max(64)
-    .required(),
+  name: Joi.string().min(3).max(64).required(),
 });
 
 // prettier-ignore
@@ -48,8 +51,8 @@ const login = rescue(async (req, _res, next) => {
 const register = rescue(async (req, _res, next) => {
   const { error } = REGISTER_SCHEMA.validate(req.body);
   if (error) throw new Error(error);
-  await userModel.createUser(req.body);
-  const user = await userModel.findUserbyEmailAndPassword(req.body);
+  await createUser(req.body);
+  const user = await findUserbyEmailAndPassword(req.body);
   const { password, ...userWithoutPassword } = req.body;
   req.data = { ...userWithoutPassword, token: jwt.createToken(user) };
   next();
@@ -61,11 +64,14 @@ const update = rescue(async (req, _res, next) => {
   if (error) throw new Error(error);
   // Segunda etapa
   const { authorization } = req.headers;
-  const { payload: { id } } = jwt.checkToken(authorization);
+  const {
+    payload: { id },
+  } = jwt.checkToken(authorization);
   // Terceira etapa
-  await userModel.updateUser(id, req.body);
-  const user = await userModel.findUserById(id);
-  req.data = { ...user, token: jwt.createToken(user) };
+  await updateUser(id, req.body);
+  const user = await findUserById(id);
+  req.data = { ...user.dataValues, token: jwt.createToken(user.dataValues) };
+  console.log(user.dataValues);
   if (!user) throw new Error('Usuário bugado');
   next();
 });
