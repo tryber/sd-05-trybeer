@@ -10,8 +10,8 @@ function ProductCard({ product, onRefresh }) {
   );
 
   return (
-    <div className="card blue-mid-bg margin-small">
-      <div class="card-content white-text">
+    <div className="card padding-zero blue-mid-bg margin-small">
+      <div class="card-content padding-8px white-text">
         <div className="card-image">
           <img
             data-testid={`${id - 1}-product-img`}

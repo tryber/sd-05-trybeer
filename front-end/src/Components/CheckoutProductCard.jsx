@@ -15,16 +15,16 @@ function CheckoutProductCard({ item, index, callbackDelete }) {
   const { quantity, name, price, id } = item;
   return (
     <div className="card blue-mid-bg margin-small">
-      <div class="card-content white-text">
-        <div className="card-title">
-          <div data-testid={`${index}-product-name`}>{name}</div>
+      <div  class="card-content padding-8px white-text">
+        <div>
+          <h6 data-testid={`${index}-product-name`}>{name}</h6>
           <h6 className='margin-bot' data-testid={`${index}-product-unit-price`}>
             {`(R$ ${helper.transformPrice(price)} un)`}
           </h6>
         </div>
         <div className="price-quantity-total">
           <div className="checkout-quantity">
-            <div data-testid={`${index}-product-qtd-input`}>{quantity} </div>
+            <h6 data-testid={`${index}-product-qtd-input`}>{quantity} </h6>
           </div>
           <h6 data-testid={`${index}-product-total-value`}>
             {`R$ ${helper.transformPrice(Number(quantity) * Number(price))}`}

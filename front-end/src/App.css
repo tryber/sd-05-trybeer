@@ -21,6 +21,7 @@ body {
 
 .card {
   padding: 16px;
+  width: 380px;
 }
 
 input:focus {
@@ -37,7 +38,12 @@ label {
 }
 
 button:focus {
-  background-color: #FB8500 !important;
+  background-color: #FFB703 !important;
+}
+
+button:hover {
+  background-color:  #023047 !important;
+  color: white;
 }
 
 
@@ -142,7 +148,15 @@ button:focus {
   width: 85vw;
 }
 
+.width-380px {
+  width: 380px;
+}
+
 .space-between {
   display: flex;
   justify-content: space-between;
+}
+
+.padding-8px {
+  padding: 8px !important;
 }
