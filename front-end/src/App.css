@@ -44,6 +44,7 @@ button:focus {
 /* Common */
 
 .container-main {
+  align-items: center;
   background-color: #8ECAE6;
   display: flex;
   flex-direction: column;
@@ -88,12 +89,32 @@ button:focus {
   width: 80px;
 }
 
+.price-quantity-total {
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.checkout-quantity{
+  background-color: #023047;
+  display: flex;
+  flex-direction: row;
+  /* margin-right: 16px; */
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+}
+
 .yellow-main-bg {
   background-color: #FFB703;
 }
 
 .blue-mid-bg {
   background-color: #219EBC;
+}
+.blue-dark-bg {
+  background-color: #023047;
 }
 
 .white-bg {
@@ -113,7 +134,15 @@ button:focus {
   margin: 16px;
 }
 
+.margin-bot {
+  margin-bottom: 16px;
+}
+
 .width-80 {
   width: 85vw;
 }
 
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}

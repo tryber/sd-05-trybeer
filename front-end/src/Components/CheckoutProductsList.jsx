@@ -17,10 +17,10 @@ const CheckoutProductsList = ({ cart, onUpdate }) => {
           }}
         />
       ))}
-      <div data-testid="order-total-value">
+      <h3 className='white-mid-cl' data-testid="order-total-value">
         { cart.total || <p>Não há produtos no carrinho</p> }
         { `Total: R$ ${helper.transformPrice(cart.total)}` }
-      </div>
+      </h3>
     </div>
   );
 };

@@ -20,13 +20,14 @@ function ProductCard({ product, onRefresh }) {
           />
         </div>
 
-        <h6 data-testid={`${id - 1}-product-price`}>
-          {`R$ ${Helpers.transformPrice(price)}`}
-        </h6>
-
         <div className="card-title" data-testid={`${id - 1}-product-name`}>
           {name}
         </div>
+        
+
+        <h6 className='margin-bot' data-testid={`${id - 1}-product-price`}>
+          {`R$ ${Helpers.transformPrice(price)}`}
+        </h6>
 
         <div className="quantity-and-btn">
           <div className="card-quantity">

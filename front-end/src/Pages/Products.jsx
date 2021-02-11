@@ -34,8 +34,8 @@ function Products({ history, isLoading }) {
 
   return (
     <Restrict>
-      <div className="container-main">
           <Header pathname={history.location.pathname} />
+      <div className="container-main">
         <div className="container-pages">
           {/* <h1>Produtos</h1> */}
           <div className="row">
