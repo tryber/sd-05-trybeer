@@ -40,7 +40,7 @@ function Products({ history, isLoading }) {
     <Restrict>
       <Header pathname={history.location.pathname} />
       <div className="container-pages">
-        <div>
+        <div className="responsive-list">
           {products.map((product) => (
             <ProductCard
               key={product.id}

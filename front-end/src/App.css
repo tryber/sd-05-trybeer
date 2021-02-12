@@ -72,6 +72,14 @@ button:hover {
   flex-direction: column;
 }
 
+.responsive-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .quantity-and-btn {
   /* align-items: space-around; */
   justify-content: space-between;

@@ -3,7 +3,7 @@ import React from 'react';
 import CheckoutProductCard from './CheckoutProductCard';
 import helper from '../Helper/index';
 
-const productsStyle = {
+const flexItems = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -11,9 +11,11 @@ const productsStyle = {
 
 const CheckoutProductsList = ({ cart, onUpdate }) => {
   return (
-    <div style={productsStyle}>
+    <div style={flexItems}>
+    <div className="responsive-list">
       {(cart.itemArray || []).map((item, index) => (
         <CheckoutProductCard
+         
           key={item.id}
           item={item}
           index={index}
@@ -23,13 +25,14 @@ const CheckoutProductsList = ({ cart, onUpdate }) => {
           }}
         />
       ))}
-      <h6 className="white-mid-cl" data-testid="order-total-value">
+    </div>
+      <h4 className="white-mid-cl" data-testid="order-total-value">
         {cart.total ? (
           `Total: R$ ${helper.transformPrice(cart.total)}`
         ) : (
           <p>Não há produtos no carrinho</p>
         )}
-      </h6>
+      </h4>
     </div>
   );
 };

@@ -9,11 +9,11 @@ import { updateUserAct } from '../Redux/Actions/user';
 
 const changeInput = (event, setFunction) => setFunction(event.target.value);
 
-const containerStyle = {
-  justifyContent: 'space-between',
-  height: '250px',
-  marginTop: '250px',
-};
+// const containerStyle = {
+//   justifyContent: 'space-between',
+//   height: '250px',
+//   // marginTop: '250px',
+// };
 
 
 function Profile({ history, updateUser }) {
@@ -34,11 +34,10 @@ function Profile({ history, updateUser }) {
   return (
     <Restrict>
       <Header pathname={history.location.pathname} />
-      <div className="container-main">
-        <div className="container-screen" style={containerStyle}>
+      <div className="container-main horizontal-center">
+        {/* <div className="container-screen"> */}
           <div
-            style={{ display: 'flex', flexDirection: 'column' }}
-            className="card"
+            className="card "
           >
             <strong>Perfil</strong>
             <form>
@@ -75,7 +74,7 @@ function Profile({ history, updateUser }) {
             {shouldRefresh && <p>Atualização concluída com sucesso</p>}
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </Restrict>
   );
 }
