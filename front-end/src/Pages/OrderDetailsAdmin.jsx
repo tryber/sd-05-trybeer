@@ -32,7 +32,10 @@ const OrderDetailsAdmin = ({
         {/* <Header pathname={ history.location.pathname } /> */}
         <AdminSideBar />
         <div className="responsive-list">
-          <div className="blue-mid-bg white-text card">
+          <div
+            className="blue-mid-bg white-text card"
+            style={{ margin: ' 16px 16px' }}
+          >
             <div className="space-between">
               <h6 data-testid="order-number">Pedido {id}</h6>
               <div
@@ -79,7 +82,8 @@ const OrderDetailsAdmin = ({
             <div className="horizontal-center">
               {isPendente && (
                 <button
-                  className="btn btn-large orange-bg blue-mid-cl"
+                  // style={{ textOverflow: 'ellipsis'}}
+                  className="btn orange-bg blue-mid-cl"
                   data-testid="mark-as-delivered-btn"
                   type="button"
                   onClick={() => setAsPendente()}

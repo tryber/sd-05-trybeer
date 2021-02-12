@@ -10,6 +10,9 @@ function ProductCard({ product, onRefresh }) {
     Helpers.getProductFromCartById(id)?.quantity,
   );
 
+  console.log('====================================');
+  console.log({urlImage});
+  console.log('====================================');
   return (
     <div className="card padding-zero blue-mid-bg margin-small">
       <div class="card-content padding-8px white-text">
@@ -18,7 +21,7 @@ function ProductCard({ product, onRefresh }) {
             className="responsive-img"
             data-testid={`${id - 1}-product-img`}
             src={ourLogo}
-            // src={urlImage} // usar esta quando tiver as imagens vindo do back
+            src={urlImage} // usar esta quando tiver as imagens vindo do back
             alt={name}
           />
         </div>
