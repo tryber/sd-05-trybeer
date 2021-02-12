@@ -26,6 +26,7 @@ export default function AdminOrderCard({ token }) {
               { `R$ ${order.total_price.replace('.', ',')}` }
             </span>
             <span data-testid={ `${index}-order-status` }>{order.status}</span>
+            {console.log(order)}
           </Link>
         </section>
       ))}
