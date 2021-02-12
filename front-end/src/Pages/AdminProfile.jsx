@@ -1,12 +1,23 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect }  from 'react';
 import { connect } from 'react-redux';
 import AdminSideBar from '../Components/AdminSideBar';
+import getUserData from '../../src/Services/utils';
+
 
 import Restrict from '../Components/Restrict';
 
 const AdminProfile = ({ userData }) => {
-  const { name, email } = userData.user;
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+
+  useEffect(() => {
+    const user = getUserData();
+    if (!user) return;
+    setEmail(user.email);
+    setName(user.name);
+  }, []);
+
   return (
     <Restrict>
       <AdminSideBar />
