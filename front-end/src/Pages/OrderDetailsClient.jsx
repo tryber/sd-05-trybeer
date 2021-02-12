@@ -36,6 +36,11 @@ function OrderDetails({
             <h6 data-testid="order-date">{date}</h6>
           </div>
           <div className="horizontal-center">
+            <div></div>
+            <h6 data-testid="order-total-value">Total: R$ {total}</h6>
+          </div>
+          <hr style={{ border: '1px dashed' }} />
+          <div className="horizontal-center">
             <ul className="lista-dos-produtos">
               {order.map((product, index) => (
                 <li key={product.name}>
@@ -52,10 +57,6 @@ function OrderDetails({
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="space-between">
-            <div></div>
-            <h6 data-testid="order-total-value">Total: R$ {total}</h6>
           </div>
         </div>
       </div>

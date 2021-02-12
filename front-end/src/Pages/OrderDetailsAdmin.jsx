@@ -28,6 +28,8 @@ const OrderDetailsAdmin = ({
 
   return (
     <Restrict>
+      <div>
+        
       {/* <Header pathname={ history.location.pathname } /> */}
       <AdminSideBar />
       <h2 data-testid="order-number">
@@ -88,6 +90,7 @@ const OrderDetailsAdmin = ({
           Marcar como entregue
         </button>
       )}
+      </div>
     </Restrict>
   );
 };
