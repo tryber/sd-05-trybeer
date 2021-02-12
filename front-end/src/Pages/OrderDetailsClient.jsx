@@ -41,7 +41,7 @@ function OrderDetails({
           </div>
           <hr style={{ border: '1px dashed' }} />
           <div className="horizontal-center">
-            <ul className="lista-dos-produtos">
+            <ul>
               {order.map((product, index) => (
                 <li key={product.name}>
                   <span data-testid={`${index}-product-qtd`}>
