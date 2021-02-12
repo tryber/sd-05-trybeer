@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Helpers from '../Helper/index';
+import ourLogo from '../fetch-beer-3.png';
 
 function ProductCard({ product, onRefresh }) {
   const { id, name, price, url_image: urlImage } = product;
@@ -14,8 +15,10 @@ function ProductCard({ product, onRefresh }) {
       <div class="card-content padding-8px white-text">
         <div className="card-image">
           <img
+            className="responsive-img"
             data-testid={`${id - 1}-product-img`}
-            src={urlImage}
+            src={ourLogo}
+            // src={urlImage} // usar esta quando tiver as imagens vindo do back
             alt={name}
           />
         </div>

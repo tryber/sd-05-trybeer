@@ -32,7 +32,7 @@ const AdminSideBar = ({ logout }) => (
         to="/admin/orders"
         data-testid="side-menu-item-orders"
       >
-        Meus Pedidos
+        Pedidos
       </Link>
       <Link
         style={sidebarItemStyle}
