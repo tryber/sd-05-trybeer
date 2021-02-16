@@ -1,5 +1,6 @@
 const { Router } = require('express');
-const salesServices = require('../services/sales.services');
+const salesRequests = require('../services/salesRequests');
+const salesServices = require('../services/sales.services')(salesRequests);
 
 const sales = Router();
 
