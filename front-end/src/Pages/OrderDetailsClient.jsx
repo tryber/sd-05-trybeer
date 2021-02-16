@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Restrict from '../Components/Restrict';
 import Header from '../Components/Header';
-import Helper from '../Helper';
-import { salesById } from '../Helper/fetch';
+import helper from '../Helper';
 
 const NOONE = 0;
 const INITIAL = 0;
@@ -17,12 +16,12 @@ function OrderDetails({
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    salesById(id).then((data) => setOrder(data));
+    helper.fetch.salesById(id).then((data) => setOrder(data));
   }, [id]);
 
-  const total = Helper.transformPrice(Helper.totalPriceOfProducts(order));
+  const total = helper.transformPrice(helper.totalPriceOfProducts(order));
   const date = (order.length !== NOONE)
-    ? Helper.transformDate(order[INITIAL].sale_date)
+    ? helper.transformDate(order[INITIAL].sale_date)
     : null;
 
   return (
@@ -52,12 +51,12 @@ function OrderDetails({
             <span data-testid={ `${index}-product-total-value` }>
               R$
               {' '}
-              {Helper.transformPrice(product.price * product.quantity)}
+              {helper.transformPrice(product.price * product.quantity)}
             </span>
             <span>
               (R$
               {' '}
-              {Helper.transformPrice(product.price)}
+              {helper.transformPrice(product.price)}
               {' '}
               un)
             </span>

@@ -22,11 +22,6 @@
     "url": "https://github.com/betrybe/sd-0x-trybeer/issues"
   },
   "homepage": "https://github.com/betrybe/sd-0x-trybeer#readme",
-  "dependencies": {
-    "materialize-css": "^1.0.0-rc.2",
-    "mysql2": "^2.2.5",
-    "sequelize": "^6.3.4"
-  },
   "devDependencies": {
     "cypress": "^5.0.0",
     "cypress-multi-reporters": "^1.2.3",

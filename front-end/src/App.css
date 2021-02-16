@@ -1,10 +1,13 @@
 :root {
-  margin: 0;
-  padding: 0;
   --dark: #272727;
   --darkest: #1d1d1d;
   --white: #F8F8F8;
   --dandrea: red;
+}
+
+.dandrea {
+  background-color: var(--dandrea);
+  color: white;
 }
 
 /* Materialize */

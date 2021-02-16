@@ -1,4 +1,4 @@
-import { getProducts, submitOrderFetch } from '../../Helper/fetch';
+import helper from '../../Helper';
 
 export const REQUESTING_PRODUCTS = 'REQUESTING_PRODUCTS';
 export const REQUEST_PRODUCTS_SUCCESS = 'REQUEST_PRODUCTS_SUCCESS';
@@ -25,7 +25,7 @@ export function getProductsAct() {
   return (dispatch) => {
     dispatch(requestingProducts());
 
-    return getProducts().then(
+    return helper.fetch.getProducts().then(
       (data) => dispatch(requestProductsSuccess(data)),
       (error) => dispatch(requestProductsError(error)),
     );
@@ -65,7 +65,7 @@ const submitOrderError = (error) => ({
 export const submitOrderAct = (body) => (dispatch) => {
   dispatch(requestingProducts());
 
-  return submitOrderFetch(body).then(
+  return helper.fetch.submitOrderFetch(body).then(
     (data) => dispatch(submitOrderSuccess(data)),
     (error) => dispatch(submitOrderError(error)),
   );

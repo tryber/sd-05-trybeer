@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { login } from '../Helper/fetch';
 import Input from '../Components/Input';
-import { registerData } from '../Helper/localStorageHandle';
-import getUserData from '../Helper/getUserData';
+import helper from '../Helper/';
 
 import M from 'materialize-css';
 
@@ -16,21 +14,12 @@ const containerStyle = {
   height: '250px',
 };
 
-const loginUser = async ({ email, password }) => {
-  const {
-    message = null,
-    ...user
-  } = await login({ email, password });
-  if (message) return { error: message };
-  return { user };
-}
-
-const Login = () => {
+const Login = ({ socket }) => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [isDisabled, isSetDisabled] = useState(true);
   const [register, setRegister] = useState(false);
-  const [userData, setUserData] = useState(getUserData());
+  const [userData, setUserData] = useState(helper.getUserData());
 
   function validaInput(xEmail, xSenha) {
     const regexEmail = /^\w+([.-]?\w+)@\w+([.-]?\w+)(.\w{2,3})+$/;
@@ -75,12 +64,14 @@ const Login = () => {
             data-testid="signin-btn"
             type="submit"
             onClick={ async () => {
-              const res = await loginUser({ email, password });
-              if (!res.error) {
-                registerData({ token: res?.user.token });
+              const res = await helper.loginUser({ email, password });
+              if (!res.error){
                 setUserData(res?.user.user);
+                socket.emit('init_user', res?.user.token);
               }
-              M.toast({ html: '<p>Email ou senha incorretos!</p>', classes: 'red lighten-2' })
+              else M.toast(
+                { html: '<p>Email ou senha incorretos!</p>', classes: 'dandrea' },
+              );
             }}
           >
             ENTRAR
@@ -98,4 +89,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default helper.Socket(Login);

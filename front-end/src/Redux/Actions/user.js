@@ -1,5 +1,4 @@
-import { getUser, updateUser, registerUser } from '../../Helper/fetch';
-import { registerData, clearAll } from '../../Helper/localStorageHandle';
+import helper from '../../Helper';
 
 export const REQUESTING_USER = 'REQUESTING_USER';
 export const REQUEST_USER_SUCCESS = 'REQUEST_USER_SUCCESS';
@@ -31,9 +30,9 @@ const requestUserError = (error) => ({
 export function getUserDataAct(body) {
   return (dispatch) => {
     dispatch(requestingUser());
-    return getUser(body).then(
+    return helper.fetch.getUser(body).then(
       (data) => {
-        registerData(data);
+        helper.localstorage.registerData(data);
         dispatch(requestUserSuccess(data));
       },
       (error) => dispatch(requestUserError(error)),
@@ -54,9 +53,9 @@ const updateUserError = (error) => ({
 export function updateUserAct(body) {
   return (dispatch) => {
     dispatch(requestingUser());
-    return updateUser(body).then(
+    return helper.fetch.updateUser(body).then(
       (data) => {
-        registerData(data);
+        helper.localstorage.registerData(data);
         dispatch(updateUserSuccess(data));
       },
       (error) => dispatch(updateUserError(error)),
@@ -77,9 +76,9 @@ const registerUserError = (error) => ({
 export function registerUserAct(body) {
   return (dispatch) => {
     dispatch(requestingUser());
-    return registerUser(body).then(
+    return helper.fetch.registerUser(body).then(
       (data) => {
-        registerData(data);
+        helper.localstorage.registerData(data);
         dispatch(registerUserSuccess(data));
       },
       (error) => dispatch(registerUserError(error)),
@@ -89,7 +88,7 @@ export function registerUserAct(body) {
 
 export function clear() {
   return (dispatch) => {
-    clearAll();
+    helper.localstorage.clearAll();
     dispatch(clearUser());
     return {};
   };

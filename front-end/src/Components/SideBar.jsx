@@ -15,7 +15,7 @@ const SideBar = ({ logout }) => {
   return (
     <ul id="slide-out" className="sidenav" style={ sideBarStyle }>
       <div className="background">
-        <img src="images/office.jpg" />
+        <img src="" />
       </div>
       <li className="divider"></li>
       <Item action="side-menu-item-products">Produtos</Item>
@@ -24,6 +24,8 @@ const SideBar = ({ logout }) => {
         Pedidos
       </Item>
       <Item action="side-menu-item-my-profile">Meu Perfil</Item>
+      <Item action="side-menu-item-chat">Conversar com a loja</Item>
+      <li className="divider"></li>
       <Item
         action="side-menu-item-logout"
         to="/login"

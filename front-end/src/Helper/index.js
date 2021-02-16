@@ -1,11 +1,28 @@
+import io from 'socket.io-client';
+
 import getUserData from './getUserData';
-import {
-  registerData,
-  getDataByKey,
-} from './localStorageHandle';
+import localstorage from './localStorageHandle';
+import fetch from './fetch';
 
 const CART = 'cart';
 const MIN = 0;
+
+const socket = io(fetch.SERVER_URL);
+
+const Socket = (component) => {
+  return ({ history }) => component({ history, socket }); 
+}
+
+const loginUser = async ({ email, password }) => {
+  const {
+    message = null,
+    ...user
+  } = await fetch.login({ email, password });
+  if (message) return { error: message };
+  localstorage.registerData({ token: user.token });
+  // socket.emit('init_user', user.token);
+  return { user };
+}
 
 const transformPrice = (value) => {
   const decimals = 2;
@@ -15,7 +32,7 @@ const transformPrice = (value) => {
 };
 
 const getCartInfo = () => {
-  const currentCart = getDataByKey(CART);
+  const currentCart = localstorage.getDataByKey(CART);
   if (!currentCart) return {};
   return Object.keys(currentCart).reduce((info, id) => {
     const { quantity, price, name } = currentCart[id];
@@ -30,25 +47,25 @@ const getCartInfo = () => {
 };
 
 const getProductFromCartById = (productId) => {
-  const currentCart = getDataByKey(CART)?.[productId];
+  const currentCart = localstorage.getDataByKey(CART)?.[productId];
   return currentCart || {};
 };
 
 const setProductToCart = (product, amount) => {
-  const currentCart = getDataByKey(CART);
+  const currentCart = localstorage.getDataByKey(CART);
   const item = {
     ...product,
     quantity: Math.max((currentCart[product.id]?.quantity || 0) + amount, 0),
   };
   const cart = { ...currentCart, [product.id]: item };
-  registerData({ cart });
+  localstorage.registerData({ cart });
   return item.quantity;
 };
 
 const removeProductFromCartById = (productID) => {
-  const currentCart = getDataByKey(CART);
+  const currentCart = localstorage.getDataByKey(CART);
   const { [productID]: product, ...cart } = currentCart;
-  registerData({ cart });
+  localstorage.registerData({ cart });
   return cart;
 };
 
@@ -68,13 +85,18 @@ const totalPriceOfProducts = (products) => products.reduce(
 );
 
 export default {
-  getUserData, // Returns user data or null
+  fetch,
   generateKey,
-  transformPrice,
-  setProductToCart,
-  removeProductFromCartById,
-  transformDate,
-  totalPriceOfProducts,
-  getProductFromCartById,
   getCartInfo,
+  getProductFromCartById,
+  getUserData,
+  localstorage,
+  loginUser,
+  removeProductFromCartById,
+  setProductToCart,
+  Socket,
+  socket,
+  totalPriceOfProducts,
+  transformDate,
+  transformPrice,
 };

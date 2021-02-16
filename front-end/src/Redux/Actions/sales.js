@@ -1,4 +1,4 @@
-import { clientSalesByUserId } from '../../Helper/fetch';
+import helper from '../../Helper';
 
 export const REQUEST_USER_SALES_SUCCESS = 'REQUEST_USER_SALES_SUCCESS';
 export const REQUEST_USER_SALES_ERROR = 'REQUEST_USER_SALES_ERROR';
@@ -21,7 +21,7 @@ const requestProductsError = (error) => ({
 export function getUserSalesAct(id) {
   return (dispatch) => {
     dispatch(requestingSales());
-    return clientSalesByUserId(id).then(
+    return helper.fetch.clientSalesByUserId(id).then(
       (data) => dispatch(requestUserSalesSuccess(data)),
       (error) => dispatch(requestProductsError(error)),
     );

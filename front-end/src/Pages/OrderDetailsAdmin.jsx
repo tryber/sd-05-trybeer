@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import Restrict from '../Components/Restrict';
-import { salesById, updateDeliveryStatus } from '../Helper/fetch';
-import Helper from '../Helper';
+import helper from '../Helper';
 import AdminSideBar from '../Components/AdminSideBar';
 
 const OrderDetailsAdmin = ({
@@ -14,14 +13,14 @@ const OrderDetailsAdmin = ({
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    salesById(id).then((data) => setOrder(data));
+    helper.salesById(id).then((data) => setOrder(data));
   }, [id]);
 
-  const total = Helper.transformPrice(Helper.totalPriceOfProducts(order));
+  const total = helper.transformPrice(helper.totalPriceOfProducts(order));
 
   const setAsPendente = () => {
     // marcar como pendente na store e no banco
-    updateDeliveryStatus(id, 'Entregue');
+    helper.fetch.updateDeliveryStatus(id, 'Entregue');
     // ---
     setIsPendente(false);
   };
@@ -43,7 +42,7 @@ const OrderDetailsAdmin = ({
       </h2>
       <div className="lista-dos-produtos">
         {order.map((product, index) => {
-          const totalValueByProduct = Helper.transformPrice(
+          const totalValueByProduct = helper.transformPrice(
             product.price * product.quantity,
           );
 
@@ -67,7 +66,7 @@ const OrderDetailsAdmin = ({
               <span data-testid="0-order-unit-price">
                 (R$
                 {' '}
-                {Helper.transformPrice(product.price)}
+                {helper.transformPrice(product.price)}
                 )
               </span>
             </div>

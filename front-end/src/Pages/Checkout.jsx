@@ -6,21 +6,18 @@ import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Restrict from '../Components/Restrict';
 
-import { submitOrderFetch } from '../Helper/fetch';
-import helpers from '../Helper';
+import helper from '../Helper';
 
 const TIMEOUT = 3000;
 
-function Checkout({
-  history, submitOrder
-}) {
+function Checkout({ history }) {
   const [buttonShoulBeDisabled, setbuttonShoulBeDisabled] = useState(false);
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  const [cart, setCart] = useState(helpers.getCartInfo());
+  const [cart, setCart] = useState(helper.getCartInfo());
 
   useEffect(() => {
     if (false || street === '' || houseNumber === '') {
@@ -31,7 +28,7 @@ function Checkout({
   }, [setbuttonShoulBeDisabled, street, houseNumber]);
 
   const submitHandler = () => async () => {
-    await submitOrderFetch({ cart, street, houseNumber });
+    await helper.fetch.submitOrderFetch({ cart, street, houseNumber });
     setShouldRedirect(true);
   }
 

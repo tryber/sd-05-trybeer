@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AdminSideBar from '../Components/AdminSideBar';
-import { getSalesOrder } from '../Helper/fetch';
-import Helper from '../Helper';
+import helper from '../Helper';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    getSalesOrder().then((result) => setOrders(result));
+    helper.getSalesOrder().then((result) => setOrders(result));
   }, []);
 
   return (
@@ -49,7 +48,7 @@ const AdminOrders = () => {
                       className="product-card"
                       data-testid={ `${index}-order-total-value` }
                     >
-                      {`R$ ${Helper.transformPrice(orderPrice)}`}
+                      {`R$ ${helper.transformPrice(orderPrice)}`}
                     </h4>
                   </div>
                   <div

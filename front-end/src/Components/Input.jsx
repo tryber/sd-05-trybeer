@@ -9,7 +9,7 @@ const Input = ({
       <input
         id={`input_${label || name}`}
         type={type}
-        className={ className }
+        className={ className || '' }
         name={ name }
         onChange={ onChange }
         data-testid={test}

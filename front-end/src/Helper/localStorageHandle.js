@@ -2,12 +2,12 @@ const trybeerData = {
   token: '',
 };
 
-export const clearAll = () => {
+const clearAll = () => {
   if (!window.localStorage) throw new Error('Localstorage not suported');
   localStorage.removeItem('trybeer');
 };
 
-export const registerData = (data) => {
+const registerData = (data) => {
   if (!window.localStorage) throw new Error('Localstorage not suported');
   const current = localStorage.getItem('trybeer');
   if (!current) localStorage.setItem('trybeer', JSON.stringify(trybeerData));
@@ -15,9 +15,15 @@ export const registerData = (data) => {
   localStorage.setItem('trybeer', JSON.stringify(newData));
 };
 
-export const getDataByKey = (key) => {
+const getDataByKey = (key) => {
   if (!window.localStorage) throw new Error('Localstorage not suported');
   const current = localStorage.getItem('trybeer');
   if (!current) return null;
   return JSON.parse(current)[key] || {};
 };
+
+export default {
+  clearAll,
+  registerData,
+  getDataByKey,
+}

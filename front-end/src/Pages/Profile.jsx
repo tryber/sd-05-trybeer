@@ -28,9 +28,8 @@ function Profile({ history, updateUser }) {
     <Restrict>
       <div className="container-main">
         <Header pathname={ history.location.pathname } />
-        <div className="container-page">
+        <div className="container-screen">
           <strong>Perfil</strong>
-          <form>
             <p>Nome:</p>
             <input
               type="text"
@@ -48,7 +47,6 @@ function Profile({ history, updateUser }) {
               value={ email }
               readOnly
             />
-          </form>
           <button
             disabled={ !changed }
             data-testid="profile-save-btn"

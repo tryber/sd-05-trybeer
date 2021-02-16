@@ -4,27 +4,33 @@ import PropTypes from 'prop-types';
 
 import Header from '../Components/Header';
 import ProductCard from '../Components/ProductCard';
-import Helpers from '../Helper';
+import helper from '../Helper';
 import Restrict from '../Components/Restrict';
 
-import { getProducts } from '../Helper/fetch';
+import M from 'materialize-css';
 
 const INITIAL_VALUE = 0;
 
 function Products({ history, isLoading }) {
   const [redirect, setRedirect] = useState(null);
   const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(Helpers.getCartInfo()?.total || INITIAL_VALUE);
+  const [total, setTotal] = useState(helper.getCartInfo()?.total || INITIAL_VALUE);
 
   useEffect(() => {
-    getProducts()
+    helper.fetch.getProducts()
       .then((productsArray) => {
-        setProducts(productsArray);
+        if (productsArray.message) {
+          M.toast(
+            { html: productsArray.message, classes: 'dandrea' },
+          );
+          return;
+        }
+        setProducts(productsArray || []);
       });
   }, []);
 
   const onRefresh = () => {
-    const t = Helpers.getCartInfo()?.total || INITIAL_VALUE;
+    const t = helper.getCartInfo()?.total || INITIAL_VALUE;
     setTotal(t);
   }
 
@@ -47,7 +53,7 @@ function Products({ history, isLoading }) {
       >
         Ver Carrinho
         <p on data-testid="checkout-bottom-btn-value">
-          {`R$ ${Helpers.transformPrice(total)}`}
+          {`R$ ${helper.transformPrice(total)}`}
         </p>
       </button>
     </Restrict>
