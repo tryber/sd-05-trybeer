@@ -1,6 +1,8 @@
 const connection = require('./connection.model');
 
 // prettier-ignore
+
+
 const findUserbyEmailAndPassword = ({ email, password }) => connection
   .query(
     'SELECT id, name, email, role FROM users WHERE email = ? AND password = ?',
