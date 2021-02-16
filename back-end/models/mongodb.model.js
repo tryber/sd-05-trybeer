@@ -1,17 +1,19 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const DB_NAME = process.env.DB_NAME || 'trybeer';
-const DB_URL = process.env.DB_URL || `mongodb://mongodb:27017/${DB_NAME}`;
+const SCHEMA = process.env.SCHEMA || 'trybeer';
+// const DB_URL = `mongodb://${process.env.HOSTNAME || 'localhost'}:27017/${SCHEMA}`;
+const DB_URL = `mongodb://localhost:27017/${SCHEMA}`;
 let connection = null;
 
 module.exports = async (collection) => {
+  if (typeof collection !== 'string') return;
   try {
     connection = connection || await MongoClient.connect(
       DB_URL,
       { useUnifiedTopology: true, useNewUrlParser: true },
     );
-    return await connection.db(DB_NAME).collection(collection);
+    return await connection.db(SCHEMA).collection(collection);
   } catch (err) {
     console.error(err);
   }

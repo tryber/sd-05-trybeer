@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-// Models
-const mongoModel = require('./models/mongodb.model');
+// Connections
+const mongoConnection = require('./models/mongodb.model');
+const { user } = require('./models');
 
 // Controllers
 const userController = require('./controllers/users.controller');
@@ -23,12 +24,16 @@ const serverConfig = {
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use('/', userController);
 
+app.use('/', userController);
 app.use('/products', productsController);
 app.use('/sales', salesController);
 
-chatController.run(server, serverConfig)(mongoModel);
+const chatConnections = {
+  mongoConnection,
+  userConnection: user,
+};
+chatController.run(server, serverConfig)(chatConnections);
 
 const errorMiddleware = (err, _req, res, _next) => {
   console.error(err);

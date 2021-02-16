@@ -4,6 +4,8 @@ import Header from '../Components/Header';
 import ChatMessage from '../Components/ChatMessage';
 import helper from '../Helper';
 
+import Input from '../Components/Input';
+
 const pageStyle = {
   justifyContent: 'center',
 };
@@ -13,26 +15,45 @@ const containerStyle = {
   height: '250px',
 };
 
-
 const Chat = ({ history, socket }) => {
 
-  const [messages, setMessages] = useState([]);
+  const [chat, setChat] = useState([]);
+  const [message, setMessage] = useState([]);
 
   useEffect(() => {
-    socket.on(socket.id, (message) => {
-      setMessages(message);
+    socket.on(socket.id, (chatMessages) => {
+      setChat(chatMessages);
     });
   },[]);
+
+  const messageHandle = () => ({ target: { value } }) => {
+    setMessage(value);
+  };
+
+  const isSelfMessage = (msg) => socket.id === msg?.from.socketId;
 
   return (
     <Restrict>
       <Header pathname={ history.location.pathname } />
       <div className="container-main" style={pageStyle}>
         <div className="container-screen" style={containerStyle}>
-          { messages.map((message) => <ChatMessage buffer={message}/>) }
-          <button
-            onClick={() => { socket.emit('test_message', { message: 'olá mundo!' }) }}
-          >asd</button>
+          { chat.map((chatBuffer) => (
+            <ChatMessage
+              key={chatBuffer.createdAt}
+              buffer={chatBuffer}
+              isSelf={isSelfMessage(chatBuffer)}
+            />
+          )) }
+          <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+            <Input placeholder="Insira sua mensagem aqui" onChange={messageHandle()} />
+            <button
+              className="btn"
+              onClick={() => { socket.emit('message', { message, to: 2 }) }}
+              style={{ marginLeft: '8px' }}
+            >
+              <i class="material-icons">send</i>
+            </button>
+          </div>
         </div>
       </div>
     </Restrict>
