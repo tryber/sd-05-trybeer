@@ -14,20 +14,20 @@
 
 .verCarrinho {
   display: flex;
+  border: none;
   flex-flow: row;
   align-self: flex-end;
-  background-color: rgb(94, 203, 94);
-  border: solid rgb(76, 196, 76) 1px;
-  font-weight: 700;
+  background-color: rgb(255, 226, 175);
   margin-right: 5px;
   position: sticky;
   top: 10vh;
   text-decoration: none;
+  width: 100%;
 }
 
 .product-card {
   align-items: flex-start;
-  background-color: rgba(245, 245, 245, .4);
+  background-color: white;
   border: lightslategrey solid 1px;
   display: flex;
   flex-flow: row;
@@ -79,13 +79,13 @@ button:active {
 }
 
 .add-product {
-  background-color: rgb(76, 196, 76);
+  background-color: whitesmoke;
   border: solid 2px rgb(94, 203, 94);
-  color: whitesmoke;
+  color: black;
 }
 
 .sub-product {
-  background-color: transparent;
+  background-color: whitesmoke;
   border: solid rgb(195, 16, 16) 2px;
-  color: rgb(195, 16, 16);
+  color: black
 }

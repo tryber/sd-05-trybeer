@@ -3,6 +3,7 @@ import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { getProducts } from '../services/api';
 import Context from '../context/Context';
+import Cart from '../images/shoppingCart.png'
 import './css/products.css';
 
 const Products = () => {
@@ -80,7 +81,7 @@ const Products = () => {
       <div className="corpo">
         <button className="verCarrinho" disabled={ !cartBtn } type="submit" data-testid="checkout-bottom-btn">
           <Link to="/checkout">
-            Ver Carrinho
+            <img src={Cart} width="15%" />
           </Link>
         </button>
         <span data-testid="checkout-bottom-btn-value">{`Preço total: R$ ${total}`}</span>

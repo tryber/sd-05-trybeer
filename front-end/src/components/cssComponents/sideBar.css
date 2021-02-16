@@ -1,0 +1,17 @@
+.side-menu-container.side-bar {
+  text-decoration: none;
+  padding: 5px;
+}
+
+.opened-menu {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 2px;
+}
+
+/* .opened-menu:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+} */

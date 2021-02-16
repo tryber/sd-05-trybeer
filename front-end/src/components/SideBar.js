@@ -8,19 +8,24 @@ export default function SideBar({ userRole, active }) {
     localStorage.clear();
   };
   return (
-    <aside className={ `side-container ${active && 'appear'}` }>
+    <aside className={`side-container ${active && 'appear'}`}>
       {userRole === 'client' && (
-        <div className={ `${active && 'side-menu-container'} side-bar` }>
-          <Link to="/products" data-testid="side-menu-item-products">
+        <div className={`${active && 'side-menu-container'} side-bar`}>
+          <Link className="opened-menu" to="/products" data-testid="side-menu-item-products">
             Produtos
           </Link>
-          <Link to="/orders" data-testid="side-menu-item-my-orders">
+          <Link className="opened-menu" to="/orders" data-testid="side-menu-item-my-orders">
             Meus Pedidos
           </Link>
-          <Link to="/profile" data-testid="side-menu-item-my-profile">
+          <Link className="opened-menu" to="/profile" data-testid="side-menu-item-my-profile">
             Meu perfil
           </Link>
-          <Link to="/login" onClick={ handleClick } data-testid="side-menu-item-logout">
+          <Link
+            className="opened-menu"
+            to="/login"
+            onClick={handleClick}
+            data-testid="side-menu-item-logout"
+          >
             Sair
           </Link>
         </div>
