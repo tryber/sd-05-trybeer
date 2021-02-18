@@ -24,16 +24,16 @@ function AdminProfile() {
     <div className="profile-container yellow-background">
       <AdminMenu />
       <div className="content-admin-profile">
-      <h2 className="white-text">Perfil</h2>
+      <h4 className="white-text">Perfil</h4>
       <div data-testid="profile-name">
-       <h4 className="white-text">
+       <h5 className="white-text">
          { `Nome: ${user.name}` }
-         </h4> 
+         </h5> 
       </div>
       <div data-testid="profile-email">
-        <h4 className="white-text">
+        <h5 className="white-text">
         { `Email: ${user.email}` }
-        </h4>
+        </h5>
       </div>
       </div>
     </div>

@@ -15,8 +15,10 @@ function AdminOrdersDetails() {
   useEffect(() => {
     const arrPath = window.location.pathname.split('/');
     const id = arrPath[3];
-    getSaleDetails(id)
-      .then((response) => setSaleNumber(response[0].sale_id) || setSaleDetails(response));
+    getSaleDetails(id).then(
+      (response) =>
+        setSaleNumber(response[0].sale_id) || setSaleDetails(response)
+    );
   }, []);
 
   if (!saleNumber) return <div>Carregando...</div>;
@@ -25,30 +27,21 @@ function AdminOrdersDetails() {
     <div className="orders-big-container yellow-background">
       <AdminMenu />
       <div className="order-detail-content">
-        <div  className="order-number">
-
-        <span id="sale-id" data-testid="order-number">
-          <h4 className="white-text">
-
-          { `Pedido ${saleNumber}` }
-          </h4>
-        </span>
-          <OrderStatus id={ saleNumber } />
-      
-        </div>
+        {/* <div className="order-number"> */}
+          <span id="sale-id" data-testid="order-number">
+            <h4 className="white-text">{`Pedido ${saleNumber}`}</h4>
+          </span>
+          <OrderStatus id={saleNumber} />
+        {/* </div> */}
         <div className="ordersDetail-card-container">
-
           {saleDetails.map((sale, index) => (
-            <AdminProductsList
-            key={ sale.id }
-            sale={ sale }
-            index={ index }
-            />))}
+            <AdminProductsList key={sale.id} sale={sale} index={index} />
+          ))}
         </div>
         <h4 className="white-text" data-testid="order-total-value">
-          { `Total: R$ ${(totalPrice.toFixed(two).replace('.', ','))}` }
+          {`Total: R$ ${totalPrice.toFixed(two).replace('.', ',')}`}
         </h4>
-      <BtnStatus id={ saleNumber } />
+        <BtnStatus id={saleNumber} />
       </div>
     </div>
   );

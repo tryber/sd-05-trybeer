@@ -8,10 +8,10 @@
 
 .order-detail-content {
     display: flex;
-    height: 50%;
+    height: 100%;
     width: 100%;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
 
 }
@@ -22,4 +22,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+}
+
+.order-title-margin {
+    margin-top: 30px;
 }

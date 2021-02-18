@@ -46,18 +46,18 @@ function OrdersDetails({ location: { pathname } }) {
 
   return (
     <div className="orders-big-container">
-      <ClientMenu title="Detalhes de Pedido" data-testid="top-title" />
+      <ClientMenu title="Detalhes" data-testid="top-title" />
       <div className="checkout-container yellow-background">
       <div className="order-detail-content">
 
       {/* {console.log(orderInfo)} */}
       <div data-testid="order-number" className="order-number">
-        <h4 className="white-text">
+        <h4 className="white-text order-title-margin" >
         Pedido
         {' '}
         {orderInfo.id}
         </h4>
-        <h5 className="white-text">{getDate(orderInfo.sale_date)}</h5>
+        <h5 className="white-text order-title-margin">{getDate(orderInfo.sale_date)}</h5>
       </div>
       <div className="ordersDetail-card-container">
         {productsDetails.map((item, index) => (

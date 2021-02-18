@@ -19,7 +19,8 @@
 }
 
 .order-card-size-admin {
-    width: 90% !important;
+    width: 80% !important;
+    height: 25%;
 }
 
 .order-card-content {
@@ -33,3 +34,11 @@
     width: 100%;
 }
 
+.orderNumber-status {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin-bottom: 10px;
+}

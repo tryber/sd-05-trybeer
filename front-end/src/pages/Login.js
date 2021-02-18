@@ -92,7 +92,7 @@ function Login({ history }) {
         Criar Conta
       </Link>
         </button>
-      {/* <SqlBtn /> */}
+      <SqlBtn />
         </div>
       </div>
     </div>
