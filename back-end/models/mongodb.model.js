@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
-const DB_NAME = process.env.DB_NAME || 'trybeer';
+const DB_NAME = process.env.DB_NAME || 'Trybeer';
 const DB_URL = process.env.DB_URL || `mongodb://mongodb:27017/${DB_NAME}`;
 let connection = null;
 

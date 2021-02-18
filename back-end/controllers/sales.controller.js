@@ -8,7 +8,7 @@ sales.get('/', salesServices.getAllSales, (req, res) => { // todas as vendas
   res.status(200).json(req.data);
 });
 
-sales.get('/user/:id', salesServices.getSaleById, (req, res) => { // vendas especificas de um usuário
+sales.get('/user/:id', salesServices.getSaleByUserId, (req, res) => { // vendas especificas de um usuário
   res.status(200).json(req.data);
 });
 
