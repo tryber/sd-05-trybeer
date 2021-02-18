@@ -34,6 +34,7 @@ const createSale = async (newSale) => {
   }
 
   const userFound = await usersModel.logIn(email);
+  console.log(userFound)
   const { id } = userFound[0];
 
   const createdSale = await model.createSale(
