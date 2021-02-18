@@ -19,7 +19,7 @@ body {
   display: inline-block;
   font-size: 25px;
   padding: 15px;
-  z-index: 3;
+  z-index: index 3;
 }
 .top-title {
   text-align: center;
@@ -34,7 +34,7 @@ body {
   position: absolute;
   transition: all 0.3s linear;
   width: 40%;
-  z-index:ind 3;
+  z-index: 3;
 }
 
 .side-menu-container-2 {
@@ -44,7 +44,7 @@ body {
   position: absolute;
   transition: all 0.3s linear;
   width: 10%;
-  z-index:ind 3;
+  z-index: index 3;;
 }
 
 .side-menu-container-changed {

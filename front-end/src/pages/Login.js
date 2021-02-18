@@ -89,10 +89,10 @@ function Login({ history }) {
       </button>
         <button type="button" data-testid="no-account-btn" className="waves-effect waves-light btn btn-layout">
       <Link to="/register" className="white-text">
-          Ainda não tenho conta
+        Criar Conta
       </Link>
         </button>
-      <SqlBtn />
+      {/* <SqlBtn /> */}
         </div>
       </div>
     </div>

@@ -27,23 +27,25 @@ function Products() {
           <EachProduct product={ product } index={ index } key={ product } />
         ))}
       </div>
+      <footer>
         <button
           className="waves-effect waves-light btn btn-layout-2"
           type="button"
           data-testid="checkout-bottom-btn"
           disabled={ !totalPrice }
-        >
+          >
           <Link to="/checkout" className="white-text">
           Ver Carrinho
             </Link>
           <p data-testid="checkout-bottom-btn-value">
             {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
               totalPrice,
-            )}
+              )}
             {/* fonte sobre currency https://developer.mozilla.org/en-US/docs/Web/Java/Reference/Global_Objects/Intl/NumberFormat/NumberFormat */}
           </p>
         </button>
       {!isLogged && <Redirect to="/login" />}
+      </footer>
     </section>
   );
 }

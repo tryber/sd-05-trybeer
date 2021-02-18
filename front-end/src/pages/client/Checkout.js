@@ -38,8 +38,11 @@ function Checkout() {
   const handleResult = (result) => {
     const time = 1000;
     if (result.message === 'Created') {
-      document.getElementById('sucess').innerHTML = 'Compra realizada com sucesso!';
-      setTimeout(() => { setStatusSale(true); }, time);
+      document.getElementById('sucess').innerHTML =
+        'Compra realizada com sucesso!';
+      setTimeout(() => {
+        setStatusSale(true);
+      }, time);
     }
   };
 
@@ -47,69 +50,76 @@ function Checkout() {
     <div className="orders-big-container">
       <ClientMenu data-testid="top-title" title="Finalizar pedido" />
       <div className="checkout-container yellow-background">
-      <div className="content-checkout">
-
-      <h3 className="white-text">Produtos</h3>
-      {!totalPrice && <h2>Não há produtos no carrinho</h2>}
-      {totalPrice && (
-        <div className="orders-list">
-          { products.map((item, index) => (
-            <CheckoutCard item={ item } index={ index } key={ item } />
-            )) }
+        <div className="content-checkout">
+          <h5 className="white-text">Produtos</h5>
+          {!totalPrice && <h2>Não há produtos no carrinho</h2>}
+          {totalPrice && (
+            <div className="orders-list">
+              {products.map((item, index) => (
+                <CheckoutCard item={item} index={index} key={item} />
+              ))}
+            </div>
+          )}
+          <div>
+            <h5 data-testid="order-total-value" className="white-text">
+              Total:{' '}
+              {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              }).format(totalPrice)}
+            </h5>
+          </div>
+          <div className="address">
+            <h5 className="white-text">Endereço</h5>
+            <div className="input-container">
+              <input
+                className="input-layout"
+                placeholder="Rua:"
+                data-testid="checkout-street-input"
+                type="text"
+                id="street"
+                onChange={(e) => handleStreetInput(e.target.value)}
+              />
+            </div>
+            <div className="input-container">
+              <input
+                className="input-layout"
+                placeholder="Número da casa:"
+                data-testid="checkout-house-number-input"
+                type="text"
+                id="house"
+                onChange={(e) => handleHouseNumInput(e.target.value)}
+              />
+            </div>
+            <button
+              className="waves-effect waves-light btn btn-layout"
+              type="button"
+              data-testid="checkout-finish-btn"
+              disabled={
+                totalPrice === initialState ||
+                houseNum === initialState ||
+                street === ''
+              }
+              // onClick={() => done()}
+              onClick={() => {
+                createNewSale(
+                  user.email,
+                  totalPrice,
+                  street,
+                  houseNum,
+                  date,
+                  products
+                ).then((result) => handleResult(result));
+              }}
+            >
+              Finalizar pedido
+            </button>
+          </div>
+          <div id="sucess" />
+          {statusSale && <Redirect to="/products" />}
+          {!isLogged && <Redirect to="/login" />}
         </div>
-      )}
-      <div>
-
-      <h4 data-testid="order-total-value" className="white-text">
-        Total:
-        {' '}
-        {new Intl.NumberFormat('pt-BR', {
-          style: 'currency',
-          currency: 'BRL',
-        }).format(totalPrice)}
-      </h4>
       </div>
-      <div className="address">
-        <h5 className="white-text">Endereço</h5>
-        <div className="input-container">
-          <input
-          className="input-layout"
-          placeholder="Rua:"
-          data-testid="checkout-street-input"
-          type="text"
-          id="street"
-          onChange={ (e) => handleStreetInput(e.target.value) }
-          />
-          </div>
-          <div className="input-container">
-          <input
-          className="input-layout"
-          placeholder="Número da casa:"
-            data-testid="checkout-house-number-input"
-            type="text"
-            id="house"
-            onChange={ (e) => handleHouseNumInput(e.target.value) }
-            />
-          </div>
-      <button
-      className="waves-effect waves-light btn btn-layout"
-        type="button"
-        data-testid="checkout-finish-btn"
-        disabled={ totalPrice === initialState || houseNum === initialState || street === '' }
-        // onClick={() => done()}
-        onClick={ () => {
-          createNewSale(user.email, totalPrice, street, houseNum, date, products)
-          .then((result) => handleResult(result));
-        } }
-        >
-        Finalizar pedido
-      </button>
-      </div>
-      <div id="sucess" />
-      {statusSale && <Redirect to="/products" />}
-      {!isLogged && <Redirect to="/login" />}
-    </div>
-    </div>
     </div>
   );
 }
