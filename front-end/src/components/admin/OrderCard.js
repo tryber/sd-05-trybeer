@@ -14,9 +14,9 @@ export default function OrderCard({ order, index }) {
 
   return (
     <div class="row order-card-size-admin">
-      <Link className="order-link" to={`/admin/orders/${order.id}`}>
-        <div class="col s12 m5">
-          <div class="card-panel white order-card-content">
+      <div class="col s12 m5">
+        <div class="card-panel white order-card-content">
+          <Link className="order-link" to={`/admin/orders/${order.id}`}>
             <div className="orderNumber-status">
               <p
                 className="card-content"
@@ -39,9 +39,9 @@ export default function OrderCard({ order, index }) {
                 {`R$ ${order.total_price.replace('.', ',')}`}
               </span>
             </div>
-          </div>
+          </Link>
         </div>
-      </Link>
+      </div>
     </div>
   );
 }

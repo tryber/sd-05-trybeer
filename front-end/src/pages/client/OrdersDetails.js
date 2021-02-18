@@ -48,7 +48,7 @@ function OrdersDetails({ location: { pathname } }) {
     <div className="orders-big-container">
       <ClientMenu title="Detalhes" data-testid="top-title" />
       <div className="checkout-container yellow-background">
-      <div className="order-detail-content">
+      <div className="order-detail-content-2">
 
       {/* {console.log(orderInfo)} */}
       <div data-testid="order-number" className="order-number">
