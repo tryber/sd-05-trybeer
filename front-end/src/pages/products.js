@@ -5,6 +5,7 @@ import { getProducts } from '../services/api';
 import Context from '../context/Context';
 import './css/products.css';
 
+
 const Products = () => {
   const {
     beers,
