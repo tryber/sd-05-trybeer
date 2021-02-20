@@ -3,26 +3,21 @@ import { Redirect, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { getProducts } from '../services/api';
 import Context from '../context/Context';
+import Cart from '../images/shoppingCart.png';
 import './css/products.css';
 
 
 const Products = () => {
-  const {
-    beers,
-    setBeers,
-    total,
-    setTotal,
-    cart,
-    setCart,
-  } = useContext(Context);
+  const { beers, setBeers, total, setTotal, cart, setCart } = useContext(Context);
 
   const [cartBtn, setCartBtn] = useState(false);
   const tam = 0;
   const casasDecimais = 2;
 
   async function starter() {
-    await getProducts(localStorage.getItem('email'), localStorage.getItem('token'))
-      .then((data) => setBeers(data));
+    await getProducts(localStorage.getItem('email'), localStorage.getItem('token')).then((data) =>
+      setBeers(data)
+    );
     const lsCart = localStorage.getItem('cart');
     const lsBeer = localStorage.getItem('beer');
     if (lsCart && lsCart.length > tam) {
@@ -44,7 +39,7 @@ const Products = () => {
         .map((products) => products.qty * products.price)
         .reduce((a, b) => a + b, tam)
         .toFixed(casasDecimais)
-        .replace('.', ','),
+        .replace('.', ',')
     );
     // localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart, setTotal]);
@@ -77,45 +72,55 @@ const Products = () => {
   }
   return (
     <div className="background">
-      <Header>Products</Header>
-      <div className="corpo">
-        <button className="verCarrinho" disabled={ !cartBtn } type="submit" data-testid="checkout-bottom-btn">
+      <div className="teste1">
+        <Header>Products</Header>
+        <button
+          className="verCarrinho"
+          disabled={!cartBtn}
+          type="submit"
+          data-testid="checkout-bottom-btn"
+        >
           <Link to="/checkout">
-            Ver Carrinho
+            <img src={Cart} width="40%" />
           </Link>
         </button>
+      </div>
+      <div className="corpo">
         <span data-testid="checkout-bottom-btn-value">{`Preço total: R$ ${total}`}</span>
         {beers.map((element, index) => (
-          <div key={ element.name } className="product-card">
+          <div key={element.name} className="product-card">
             <div className="product-data">
               <img
-                data-testid={ `${index}-product-img` }
+                data-testid={`${index}-product-img`}
                 width="50px"
                 height="50px"
-                src={ element.url_image }
-                alt={ element.name }
+                src={element.url_image}
+                alt={element.name}
               />
               <p className="product-info">
-                <h3 data-testid={ `${index}-product-name` }>{element.name}</h3>
-                <span data-testid={ `${index}-product-price` }>{`R$ ${element.price.replace('.', ',')}`}</span>
+                <h3 data-testid={`${index}-product-name`}>{element.name}</h3>
+                <span data-testid={`${index}-product-price`}>{`R$ ${element.price.replace(
+                  '.',
+                  ','
+                )}`}</span>
               </p>
             </div>
             <div className="action-buttons">
               <button
                 type="button"
                 className="sub-product"
-                onClick={ (e) => handleClick(e, 'sub', index) }
-                data-testid={ `${index}-product-minus` }
+                onClick={(e) => handleClick(e, 'sub', index)}
+                data-testid={`${index}-product-minus`}
               >
                 -
               </button>
-              <span data-testid={ `${index}-product-qtd` } id={ `product-${index}` }>
+              <span data-testid={`${index}-product-qtd`} id={`product-${index}`}>
                 {element.qty}
               </span>
               <button
                 className="add-product"
-                onClick={ (e) => handleClick(e, 'add', index) }
-                data-testid={ `${index}-product-plus` }
+                onClick={(e) => handleClick(e, 'add', index)}
+                data-testid={`${index}-product-plus`}
                 type="button"
               >
                 +

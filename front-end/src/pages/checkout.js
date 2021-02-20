@@ -4,6 +4,7 @@ import { useHistory, Redirect } from 'react-router-dom';
 import Cart from '../components/Cart';
 import Header from '../components/Header';
 import { orderPlaced } from '../services/api';
+import './css/checkout.css';
 
 const Checkout = () => {
   const [nameAdress, setNameAdress] = useState('');
@@ -37,10 +38,11 @@ const Checkout = () => {
     <div>
       <Header>Finalizar Pedido</Header>
       <form id="form-checkout">
-        <Cart />
+        <div className="choosenProducts">
+        <Cart /></div>
         <h1>Endereço</h1>
         <label htmlFor="address">
-          Rua:
+          Rua:&nbsp;
           <input
             type="text"
             name="address"
@@ -50,10 +52,11 @@ const Checkout = () => {
             onChange={ (e) => setNameAdress(e.target.value) }
             required
           />
-        </label>
+        </label><br/>
         <label htmlFor="houseNumber">
-          Número da casa:
+          Número da casa:&nbsp;
           <input
+          size="10"
             type="text"
             name="houseNumber"
             id="houseNumber"

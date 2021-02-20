@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { updateUserName } from '../services/api';
 import Header from '../components/Header';
 import Context from '../context/Context';
+import './css/profile.css';
 
 const Profile = () => {
   // const [email, setEmail] = useState('');
@@ -31,8 +32,10 @@ const Profile = () => {
   if (!localStorage.token) return <Redirect to="/login" />;
   return (
     <div>
-      <Header>{role === 'administrator' ? 'Perfil' : 'Meu perfil'}</Header>
-      <form>
+      <div className="cabeça">
+        <Header>{role === 'administrator' ? 'Perfil' : 'Meu perfil'}</Header>
+      </div>
+      <form className="user-profile">
         <label htmlFor="name" data-testid="profile-name">
           {role === 'administrator' ? userName : 'Nome'}
           <input
@@ -41,27 +44,29 @@ const Profile = () => {
             data-testid="profile-name-input"
             // minLength acessibilidade
             minLength="12"
-            placeholder={ userName }
+            placeholder={userName}
             required
-            onChange={ (event) => handleChange(event) }
-            readOnly={ role === 'administrator' }
+            onChange={(event) => handleChange(event)}
+            readOnly={role === 'administrator'}
           />
-        </label>
+        </label>{' '}
+        <br />
         <label htmlFor="email" id="lblEmail" data-testid="profile-email">
           {role === 'administrator' ? userEmail : 'Email'}
           <input
             name="email"
             type="email"
             data-testid="profile-email-input"
-            placeholder={ userEmail }
+            placeholder={userEmail}
             readOnly
           />
         </label>
+        <br />
         <button
           type="button"
           data-testid="profile-save-btn"
-          disabled={ !disableBtn }
-          onClick={ (e) => handleUpdate(e) }
+          disabled={!disableBtn}
+          onClick={(e) => handleUpdate(e)}
         >
           Salvar
         </button>
