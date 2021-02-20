@@ -3,6 +3,11 @@
   background-color: rgb(255, 226, 175);
 }
 
+.teste1 {
+  display: flex;
+  align-items: initial;
+}
+
 .corpo {
   /* border:springgreen solid 1px; */
   align-items: center;
@@ -13,14 +18,11 @@
 }
 
 .verCarrinho {
-  display: flex;
   border: none;
-  flex-flow: row;
-  align-self: flex-end;
+  position: static;
+  direction: rtl;
   background-color: rgb(255, 226, 175);
   margin-right: 5px;
-  position: sticky;
-  top: 10vh;
   text-decoration: none;
   width: 100%;
 }
