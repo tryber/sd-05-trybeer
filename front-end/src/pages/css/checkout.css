@@ -16,3 +16,14 @@ label {
     display: flex;
     justify-content: center;
 }
+
+.button {
+    display: flex;
+    justify-content: center;
+    padding: 15px;    
+}
+
+.finalizar {
+    display: flex;
+    justify-content: center;
+}

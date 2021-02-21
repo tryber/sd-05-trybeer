@@ -35,8 +35,8 @@ const Checkout = () => {
   }
 
   return (
-    <div>
-      <Header>Finalizar Pedido</Header>
+    <div><div className="finalizar">
+      <Header>Finalizar Pedido</Header></div>
       <form id="form-checkout">
         <div className="choosenProducts">
         <Cart /></div>
@@ -66,6 +66,7 @@ const Checkout = () => {
             required
           />
         </label>
+        <div className="button">
         <button
           type="submit"
           data-testid="checkout-finish-btn"
@@ -73,7 +74,7 @@ const Checkout = () => {
           onClick={ (e) => successfulPurchase(e) }
         >
           Finalizar Pedido
-        </button>
+        </button></div>
       </form>
       {purchase && <h1>Compra realizada com sucesso!</h1>}
     </div>
