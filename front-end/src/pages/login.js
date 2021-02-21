@@ -6,13 +6,7 @@ import Context from '../context/Context';
 import './css/login.css';
 import logo from '../images/logo.png';
 
-// gambi pra passar no requisito 10 ARRUMAR dps da entrega 1
-// localStorage.removeItem('role');
-// localStorage.removeItem('email');
-// localStorage.removeItem('token');
-
 const Login = () => {
-  // const [email, setEmail] = useContext(Context);
   const { setUserEmail, setUserName, userEmail } = useContext(Context);
   const [password, setPassword] = useState('');
   const [isLoginValid, setIsLoginValid] = useState(false);
@@ -76,7 +70,7 @@ const Login = () => {
           </button>
           {designatedRoute !== undefined ? <Redirect to={ designatedRoute } /> : null}
           <button type="submit" data-testid="no-account-btn" className="btn-register">
-            <Link to="/register">
+            <Link style={{color: 'black'}} to="/register">
               Ainda não tenho conta
             </Link>
           </button>

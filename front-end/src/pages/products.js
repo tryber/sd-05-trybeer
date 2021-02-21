@@ -6,13 +6,13 @@ import Context from '../context/Context';
 import Cart from '../images/shoppingCart.png';
 import './css/products.css';
 
+const tam = 0;
+const casasDecimais = 2;
+
 const Products = () => {
   const { beers, setBeers, total, setTotal, cart, setCart } = useContext(Context);
-
   const [cartBtn, setCartBtn] = useState(false);
-  const tam = 0;
-  const casasDecimais = 2;
-
+  
   async function starter() {
     await getProducts(localStorage.getItem('email'), localStorage.getItem('token')).then((data) =>
       setBeers(data)
@@ -80,7 +80,7 @@ const Products = () => {
           data-testid="checkout-bottom-btn"
         >
           <Link to="/checkout">
-            <img src={Cart} width="40%" />
+            <img src={Cart} alt='cart-btn'width="40px" />
           </Link>
         </button>
       </div>
@@ -97,7 +97,7 @@ const Products = () => {
                 alt={element.name}
               />
               <p className="product-info">
-                <h3 data-testid={`${index}-product-name`}>{element.name}</h3>
+                <span style={{fontWeight:'bold'}} data-testid={`${index}-product-name`}>{element.name}</span>
                 <span data-testid={`${index}-product-price`}>{`R$ ${element.price.replace(
                   '.',
                   ','

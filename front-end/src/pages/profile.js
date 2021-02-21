@@ -63,6 +63,7 @@ const Profile = () => {
         </label>
         <br />
         <button
+          className="save-btn"
           type="button"
           data-testid="profile-save-btn"
           disabled={!disableBtn}

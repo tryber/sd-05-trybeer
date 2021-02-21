@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import SideBar from './SideBar';
 import sidebaricon from '../images/sidebaricon.png';
+import logo from '../images/logo.png';
 import './cssComponents/header.css';
 
 export default function Header({ children }) {
@@ -22,7 +23,8 @@ export default function Header({ children }) {
         >
           <img id="btn-hmb" height="50px" width="50px" src={ sidebaricon } alt="Hamburguer menu icon" />
         </button>
-        <span className="title" data-testid="top-title">{children === 'Products' ? 'TryBeer' : children}</span>
+        {/* <img src={logo} width="50px" style={{paddingLeft: "5px"}} /> */}
+        <span style={{paddingLeft: "30px"}} className="title" data-testid="top-title">{children === 'Products' ? 'TryBeer' : children}</span>
       </header>
       <div>{btnBurguer && <SideBar userRole={ userInfo } active={ btnBurguer } />}</div>
     </div>

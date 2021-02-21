@@ -1,11 +1,13 @@
 .background {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  background-color: rgb(255, 226, 175);
+  background-color: whitesmoke;
 }
 
 .teste1 {
   display: flex;
-  align-items: initial;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #ced4da;
 }
 
 .corpo {
@@ -15,22 +17,23 @@
   flex-direction: column;
   justify-content: center;
   margin: auto;
+  background-color: #ced4da;
 }
 
 .verCarrinho {
   border: none;
-  position: static;
   direction: rtl;
-  background-color: rgb(255, 226, 175);
+  background-color: #ced4da;
   margin-right: 5px;
   text-decoration: none;
-  width: 100%;
+  width: 75px;
 }
 
 .product-card {
   align-items: flex-start;
   background-color: white;
   border: lightslategrey solid 1px;
+  border-radius: 5px;
   display: flex;
   flex-flow: row;
   justify-content: space-between;

@@ -4,21 +4,50 @@
 }
 .sandubao {
   display: flex;
-  align-content: flex-start;
-  background-color: rgb(255, 226, 175);
+  background-color: #ced4da;
+  --borderWidth: 3px;
+  position: relative;
+  border-radius: var(--borderWidth);
+}
+
+.sandubao:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  border-radius: calc(2 * var(--borderWidth));
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .bamburguer {
-  background-color: rgb(255, 226, 175);
+  background-color: #ced4da;
   border: none;
 }
 
 .title {
   font-size: 35px;
   display: flex;
+  justify-content: center;
   margin-left: 50px;
   margin-top: 20px;
   font-weight: 900;
-  color: rgba(0, 0, 0, 0.6);
+  color: black;
   text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -5px 35px rgba(255, 255, 255, 0.3);
 }

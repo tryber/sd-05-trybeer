@@ -7,7 +7,7 @@ const OrdersAdmin = () => {
   const { token, role } = localStorage;
   useEffect(() => {
     getOrdersAdmin(role, token).then((ordersData) => setOrders(ordersData));
-  }, []);
+  }, []);// eslint-disable-line
 
   return (
     <ul>

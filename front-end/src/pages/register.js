@@ -105,8 +105,8 @@ const Register = () => {
           >
             Cadastrar
           </button>
-          <button type="button" className="btn-return">
-            <Link to="/login">
+          <button  type="button" className="btn-return">
+            <Link style={{color: "black"}} to="/login">
               Voltar
             </Link>
           </button>
