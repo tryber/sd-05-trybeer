@@ -11,13 +11,13 @@ export default function SideBar({ userRole, active }) {
     <aside className={`side-container ${active && 'appear'}`}>
       {userRole === 'client' && (
         <div className={`${active && 'side-menu-container'} side-bar`}>
-          <Link className="opened-menu" to="/products" data-testid="side-menu-item-products">
+          <Link style={{ color: 'black' }} className="opened-menu" to="/products" data-testid="side-menu-item-products">
             Produtos
           </Link>
-          <Link className="opened-menu" to="/orders" data-testid="side-menu-item-my-orders">
+          <Link style={{ color: 'black' }} className="opened-menu" to="/orders" data-testid="side-menu-item-my-orders">
             Meus Pedidos
           </Link>
-          <Link className="opened-menu" to="/profile" data-testid="side-menu-item-my-profile">
+          <Link style={{ color: 'black' }} className="opened-menu" to="/profile" data-testid="side-menu-item-my-profile">
             Meu perfil
           </Link>
           <Link
@@ -25,6 +25,7 @@ export default function SideBar({ userRole, active }) {
             to="/login"
             onClick={handleClick}
             data-testid="side-menu-item-logout"
+            style={{ color: 'black' }}
           >
             Sair
           </Link>
@@ -33,14 +34,14 @@ export default function SideBar({ userRole, active }) {
       {userRole === 'administrator' && (
         <div className="admin-side-bar-container side-bar">
           <div>
-            <Link to="/admin/orders" data-testid="side-menu-item-orders">
+            <Link style={{ color: 'black' }} to="/admin/orders" data-testid="side-menu-item-orders">
               Pedidos
             </Link>
-            <Link to="/admin/profile" data-testid="side-menu-item-profile">
+            <Link style={{ color: 'black' }} to="/admin/profile" data-testid="side-menu-item-profile">
               Meu perfil
             </Link>
           </div>
-          <Link to="/login" data-testid="side-menu-item-logout">
+          <Link style={{ color: 'black' }} to="/login" data-testid="side-menu-item-logout">
             Sair
           </Link>
         </div>

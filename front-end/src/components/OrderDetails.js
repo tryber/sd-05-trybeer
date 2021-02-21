@@ -24,7 +24,7 @@ const OrderDetails = (props) => {
       setDataSale(orders[0].sale_date);
       return setProducts(orders);
     });
-  }, []);
+  }, []);// eslint-disable-line
 
   const lsToken = localStorage.getItem('token');
   if (!lsToken) {
@@ -38,17 +38,17 @@ const OrderDetails = (props) => {
           {`Pedido ${id}`}
         </caption>
         <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total price</th>
+          <th style={{textAlign: "left"}}>Produto</th>
+          <th>Preço</th>
+          <th>Qtde</th>
+          <th>Preço total</th>
         </tr>
         {products.map((product, index) => (
           <tr key={ product.name }>
             <td data-testid={ `${index}-product-name` }>{product.name}</td>
-            <td>{ `R$ ${product.price}` }</td>
-            <td data-testid={ `${index}-product-qtd` }>{product.quantity}</td>
-            <td data-testid={ `${index}-product-total-value` }>{`R$ ${(product.price * product.quantity).toFixed(two).replace('.', ',')}`}</td>
+            <td style={{textAlign: "center"}}>{ `R$ ${product.price}` }</td>
+            <td style={{textAlign: "center"}} data-testid={ `${index}-product-qtd` }>{product.quantity}</td>
+            <td style={{textAlign: "center"}} data-testid={ `${index}-product-total-value` }>{`R$ ${(product.price * product.quantity).toFixed(two).replace('.', ',')}`}</td>
           </tr>
         ))}
       </table>

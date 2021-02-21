@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 
 import Cart from '../components/Cart';
+import SelectAddress from '../components/SelectAdress';
 import Header from '../components/Header';
 import { orderPlaced } from '../services/api';
 import './css/checkout.css';
@@ -11,7 +12,6 @@ const Checkout = () => {
   const [numberAdress, setNumberAdress] = useState('');
   const [purchase, setPurchase] = useState(false);
   const history = useHistory();
-  //  local alterar pra 10000
   const timeInterval = 3000;
   if (purchase) {
     setTimeout(() => history.push('/products'), timeInterval);
@@ -20,9 +20,10 @@ const Checkout = () => {
     e.preventDefault();
     const { email, token, total } = localStorage;
     const cart = JSON.parse(localStorage.getItem('cart'));
+    const addr = document.getElementById('select-add')
     const order = {
       totalPrice: total,
-      deliveryAddress: nameAdress,
+      deliveryAddress: `${addr.value}: ${nameAdress}`,
       deliveryNumber: numberAdress,
       cart,
     };
@@ -38,25 +39,25 @@ const Checkout = () => {
     <div>
       <Header>Finalizar Pedido</Header>
       <form id="form-checkout">
-        <div className="choosenProducts">
-        <Cart /></div>
-        <h1>Endereço</h1>
+        {/* <div className="choosenProducts"> */}
+        <Cart /><br/>
+        <h2>Endereço de Entrega</h2>
         <label htmlFor="address">
-          Rua:&nbsp;
+          <SelectAddress/>
           <input
             type="text"
             name="address"
             data-testid="checkout-street-input"
             id="address"
             value={ nameAdress }
-            onChange={ (e) => setNameAdress(e.target.value) }
+            onChange={ (e) => setNameAdress(`${e.target.value}`) }
             required
           />
         </label><br/>
         <label htmlFor="houseNumber">
-          Número da casa:&nbsp;
+          Nº:&nbsp;
           <input
-          size="10"
+          size="2"
             type="text"
             name="houseNumber"
             id="houseNumber"
@@ -71,6 +72,7 @@ const Checkout = () => {
           data-testid="checkout-finish-btn"
           disabled={ !nameAdress || !numberAdress }
           onClick={ (e) => successfulPurchase(e) }
+          className='end-order'
         >
           Finalizar Pedido
         </button>

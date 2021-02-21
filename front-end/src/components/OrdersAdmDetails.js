@@ -13,7 +13,7 @@ const OrdersAdminDetails = (props) => {
 
   useEffect(() => {
     getAdmOrderById(role, id, token).then((sale) => setOrder(sale));
-  }, []);
+  }, []);// eslint-disable-line
 
   const handleClick = () => {
     updateStatus(role, id, token).then(() => setStatus('Entregue'));
@@ -28,10 +28,10 @@ const OrdersAdminDetails = (props) => {
         </caption>
         <span data-testid="order-status">{`${status}`}</span>
         <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Total price</th>
+          <th>Produto</th>
+          <th>Preço</th>
+          <th>Quantidade</th>
+          <th>Preço Total</th>
         </tr>
         {order.map((product, index) => (
           <tr key={ product.name }>

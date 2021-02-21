@@ -6,13 +6,7 @@ import Context from '../context/Context';
 import './css/login.css';
 import logo from '../images/logo.png';
 
-// gambi pra passar no requisito 10 ARRUMAR dps da entrega 1
-// localStorage.removeItem('role');
-// localStorage.removeItem('email');
-// localStorage.removeItem('token');
-
 const Login = () => {
-  // const [email, setEmail] = useContext(Context);
   const { setUserEmail, setUserName, userEmail } = useContext(Context);
   const [password, setPassword] = useState('');
   const [isLoginValid, setIsLoginValid] = useState(false);
