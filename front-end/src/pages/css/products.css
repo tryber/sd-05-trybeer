@@ -8,25 +8,50 @@
   flex-direction: row;
   justify-content: space-between;
   background-color: #ced4da;
+  --borderWidth: 3px;
+  position: relative;
+  border-radius: var(--borderWidth);
+  z-index: 15;
+}
+
+.teste1:after {
+  content: '';
+  position: absolute;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  background: linear-gradient(60deg,  #ced4da, #adb5bd, #495057, #343a40, #212529);
+  border-radius: calc(2 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  width: calc(100% + var(--borderWidth) * 2);
+  z-index: -1;
+  animation: animatedgradient 3s ease alternate infinite;
+  background-size: 300% 300%;
 }
 
 .corpo {
   /* border:springgreen solid 1px; */
+  position: absolute;
+  top: 50px;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: auto;
+  width: 100%;
+  height:100%;
   background-color: #ced4da;
+  z-index: 1;
 }
 
 .verCarrinho {
   border: none;
   direction: rtl;
   background-color: #ced4da;
+  /* position: absolute; */
   margin-right: 5px;
   text-decoration: none;
   width: 75px;
+  z-index: 10;
 }
 
 .product-card {
@@ -84,13 +109,13 @@ button:active {
 }
 
 .add-product {
-  background-color: whitesmoke;
-  border: solid 2px rgb(94, 203, 94);
+  background-color: white;
+  border: solid 2px black;
   color: black;
 }
 
 .sub-product {
-  background-color: whitesmoke;
-  border: solid rgb(195, 16, 16) 2px;
+  background-color: white;
+  border: solid 2px black;
   color: black
 }

@@ -4,10 +4,14 @@
 }
 .sandubao {
   display: flex;
+  align-items: center;
   background-color: #ced4da;
   --borderWidth: 3px;
   position: relative;
+  min-width: 90%;
+  justify-content: flex-start;
   border-radius: var(--borderWidth);
+  /* z-index: 1; */
 }
 
 .sandubao:after {
@@ -17,7 +21,7 @@
   left: calc(-1 * var(--borderWidth));
   height: calc(100% + var(--borderWidth) * 2);
   width: calc(100% + var(--borderWidth) * 2);
-  background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+  background: linear-gradient(60deg, #ced4da, #adb5bd, #495057, #343a40, #212529);
   border-radius: calc(2 * var(--borderWidth));
   z-index: -1;
   animation: animatedgradient 3s ease alternate infinite;
@@ -45,8 +49,11 @@
   font-size: 35px;
   display: flex;
   justify-content: center;
-  margin-left: 50px;
-  margin-top: 20px;
+  /* margin-left: 50px; */
+  /* margin-top: 20px; */
+  /* margin: 20px auto; */
+  /* position: absolute; */
+  /* margin: auto; */
   font-weight: 900;
   color: black;
   text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.2), 0px -5px 35px rgba(255, 255, 255, 0.3);
