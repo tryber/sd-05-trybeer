@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AdminSideBar from '../Components/AdminSideBar';
+import Restrict from '../Components/Restrict';
+// import AdminSideBar from '../Components/AdminSideBar';
+import Header from '../Components/Header';
 import helper from '../Helper';
 
-const AdminOrders = () => {
+import M from 'materialize-css';
+
+const AdminOrders = ({ history }) => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    helper.getSalesOrder().then((result) => setOrders(result));
+    helper.fetch.getSalesOrder().then((result) => {
+      if (typeof result === 'array') setOrders(result);
+      else if(result.message) M.toast(
+        { html: `<p>${result.message}</p>`, classes: 'dandrea' },
+      );
+    });
   }, []);
 
   return (
-    <div>
+    <Restrict>
+      <Header pathname={ history.location.pathname } />
       Admin - Pedidos
-      <AdminSideBar />
-      <div>
         <div>
           {orders
             && orders.map(
@@ -60,9 +68,8 @@ const AdminOrders = () => {
                 </Link>
               ),
             )}
-        </div>
       </div>
-    </div>
+    </Restrict>
   );
 };
 

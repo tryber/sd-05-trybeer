@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import Restrict from '../Components/Restrict';
 import helper from '../Helper';
-import AdminSideBar from '../Components/AdminSideBar';
+import Header from '../Components/Header';
 
 const OrderDetailsAdmin = ({
+  history,
   match: {
     params: { id },
   },
@@ -13,7 +14,7 @@ const OrderDetailsAdmin = ({
   const [order, setOrder] = useState([]);
 
   useEffect(() => {
-    helper.salesById(id).then((data) => setOrder(data));
+    helper.fetch.salesById(id).then((data) => setOrder(data));
   }, [id]);
 
   const total = helper.transformPrice(helper.totalPriceOfProducts(order));
@@ -27,8 +28,7 @@ const OrderDetailsAdmin = ({
 
   return (
     <Restrict>
-      {/* <Header pathname={ history.location.pathname } /> */}
-      <AdminSideBar />
+      <Header pathname={ history.location.pathname } />
       <h2 data-testid="order-number">
         Pedido
         {' '}

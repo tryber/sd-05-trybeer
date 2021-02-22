@@ -10,7 +10,7 @@ const MIN = 0;
 const socket = io(fetch.SERVER_URL);
 
 const Socket = (component) => {
-  return ({ history }) => component({ history, socket }); 
+  return ({ ...props }) => component({ ...props, socket }); 
 }
 
 const loginUser = async ({ email, password }) => {

@@ -2,8 +2,7 @@ const { MongoClient } = require('mongodb');
 require('dotenv').config();
 
 const SCHEMA = process.env.SCHEMA || 'trybeer';
-// const DB_URL = `mongodb://${process.env.HOSTNAME || 'localhost'}:27017/${SCHEMA}`;
-const DB_URL = `mongodb://localhost:27017/${SCHEMA}`;
+const DB_URL = `mongodb://${process.env.HOSTURL || 'localhost'}:27017/${SCHEMA}`;
 let connection = null;
 
 module.exports = async (collection) => {

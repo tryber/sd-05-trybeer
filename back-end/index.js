@@ -4,7 +4,7 @@ const cors = require('cors');
 
 // Connections
 const mongoConnection = require('./models/mongodb.model');
-const { user } = require('./models');
+const mysqlConnection = require('./models');
 
 // Controllers
 const userController = require('./controllers/users.controller');
@@ -25,13 +25,13 @@ const serverConfig = {
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/', userController);
+app.use('/', userController({ mongoConnection, mysqlConnection }));
 app.use('/products', productsController);
 app.use('/sales', salesController);
 
 const chatConnections = {
   mongoConnection,
-  userConnection: user,
+  mysqlConnection,
 };
 chatController.run(server, serverConfig)(chatConnections);
 

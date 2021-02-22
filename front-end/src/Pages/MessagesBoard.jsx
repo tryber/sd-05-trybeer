@@ -1,0 +1,44 @@
+import React, { useEffect, useState } from 'react';
+import Restrict from '../Components/Restrict';
+import Header from '../Components/Header';
+import CardMessage from '../Components/CardMessage';
+import helper from '../Helper';
+
+const containerStyle = {
+  justifyContent: 'space-between',
+  width: '100%',
+  alignItems: 'center',
+};
+
+const MessagesBoard = ({ history }) => {
+
+  const [lastMessages, setLastMessages] = useState([]);
+
+  useEffect(() => {
+    const { messages: m } = helper.getUserData();
+    const messageGroup = {};
+    m.forEach(({ from }, i) => {
+      messageGroup[from.email] = m[i];
+    });
+    setLastMessages(Object.values(messageGroup));
+  }, []);
+
+  return (
+    <Restrict>
+      <Header pathname={ history.location.pathname } />
+      <div className="container-main">
+        <div className="container-screen" style={containerStyle}>
+          {
+            lastMessages.length
+              ? lastMessages.map(message => (
+                <CardMessage buffer={message} key={message.createdAt} />
+              ))
+              : <div>Nenhuma conversa por aqui.</div>
+          }
+        </div>
+      </div>
+    </Restrict>
+  );
+};
+
+export default MessagesBoard;

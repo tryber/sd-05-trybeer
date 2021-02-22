@@ -10,9 +10,10 @@ const formatMessage = (from, to) => (message) => ({
   createdAt: new Date(),
 });
 
-const run = (...server) => async ({ mongoConnection, userConnection }) => {
+const run = (...server) => async ({ mongoConnection, mysqlConnection }) => {
   // Setup connection
   const io = socketIo(...server);
+  const { user } = mysqlConnection; 
 
   io.on('connection', async (socket) => {
 
@@ -30,6 +31,7 @@ const run = (...server) => async ({ mongoConnection, userConnection }) => {
       io.emit(socket.id, [messageBuffer]);
     });
 
+    // Criei esse socket para uma versão mais robusta do chat
     socket.on('message', async ({ message, to }) => {
       const messageCollection = await mongoConnection('messages');
       const [client] = Object.entries(users)
@@ -42,10 +44,11 @@ const run = (...server) => async ({ mongoConnection, userConnection }) => {
       if (client && client.length) { // Verifica se o cliente está online
         const [clientSocket] = client;
         messageBuffer.to = users[clientSocket];
-      } else {
+        // io.emit(clientSocket, messageBuffer); // Linha usada para PM
+      } else if (to) {
         // Caso o cliente esteja offline, faz a busca no banco de dados
         try {
-          const { dataValues } = await userConnection.findOne({
+          const { dataValues } = await user.findOne({
             where: { id: to },
             attributes: ['id', 'name', 'email', 'role'],
           });
@@ -55,7 +58,8 @@ const run = (...server) => async ({ mongoConnection, userConnection }) => {
         }
       }
       await messageCollection.insertOne(messageBuffer);
-      io.emit('room', messageBuffer);
+      io.emit('store', messageBuffer); // Linha usada pra GM
+      io.emit(socket.id, messageBuffer);
     });
 
     socket.on('disconnect', () => {

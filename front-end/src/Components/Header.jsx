@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-
 import titleForHeader from '../Helper/titleForHeader';
 import SideBar from './SideBar';
 
@@ -19,11 +18,11 @@ const headerStyle = {
 const Header = ({ pathname }) => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [redirect, setRedirect] = useState(null);
-
-  // func que retorna o título do header baseado no caminho
-  const title = titleForHeader(pathname);
+  const [title, setTitle] = useState('');
 
   useEffect(() => {
+    const curTitle = titleForHeader(pathname);
+    setTitle(curTitle);
     const sidenav = document.querySelector('.sidenav');
     M.Sidenav.init(sidenav, {});
   }, [])
