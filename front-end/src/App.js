@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { getProductsAct } from './Redux/Actions/index';
 
 import Chat from './Pages/Chat';
+import MessagesBoard from './Pages/MessagesBoard';
 import Login from './Pages/Login';
 import Profile from './Pages/Profile';
 import Products from './Pages/Products';
@@ -42,6 +43,7 @@ function App({ ProductsAPI }) {
         <Route exact path="/admin/orders" component={ AdminOrders } />
         <Route exact path="/admin/orders/:id" component={ OrderDetailsAdmin } />
         <Route exact path="/admin/profile" component={ AdminProfile } />
+        <Route path="/admin/chats" component={ MessagesBoard } />
       </Switch>
     </div>
   );

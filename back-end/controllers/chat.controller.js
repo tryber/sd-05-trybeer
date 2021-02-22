@@ -10,16 +10,17 @@ const formatMessage = (from, to) => (message) => ({
   createdAt: new Date(),
 });
 
-const run = (...server) => async (connection) => {
+const run = (...server) => async ({ mongoConnection, mysqlConnection }) => {
   // Setup connection
   const io = socketIo(...server);
+  const { user } = mysqlConnection; 
 
   io.on('connection', async (socket) => {
 
     socket.on('init_user', async (token) => {
       try {
         const { payload } = checkToken(token);
-        users[socket.id] = payload;
+        users[socket.id] = { ...payload, socketId: socket.id };
       } catch ({ message }) {
         console.error(message);
       }
@@ -30,20 +31,35 @@ const run = (...server) => async (connection) => {
       io.emit(socket.id, [messageBuffer]);
     });
 
+    // Criei esse socket para uma versão mais robusta do chat
     socket.on('message', async ({ message, to }) => {
+      const messageCollection = await mongoConnection('messages');
       const [client] = Object.entries(users)
         .filter(([_, client]) => (client.id === to));
       
       // Aqui vou registrar o buffer no mongo
-      // Preciso buscar os dados do 'to' para configurar o messageBuffer
+      // Preciso buscar os dados do 'to' para configurar o messageBuff
       const messageBuffer = formatMessage(users[socket.id], {})(message);
 
-      if (client.length) { // Verifica se o cliente está online
+      if (client && client.length) { // Verifica se o cliente está online
         const [clientSocket] = client;
         messageBuffer.to = users[clientSocket];
-        io.emit(clientSocket, messageBuffer);
-      };
-      // const messageCollection = await connection('messages');
+        // io.emit(clientSocket, messageBuffer); // Linha usada para PM
+      } else if (to) {
+        // Caso o cliente esteja offline, faz a busca no banco de dados
+        try {
+          const { dataValues } = await user.findOne({
+            where: { id: to },
+            attributes: ['id', 'name', 'email', 'role'],
+          });
+          messageBuffer.to = dataValues;
+        } catch (err) {
+          console.error(err.message);
+        }
+      }
+      await messageCollection.insertOne(messageBuffer);
+      io.emit('store', messageBuffer); // Linha usada pra GM
+      io.emit(socket.id, messageBuffer);
     });
 
     socket.on('disconnect', () => {

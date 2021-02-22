@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import AdminSideBar from '../Components/AdminSideBar';
+import Header from '../Components/Header';
 
 import Restrict from '../Components/Restrict';
 
-const AdminProfile = ({ userData }) => {
+const AdminProfile = ({ userData, history }) => {
   const { name, email } = userData.user;
   return (
     <Restrict>
-      <AdminSideBar />
+      <Header pathname={ history.location.pathname } />
       <h3>Perfil</h3>
       <p>Nome: </p>
       <p data-testid="profile-name">
