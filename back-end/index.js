@@ -2,17 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-<<<<<<< HEAD
-// creating App
 const app = express();
-
-// Models
-const mongoModel = require('./models/mongodb.model');
-=======
 // Connections
+const server = require('http').createServer(app);
 const mongoConnection = require('./models/mongodb.model');
 const mysqlConnection = require('./models');
->>>>>>> Lizzard/clear
 
 // Controllers
 const userController = require('./controllers/users.controller');
@@ -21,10 +15,9 @@ const salesController = require('./controllers/sales.controller');
 const chatController = require('./controllers/chat.controller');
 
 // Static images
-app.use('/images', express.static(__dirname + '/images'));
+app.use('/images', express.static(`${__dirname}/images`));
 
 // Setup
-const server = require('http').createServer(app);
 const serverConfig = {
   cors: {
     origin: 'http://localhost:3000',
