@@ -15,10 +15,11 @@ const MessagesBoard = ({ history }) => {
   const [lastMessages, setLastMessages] = useState([]);
 
   useEffect(() => {
-    const { messages: m } = helper.getUserData();
+    const { id } = helper.getUserData();
+    const m = helper.getChatMessages() || [];
     const messageGroup = {};
     m.forEach(({ from }, i) => {
-      messageGroup[from.email] = m[i];
+      if (from.id !== id) messageGroup[from.email] = m[i];
     });
     setLastMessages(Object.values(messageGroup));
   }, []);

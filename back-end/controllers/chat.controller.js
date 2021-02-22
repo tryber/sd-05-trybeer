@@ -33,6 +33,7 @@ const run = (...server) => async ({ mongoConnection, mysqlConnection }) => {
 
     // Criei esse socket para uma versão mais robusta do chat
     socket.on('message', async ({ message, to }) => {
+      if(!users[socket.id]) return;
       const messageCollection = await mongoConnection('messages');
       const [client] = Object.entries(users)
         .filter(([_, client]) => (client.id === to));
@@ -44,7 +45,7 @@ const run = (...server) => async ({ mongoConnection, mysqlConnection }) => {
       if (client && client.length) { // Verifica se o cliente está online
         const [clientSocket] = client;
         messageBuffer.to = users[clientSocket];
-        // io.emit(clientSocket, messageBuffer); // Linha usada para PM
+        io.emit(clientSocket, messageBuffer);
       } else if (to) {
         // Caso o cliente esteja offline, faz a busca no banco de dados
         try {
@@ -58,7 +59,6 @@ const run = (...server) => async ({ mongoConnection, mysqlConnection }) => {
         }
       }
       await messageCollection.insertOne(messageBuffer);
-      io.emit('store', messageBuffer); // Linha usada pra GM
       io.emit(socket.id, messageBuffer);
     });
 

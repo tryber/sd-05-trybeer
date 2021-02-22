@@ -15,6 +15,7 @@ module.exports = (mongoConnection, requests) => {
     const messageCollection = await mongoConnection('messages');
     const user = await requests.findUserbyEmailAndPassword(req.body);
     if (!user) throw new Error('Email ou senha inválidos');
+    const token = jwt.createToken(user);
     const dt = user.role === 'client'
       ? await messageCollection.find({
           $or: [
@@ -23,7 +24,7 @@ module.exports = (mongoConnection, requests) => {
           ],
         }) : await messageCollection.find({});
     user.messages = await dt.toArray();
-    req.data = { user, token: jwt.createToken(user) };
+    req.data = { user, token };
     next();
   });
 

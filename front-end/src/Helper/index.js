@@ -5,6 +5,7 @@ import localstorage from './localStorageHandle';
 import fetch from './fetch';
 
 const CART = 'cart';
+const CHAT = 'messages';
 const MIN = 0;
 
 const socket = io(fetch.SERVER_URL);
@@ -13,14 +14,20 @@ const Socket = (component) => {
   return ({ ...props }) => component({ ...props, socket }); 
 }
 
+const updateChat = (newMessage) => {
+  const currentChat = localstorage.getDataByKey(CHAT);
+  localstorage.registerData({ messages: [...currentChat, newMessage] });
+}
+
+const getChatMessages = () => localstorage.getDataByKey(CHAT);
+
 const loginUser = async ({ email, password }) => {
   const {
     message = null,
     ...user
   } = await fetch.login({ email, password });
   if (message) return { error: message };
-  localstorage.registerData({ token: user.token });
-  // socket.emit('init_user', user.token);
+  localstorage.registerData({ token: user.token, messages: user?.user.messages });
   return { user };
 }
 
@@ -88,6 +95,7 @@ export default {
   fetch,
   generateKey,
   getCartInfo,
+  getChatMessages,
   getProductFromCartById,
   getUserData,
   localstorage,
@@ -99,4 +107,5 @@ export default {
   totalPriceOfProducts,
   transformDate,
   transformPrice,
+  updateChat,
 };

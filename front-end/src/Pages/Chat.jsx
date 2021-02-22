@@ -11,29 +11,44 @@ const containerStyle = {
   minHeight: '90vh',
 };
 
-const Chat = ({ history, to, socket }) => {
+const Chat = ({
+  history,
+  match: {
+    params: { id = null },
+  },
+  socket,
+}) => {
 
   const [chat, setChat] = useState([]);
   const [message, setMessage] = useState([]);
 
   useEffect(() => {
-    const { messages } = helper.getUserData();
-    setChat(messages);
-  }, []);
-
-  useEffect(() => {
+    let messages = helper.getChatMessages();
+    if (!chat.length) {
+      setChat(
+        id ? messages.filter(({ from: { id: sid}, to }) => (
+            (String(sid) === String(id)) || (String(to.id) === String(id))
+          ))
+          : messages,
+      );
+    }
+    
     socket.on(socket.id, (newMessage) => {
-      setChat([...chat, newMessage]);
+      messages = helper.getChatMessages();
+      setChat([...messages, newMessage]);
+      helper.updateChat(newMessage);
     });
-  },[chat]);
+
+    return () => { socket.off(socket.id); }
+  }, []);
 
   const messageHandle = () => ({ target: { value } }) => {
     setMessage(value);
   };
 
   const isSelfMessage = (msg) => {
-    const { id } = helper.getUserData();
-    return socket.id === msg?.from.socketId || msg?.from.id === id;
+    const { id: selfId } = helper.getUserData();
+    return socket.id === msg?.from.socketId || msg?.from.id === selfId;
   };
 
   return (
@@ -52,6 +67,7 @@ const Chat = ({ history, to, socket }) => {
           </div>
           <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
             <Input
+              name="message"
               placeholder="Insira sua mensagem aqui"
               test="message-input"
               onChange={messageHandle()}
@@ -59,7 +75,12 @@ const Chat = ({ history, to, socket }) => {
             <button
               className="btn"
               data-testid="send-message"
-              onClick={() => { socket.emit('message', { message, to }) }}
+              disabled={!message.length}
+              onClick={() => {
+                socket.emit('message', { message, to: id });
+                document.getElementById('input_message').value = '';
+                setMessage('');
+              }}
               style={{ marginLeft: '8px' }}
             >
               <i className="material-icons">send</i>
