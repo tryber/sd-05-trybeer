@@ -22,23 +22,23 @@ const Chat = ({
   const [chat, setChat] = useState([]);
   const [message, setMessage] = useState([]);
 
+  const updateChat = (messages) => {
+    setChat(
+      id ? messages.filter(({ from: { id: sid}, to }) => (
+          (String(sid) === String(id)) || (String(to.id) === String(id))
+        ))
+        : messages,
+    );
+  }
+
   useEffect(() => {
     let messages = helper.getChatMessages();
-    if (!chat.length) {
-      setChat(
-        id ? messages.filter(({ from: { id: sid}, to }) => (
-            (String(sid) === String(id)) || (String(to.id) === String(id))
-          ))
-          : messages,
-      );
-    }
-    
+    updateChat(messages);
     socket.on(socket.id, (newMessage) => {
       messages = helper.getChatMessages();
-      setChat([...messages, newMessage]);
+      updateChat([...messages, newMessage]);
       helper.updateChat(newMessage);
     });
-
     return () => { socket.off(socket.id); }
   }, []);
 
