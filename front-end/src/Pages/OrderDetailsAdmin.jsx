@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
 import Restrict from '../Components/Restrict';
 import helper from '../Helper';
-import Header from '../Components/Header';
+import AdminSideBar from '../Components/AdminSideBar';
+// import Header from '../Components/Header';
 
 const OrderDetailsAdmin = ({
-  history,
   match: {
     params: { id },
   },
@@ -28,65 +28,73 @@ const OrderDetailsAdmin = ({
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      <h2 data-testid="order-number">
-        Pedido
-        {' '}
-        {id}
-      </h2>
-      <h2
-        data-testid="order-status"
-        style={ { color: isPendente ? 'yellow' : 'green' } }
-      >
-        {isPendente ? <p>Pendente</p> : <p>Entregue</p>}
-      </h2>
-      <div className="lista-dos-produtos">
-        {order.map((product, index) => {
-          const totalValueByProduct = helper.transformPrice(
-            product.price * product.quantity,
-          );
-
-          return (
-            <div key={ product.name }>
-              <span data-testid={ `${index}-product-qtd` }>
-                {product.quantity}
-                {' '}
-                -
-                {' '}
-              </span>
-              <span data-testid={ `${index}-product-name` }>
-                {product.name}
-                {' '}
-              </span>
-              <span data-testid={ `${index}-product-total-value` }>
-                R$
-                {' '}
-                {totalValueByProduct}
-              </span>
-              <span data-testid="0-order-unit-price">
-                (R$
-                {' '}
-                {helper.transformPrice(product.price)}
-                )
-              </span>
+      asdkosakdaosd
+      <div>
+        <AdminSideBar />
+        <div className="responsive-list">
+          <div
+            className="blue-mid-bg white-text card"
+            style={{ margin: ' 16px 16px' }}
+          >
+            <div className="space-between">
+              <h6 data-testid="order-number">Pedido {id}</h6>
+              <div
+                data-testid="order-status"
+                style={{ color: isPendente ? '#FFB703' : ' #023047' }}
+              >
+                {isPendente ? <h6>Pendente</h6> : <h6>Entregue</h6>}
+              </div>
             </div>
-          );
-        })}
-        <div data-testid="order-total-value">
-          Total: R$
-          {' '}
-          {total}
+            <div className="horizontal-center">
+              <h6 data-testid="order-total-value">Total: R$ {total}</h6>
+            </div>
+            <hr style={{ border: '1px dashed' }} />
+
+            <div className="horizontal-center">
+              <ul>
+                {order.map((product, index) => {
+                  const totalValueByProduct = helper.transformPrice(
+                    product.price * product.quantity,
+                  );
+
+                  return (
+                    <li key={product.name}>
+                      <span data-testid={`${index}-product-qtd`}>
+                        {product.quantity} -{' '}
+                      </span>
+                      <span data-testid={`${index}-product-name`}>
+                        {product.name}{' '}
+                      </span>
+                      <span data-testid="0-order-unit-price">
+                        (R$ {helper.transformPrice(product.price)})
+                      </span>
+                      <span>{'   '}</span>
+                      <span>{'-'}</span>
+                      <span>{'   '}</span>
+                      <span data-testid={`${index}-product-total-value`}>
+                        R$ {totalValueByProduct}
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+            <div className="horizontal-center">
+              {isPendente && (
+                <button
+                  // style={{ textOverflow: 'ellipsis'}}
+                  className="btn orange-bg blue-mid-cl"
+                  data-testid="mark-as-delivered-btn"
+                  type="button"
+                  onClick={() => setAsPendente()}
+                >
+                  Marcar como entregue
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
-      {isPendente && (
-        <button
-          data-testid="mark-as-delivered-btn"
-          type="button"
-          onClick={ () => setAsPendente() }
-        >
-          Marcar como entregue
-        </button>
-      )}
     </Restrict>
   );
 };

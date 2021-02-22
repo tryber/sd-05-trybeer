@@ -31,7 +31,7 @@ module.exports = (mongoConnection, requests) => {
   // prettier-ignore
   const register = rescue(async (req, _res, next) => {
     validate(req.body)(REGISTER_SCHEMA);
-    await createUser(req.body);
+    await requests.createUser(req.body);
     const user = await requests.findUserbyEmailAndPassword(req.body);
     const { password, ...userWithoutPassword } = req.body;
     req.data = { ...userWithoutPassword, token: jwt.createToken(user) };

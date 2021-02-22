@@ -19,7 +19,7 @@ const updateChat = (newMessage) => {
   localstorage.registerData({ messages: [...currentChat, newMessage] });
 }
 
-const getChatMessages = () => localstorage.getDataByKey(CHAT);
+const getChatMessages = () => localstorage.getDataByKey(CHAT) || [];
 
 const loginUser = async ({ email, password }) => {
   const {

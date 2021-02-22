@@ -7,12 +7,13 @@ import SideBar from './SideBar';
 import M from 'materialize-css';
 
 const headerStyle = {
+  alignItems: 'center',
   display: 'flex',
   justifyContent: 'space-between',
-  background: 'var(--dark)',
+  background: 'var(--orange)',
   color: 'var(--white)',
   margin: 0,
-  padding: '8px',
+  paddingBotton: '8px',
 };
 
 const Header = ({ pathname }) => {
@@ -48,8 +49,8 @@ const Header = ({ pathname }) => {
               menu
           </i>
         </button>
-        <h3 data-testid="top-title">{ title }</h3>
-        <div style={ { marginRight: '70px' } } />
+        <h5 data-testid="top-title">{ title }</h5>
+        <div style={ { marginRight: '50px' } } />
         <span
           className="side-menu-container"
           style={ { display: showSideBar ? 'block' : 'none' } }

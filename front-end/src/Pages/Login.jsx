@@ -43,6 +43,7 @@ const Login = ({ socket }) => {
   return (
     <div className="container-main" style={ pageStyle }>
       <div className="container-screen" style={ containerStyle }>
+        <div className='card'>
         <Input
           test="email-input"
           label="Email"
@@ -59,7 +60,7 @@ const Login = ({ socket }) => {
         />
         <div style={ { display: 'flex', flexDirection: 'column' } }>
           <button
-            className="btn btn-large"
+            className="btn btn-large yellow-main-bg"
             disabled={ isDisabled }
             data-testid="signin-btn"
             type="submit"
@@ -69,20 +70,20 @@ const Login = ({ socket }) => {
                 setUserData(res?.user.user);
                 socket.emit('init_user', res?.user.token);
               }
-              else M.toast(
-                { html: '<p>Email ou senha incorretos!</p>', classes: 'dandrea' },
-              );
+              M.toast({ html: '<p>Email ou senha incorretos!</p>', classes: 'orange-bg' })
             }}
           >
             ENTRAR
           </button>
           <button
-            className="btn btn-small"
+            className="btn btn-small blue-mid-bg"
             data-testid="no-account-btn"
             onClick={ () => setRegister(true) }
           >
             Ainda não tenho conta
           </button>
+
+        </div>
         </div>
       </div>
     </div>

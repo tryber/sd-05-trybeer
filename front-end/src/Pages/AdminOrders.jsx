@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Restrict from '../Components/Restrict';
-// import AdminSideBar from '../Components/AdminSideBar';
-import Header from '../Components/Header';
+import AdminSideBar from '../Components/AdminSideBar';
 import helper from '../Helper';
 
 import M from 'materialize-css';
@@ -21,11 +20,12 @@ const AdminOrders = ({ history }) => {
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      Admin - Pedidos
-        <div>
-          {orders
-            && orders.map(
+      {' '}
+      <div>
+        <AdminSideBar />
+        <div className="responsive-list">
+          {orders &&
+            orders.map(
               (
                 {
                   id: orderNumber,
@@ -36,38 +36,48 @@ const AdminOrders = ({ history }) => {
                 },
                 index,
               ) => (
-                <Link to={ `/admin/orders/${orderNumber}` } key={ orderNumber }>
-                  <div>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-number` }
-                    >
-                      {`Pedido ${orderNumber}`}
-                    </h4>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-address` }
-                    >
-                      {`${address}, ${addressNumber}`}
-                    </h4>
-                  </div>
-                  <div>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-total-value` }
-                    >
-                      {`R$ ${helper.transformPrice(orderPrice)}`}
-                    </h4>
-                  </div>
-                  <div
-                    data-testid={ `${index}-order-status` }
-                    className="order-status"
+                <div className="blue-mid-bg card margin-small">
+                  <Link
+                    className="white-text"
+                    to={`/admin/orders/${orderNumber}`}
+                    key={orderNumber}
                   >
-                    {status}
-                  </div>
-                </Link>
+                    <div className="space-between">
+                      <span
+                        className="elements"
+                        data-testid={`${index}-order-number`}
+                      >
+                        {`Pedido ${orderNumber}`}
+                      </span>
+                      <span
+                        data-testid={`${index}-order-status`}
+                        className="elements"
+                      >
+                        {status}
+                      </span>
+                    </div>
+                    <div className="horizontal-center">
+                      <h6
+                        className="elements"
+                        data-testid={`${index}-order-total-value`}
+                      >
+                        {`R$ ${helper.transformPrice(orderPrice)}`}
+                      </h6>
+                    </div>
+                    <hr style={{ border: '1px dashed' }} />
+                    <div className="horizontal-center">
+                      <span
+                        className="elements"
+                        data-testid={`${index}-order-address`}
+                      >
+                        {`${address}, ${addressNumber}`}
+                      </span>
+                    </div>
+                  </Link>
+                </div>
               ),
             )}
+        </div>
       </div>
     </Restrict>
   );

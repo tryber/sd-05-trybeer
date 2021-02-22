@@ -17,9 +17,9 @@ const OrderCard = ({ ordered: { id, sale_date: saleDate, total_price: totalPrice
 
   return (
     <div>
-      <Link to={ `/orders/${id}` } className="link to remove">
-        <div className="container-list" data-testid={ `${index}-order-card-container` }>
-          <div>
+      <Link to={ `/orders/${id}` }>
+        <div className="container-list blue-mid-bg white-text card horizontal space-between" data-testid={ `${index}-order-card-container` }>
+          <div >
             <span className="elements" data-testid={ `${index}-order-number` }>
               Pedido
               {' '}

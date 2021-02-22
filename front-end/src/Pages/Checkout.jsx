@@ -5,8 +5,9 @@ import CheckoutProductsList from '../Components/CheckoutProductsList';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
 import Restrict from '../Components/Restrict';
+import helper from '../Helper/';
 
-import helper from '../Helper';
+import M from 'materialize-css';
 
 const TIMEOUT = 3000;
 
@@ -29,8 +30,12 @@ function Checkout({ history }) {
 
   const submitHandler = () => async () => {
     await helper.fetch.submitOrderFetch({ cart, street, houseNumber });
+    M.toast({
+      html: '<p>Compra realizada com sucesso!</p>',
+      classes: 'orange-bg',
+    });
     setShouldRedirect(true);
-  }
+  };
 
   if (shouldRedirect) {
     setTimeout(() => {
@@ -41,34 +46,41 @@ function Checkout({ history }) {
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      <h3>Produtos</h3>
-      <CheckoutProductsList cart={ cart } onUpdate={ setCart } />
-      <h3>Endereço</h3>
-      <p>Rua:</p>
-      <br />
-      <Input
-        test="checkout-street-input"
-        id="rua"
-        onChange={ (e) => setStreet(e.target.value) }
-      />
-      <br />
-      <p>Número da casa:</p>
-      <br />
-      <Input
-        test="checkout-house-number-input"
-        id="numero-da-casa"
-        onChange={ (e) => setHouseNumber(e.target.value) }
-      />
-      <button
-        disabled={ buttonShoulBeDisabled }
-        data-testid="checkout-finish-btn"
-        type="button"
-        onClick={ submitHandler() }
-      >
-        Finalizar Pedido
-      </button>
-      {shouldRedirect && <p>Compra realizada com sucesso!</p>}
+      <Header pathname={history.location.pathname} />
+      <div className="container-main">
+        <CheckoutProductsList cart={cart} onUpdate={setCart} />
+
+        <div
+          style={{ display: 'flex', flexDirection: 'column' }}
+          className="card"
+        >
+          <h6>Endereço</h6>
+          <p>Rua:</p>
+          <br />
+          <Input
+            test="checkout-street-input"
+            id="rua"
+            onChange={(e) => setStreet(e.target.value)}
+          />
+          <br />
+          <p>Número da casa:</p>
+          <br />
+          <Input
+            test="checkout-house-number-input"
+            id="numero-da-casa"
+            onChange={(e) => setHouseNumber(e.target.value)}
+          />
+          <button
+            className="btn btn-flat yellow-main-bg blue-mid-cl"
+            disabled={buttonShoulBeDisabled}
+            data-testid="checkout-finish-btn"
+            type="button"
+            onClick={submitHandler()}
+          >
+            Finalizar Pedido
+          </button>
+        </div>
+      </div>
     </Restrict>
   );
 }

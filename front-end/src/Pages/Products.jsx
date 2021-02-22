@@ -7,55 +7,63 @@ import ProductCard from '../Components/ProductCard';
 import helper from '../Helper';
 import Restrict from '../Components/Restrict';
 
-import M from 'materialize-css';
+const fontStyle = { fontSize: '24px', fontWeight: '300' };
+
+const checkoutBtnStyle = { display: 'flex', justifyContent: 'space-around' };
 
 const INITIAL_VALUE = 0;
 
 function Products({ history, isLoading }) {
   const [redirect, setRedirect] = useState(null);
   const [products, setProducts] = useState([]);
-  const [total, setTotal] = useState(helper.getCartInfo()?.total || INITIAL_VALUE);
+  const [total, setTotal] = useState(
+    helper.getCartInfo()?.total || INITIAL_VALUE,
+  );
 
   useEffect(() => {
-    helper.fetch.getProducts()
-      .then((productsArray) => {
-        if (productsArray.message) {
-          M.toast(
-            { html: productsArray.message, classes: 'dandrea' },
-          );
-          return;
-        }
-        setProducts(productsArray || []);
-      });
+    helper.fetch.getProducts().then((productsArray) => {
+      setProducts(productsArray);
+    });
   }, []);
 
   const onRefresh = () => {
     const t = helper.getCartInfo()?.total || INITIAL_VALUE;
     setTotal(t);
-  }
+  };
 
   if (isLoading) return <p>Loading...</p>;
-  if (redirect) return <Redirect to={ redirect } />;
+  if (redirect) return <Redirect to={redirect} />;
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      <h1>Produtos</h1>
-      {products.map((product) => (
-        <ProductCard key={ product.id } product={ product } onRefresh={ onRefresh } />
-      ))}
-      <button
-        type="button"
-        disabled={ total === 0 }
-        data-testid="checkout-bottom-btn"
-        onClick={ () => setRedirect('/checkout') }
-        to="/checkout"
-      >
-        Ver Carrinho
-        <p on data-testid="checkout-bottom-btn-value">
-          {`R$ ${helper.transformPrice(total)}`}
-        </p>
-      </button>
+      <Header pathname={history.location.pathname} />
+      <div className="container-pages">
+        <div className="responsive-list">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onRefresh={onRefresh}
+            />
+          ))}
+        </div>
+        <button
+          style={checkoutBtnStyle}
+          type="button"
+          disabled={total === 0}
+          data-testid="checkout-bottom-btn"
+          onClick={() => setRedirect('/checkout')}
+          to="/checkout"
+          className="btn btn-large orange-bg blue-mid-cl width-380px"
+        >
+          <span
+            data-testid="checkout-bottom-btn-value"
+            style={fontStyle}
+          >{`R$ ${helper.transformPrice(total)}`}</span>
+          <span>{'   '}</span>
+          <span>Ver Carrinho</span>
+        </button>
+      </div>
     </Restrict>
   );
 }

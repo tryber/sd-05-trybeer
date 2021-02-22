@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Restrict from '../Components/Restrict';
-import Header from '../Components/Header';
+// import Header from '../Components/Header';
+import AdminSideBar from '../Components/AdminSideBar';
 import CardMessage from '../Components/CardMessage';
 import helper from '../Helper';
 
@@ -10,7 +11,7 @@ const containerStyle = {
   alignItems: 'center',
 };
 
-const MessagesBoard = ({ history }) => {
+const MessagesBoard = () => {
 
   const [lastMessages, setLastMessages] = useState([]);
 
@@ -26,7 +27,7 @@ const MessagesBoard = ({ history }) => {
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
+      <AdminSideBar />
       <div className="container-main">
         <div className="container-screen" style={containerStyle}>
           {
