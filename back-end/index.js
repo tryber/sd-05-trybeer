@@ -29,8 +29,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/', userController({ mongoConnection, mysqlConnection }));
-app.use('/products', productsController);
-app.use('/sales', salesController);
+app.use('/products', productsController({ mysqlConnection }));
+app.use('/sales', salesController({ mysqlConnection }));
 
 const chatConnections = {
   mongoConnection,

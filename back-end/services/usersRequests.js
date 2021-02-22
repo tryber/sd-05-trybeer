@@ -32,7 +32,3 @@ module.exports = ({ mysqlConnection }) => {
     excludeUser,
   };
 };
-
-// // prettier-ignore
-// const excludeUser = async (id) => connection.query('DELETE FROM users WHERE id = ?', [id]);
-
