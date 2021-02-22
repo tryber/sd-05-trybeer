@@ -64,7 +64,6 @@ module.exports = (requests) => {
     await requests.updateUser(id, req.body);
     const user = await requests.findUserById(id);
     req.data = { token: jwt.createToken(user.dataValues) };
-    console.log(user.dataValues);
     if (!user) throw new Error('Usuário bugado');
     next();
   });
