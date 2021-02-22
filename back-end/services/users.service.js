@@ -15,7 +15,6 @@ module.exports = (mongoConnection, requests) => {
     const messageCollection = await mongoConnection('messages');
     const user = await requests.findUserbyEmailAndPassword(req.body);
     if (!user) throw new Error('Email ou senha inválidos');
-    console.log(user.role)
     const dt = user.role === 'client'
       ? await messageCollection.find({
           $or: [

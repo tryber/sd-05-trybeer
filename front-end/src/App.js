@@ -33,6 +33,7 @@ function App({ ProductsAPI }) {
           <Redirect to="/login" />
         </Route>
         <Route path="/chat" component={ Chat } />
+        <Route path="/admin/chat/:id" component={ Chat } />
         <Route exact path="/login" component={ Login } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/products" component={ Products } />
