@@ -19,7 +19,6 @@ const Chat = ({ history, to, socket }) => {
   useEffect(() => {
     const { messages } = helper.getUserData();
     setChat(messages);
-    console.log(helper.getUserData())
   }, []);
 
   useEffect(() => {

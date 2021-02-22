@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
+const app = express();
+
 // Connections
 const mongoConnection = require('./models/mongodb.model');
 const mysqlConnection = require('./models');
@@ -12,8 +14,10 @@ const productsController = require('./controllers/products.controller');
 const salesController = require('./controllers/sales.controller');
 const chatController = require('./controllers/chat.controller');
 
+// Static images
+app.use('/images', express.static(__dirname + '/images'));
+
 // Setup
-const app = express();
 const server = require('http').createServer(app);
 const serverConfig = {
   cors: {

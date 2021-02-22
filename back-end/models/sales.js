@@ -8,8 +8,6 @@ const sale = (sequelize, DataTypes) => {
       delivery_number: DataTypes.STRING,
       sale_date: DataTypes.DATE,
       status: DataTypes.STRING,
-      createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
     },
     { timestamps: false },
   );

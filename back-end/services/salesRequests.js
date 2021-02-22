@@ -1,5 +1,4 @@
-const connection = require('../models2/connection.model');
-const { sale, sales_product } = require('../models');
+const { sale, sales_product, product } = require('../models');
 
 const insertSale = ([
   user_id,
@@ -27,6 +26,8 @@ const updateStatus = (status, id) => sale.update({ status }, { where: { id } });
 
 const orderById = (id) => sale.findOne({ where: { id } });
 
+const orderByUserId = (user_id) => sale.findAll({ where: { user_id } });
+
 const allSales = () =>
   sale.findAll({
     order: [
@@ -35,13 +36,13 @@ const allSales = () =>
     ],
   });
 
-const detailOrder = (saleId) =>
-  connection
-    .query(
-      'SELECT sale_id, sale_date, product_id, quantity, name, price, url_image FROM Trybeer.sales_products INNER JOIN products ON sales_products.product_id = id INNER JOIN sales ON sales_products.sale_id = sales.id WHERE sale_id = ?;',
-      [saleId],
-    )
-    .then((detail) => detail[0]);
+const detailOrder = (id) =>
+  sale.findOne({
+    where: { id },
+    include: [
+      { model: product, as: 'product',required: true, },
+    ],
+  });
 
 module.exports = {
   insertSale,
@@ -50,4 +51,5 @@ module.exports = {
   orderById,
   allSales,
   detailOrder,
+  orderByUserId,
 };
