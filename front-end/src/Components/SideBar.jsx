@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import ourLogo from '../fetch-beer-3.png';
+
 
 import { clear } from '../Redux/Actions/user';
 import Item from './SidebarItem';
@@ -14,10 +16,10 @@ const SideBar = ({ logout }) => {
 
   return (
     <ul id="slide-out" className="sidenav" style={ sideBarStyle }>
-      <div className="background">
-        <img src="images/office.jpg" />
+      <div className="horizontal-center">
+        <img className="circle" src={ourLogo} style={{width: '100px'}} />
       </div>
-      <li className="divider"></li>
+        <li className="divider"></li>
       <Item action="side-menu-item-products">Produtos</Item>
       <Item action="side-menu-item-orders">Meus Pedidos</Item>
       <Item action="side-menu-item-my-orders">

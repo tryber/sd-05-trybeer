@@ -43,7 +43,7 @@ button:focus {
 
 button:hover {
   background-color:  #023047 !important;
-  color: white;
+  color: var(--white);
 }
 
 
