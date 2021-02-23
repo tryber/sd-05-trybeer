@@ -6,7 +6,7 @@
   align-items: flex-start;
   top: 0;
   background-color: #f48c06;
-  /* border-radius: 0 0 15px 0; */
+  border-radius: 0 0 10px 10px;
   height: 10vh;
 }
 .sandubao {

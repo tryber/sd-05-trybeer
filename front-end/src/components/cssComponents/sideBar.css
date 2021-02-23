@@ -18,11 +18,12 @@
   text-decoration: none;
   color: rgb(255, 255, 255);
   padding: 5px;
+  border-radius: 10px;
   --borderWidth: 3px;
   position: fixed;
-  background-color: transparent;
+  /* background-color: transparent; */
   border-radius: var(--borderWidth);
-  animation: animatedgradient 3s ease-in;
+  animation: animatedgradient 3s infinite;
   width: 75vw;
   height: 45vh;
   z-index: 2;
@@ -36,9 +37,9 @@
   height: calc(100% + var(--borderWidth) * 2);
   height: 80vh;
   width: 75vw;
-  /* background: linear-gradient(60deg,  #ced4da, #090a0a, #495057, #343a40, #212529); */
+  background: linear-gradient(60deg,  #ced4da, #090a0a, #495057, #343a40, #212529);
   border-radius: calc(2 * var(--borderWidth));
-  /* animation: animatedgradient 3s ease-in; */
+  animation: animatedgradient 3s infinite;
   background-size: 300% 300%;
   z-index: 2;
 }
@@ -49,12 +50,12 @@
   top: calc(-1 * var(--borderWidth));
   left: calc(-1 * var(--borderWidth));
   height: calc(100% + var(--borderWidth) * 2);
-  /* height: 80vh; */
-  /* width: calc(100% + var(--borderWidth) * 2); */
-  /* background: linear-gradient(60deg,  #ced4da, #adb5bd, #495057, #343a40, #212529); */
+  height: 80vh;
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg,  #ced4da, #adb5bd, #495057, #343a40, #212529);
   border-radius: calc(2 * var(--borderWidth));
-  /* animation: animatedgradient 3s ease-in; */
-  /* background-size: 300% 300%; */
+  animation: animatedgradient 3s in infinite;
+  background-size: 300% 300%;
 }
 
 @keyframes animatedgradient {
@@ -83,3 +84,18 @@
   -ms-transform: scale(1.2);
   transform: scale(1.2);
 } */
+
+
+aside a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+aside a:visited {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
+  font-weight: 700;
+}
