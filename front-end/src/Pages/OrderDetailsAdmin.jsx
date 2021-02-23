@@ -5,19 +5,37 @@ import helper from '../Helper';
 import AdminSideBar from '../Components/AdminSideBar';
 // import Header from '../Components/Header';
 
+const MOCK = {
+  total_price: 0,
+  delivery_address: 'endereço',
+  delivery_number: 'número',
+  sale_date: '2021-02-18T18:22:43.000Z',
+  status: 'Em preparo',
+  product: [
+    {
+      name: 'Produto',
+      price: 0,
+      url_image: 'http://localhost:3001/images/Heineken 600ml.jpg',
+      sales_product: {
+        quantity: 4,
+      },
+    },
+  ],
+};
+
 const OrderDetailsAdmin = ({
   match: {
     params: { id },
   },
 }) => {
   const [isPendente, setIsPendente] = useState(true);
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState(MOCK);
 
   useEffect(() => {
     helper.fetch.salesById(id).then((data) => setOrder(data));
   }, [id]);
 
-  const total = helper.transformPrice(helper.totalPriceOfProducts(order));
+  const total = helper.transformPrice(order.total_price);
 
   const setAsPendente = () => {
     // marcar como pendente na store e no banco
@@ -28,7 +46,6 @@ const OrderDetailsAdmin = ({
 
   return (
     <Restrict>
-      asdkosakdaosd
       <div>
         <AdminSideBar />
         <div className="responsive-list">
@@ -52,15 +69,15 @@ const OrderDetailsAdmin = ({
 
             <div className="horizontal-center">
               <ul>
-                {order.map((product, index) => {
+                {order.product.map((product, index) => {
                   const totalValueByProduct = helper.transformPrice(
-                    product.price * product.quantity,
+                    product.price * product.sales_product.quantity,
                   );
 
                   return (
                     <li key={product.name}>
                       <span data-testid={`${index}-product-qtd`}>
-                        {product.quantity} -{' '}
+                        {product.sales_product.quantity} -{' '}
                       </span>
                       <span data-testid={`${index}-product-name`}>
                         {product.name}{' '}

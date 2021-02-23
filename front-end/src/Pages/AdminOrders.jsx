@@ -11,11 +11,13 @@ const AdminOrders = ({ history }) => {
 
   useEffect(() => {
     helper.fetch.getSalesOrder().then((result) => {
-      if (typeof result === 'array') setOrders(result);
-      else if(result.message) M.toast(
+      console.log(typeof result);
+      if (!result.message) setOrders(result);
+      if(result.message) M.toast(
         { html: `<p>${result.message}</p>`, classes: 'dandrea' },
       );
     });
+    console.log(orders)
   }, []);
 
   return (

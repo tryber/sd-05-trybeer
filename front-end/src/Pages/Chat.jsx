@@ -34,12 +34,16 @@ const Chat = ({
   useEffect(() => {
     let messages = helper.getChatMessages();
     updateChat(messages);
-    socket.on(socket.id, (newMessage) => {
+    const x = helper.getUserData().role === 'Client' ? socket.id : 'loja';
+
+    socket.on(x, (newMessage) => {
       messages = helper.getChatMessages();
       updateChat([...messages, newMessage]);
       helper.updateChat(newMessage);
     });
-    return () => { socket.off(socket.id); }
+    return () => {
+      socket.off(x);
+    }
   }, []);
 
   const messageHandle = () => ({ target: { value } }) => {
