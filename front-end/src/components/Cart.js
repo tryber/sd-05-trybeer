@@ -49,7 +49,7 @@ const Cart = () => {
             <th>Qtde</th>
             <th>Preço unitário </th>
             <th>Preço total</th>
-            <th>Remover</th>
+            <th style= {{textAlign:'right'}}></th>
           </tr>
         </thead>
         <tbody>
@@ -86,7 +86,7 @@ const Cart = () => {
     </div>
   ) : (
     <div>
-      <h1>Não há produtos no carrinho</h1>
+      <h1 style={{color:'white', textAlign:'centerE'}}>Não há produtos no carrinho</h1>
       <div data-testid="order-total-value">
         {`R$ ${total.toFixed(two).replace('.', ',')}`}
       </div>

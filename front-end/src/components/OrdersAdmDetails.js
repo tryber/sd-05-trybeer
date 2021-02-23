@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { updateStatus, getAdmOrderById } from '../services/api';
 import Header from './Header';
+import './cssComponents/ordersAdminDetails.css';
 
 const OrdersAdminDetails = (props) => {
   const zero = 0;
@@ -20,30 +21,30 @@ const OrdersAdminDetails = (props) => {
   };
 
   return (
-    <div>
-      <Header>Menu</Header>
-      <table>
-        <caption data-testid="order-number">
+    <div className='main'>
+      <Header></Header>
+      <table className='adm-details-table'>
+        <caption style={{color:'white',fontSize:'1.5em', fontWeight:'700'}}data-testid="order-number">
           {`Pedido ${id}`}
         </caption>
         <span data-testid="order-status">{`${status}`}</span>
         <tr>
-          <th>Produto</th>
-          <th>Preço</th>
-          <th>Quantidade</th>
-          <th>Preço Total</th>
+          <th style={{textAlign:'left'}}>Produto</th>
+          <th>Preço Un</th>
+          <th style={{paddingLeft:'10px'}}>Qtde</th>
+          <th>Total</th>
         </tr>
         {order.map((product, index) => (
           <tr key={ product.name }>
             <td data-testid={ `${index}-product-name` }>{product.name}</td>
-            <td data-testid={ `${index}-order-unit-price` }>{ `(R$ ${product.price.replace('.', ',')})` }</td>
-            <td data-testid={ `${index}-product-qtd` }>{product.quantity}</td>
+            <td style={{paddingLeft:'10px'}} data-testid={ `${index}-order-unit-price` }>{ `R$${product.price.replace('.', ',')}` }</td>
+            <td style={{textAlign:'center'}}data-testid={ `${index}-product-qtd` }>{product.quantity}</td>
             <td data-testid={ `${index}-product-total-value` }>{`R$ ${(product.price * product.quantity).toFixed(two).replace('.', ',')}`}</td>
           </tr>
         ))}
       </table>
-      <p data-testid="order-total-value">{order[0] ? `R$ ${String(order[0].total_price).replace('.', ',')}` : zero}</p>
-      {status === 'Pendente' ? <button type="button" data-testid="mark-as-delivered-btn" onClick={ handleClick }>Marcar como entregue</button> : zero}
+      <p style={{color:'white',fontSize:'1.2em',textAlign:'center', marginTop:'10px'}}data-testid="order-total-value">{order[0] ? `Total do Pedido R$ ${String(order[0].total_price).replace('.', ',')}` : zero}</p>
+      {status === 'Pendente' ? <button type="button" className='order-adm-btn' data-testid="mark-as-delivered-btn" onClick={ handleClick }>Marcar como entregue</button> : zero}
     </div>
   );
 };

@@ -1,31 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import './cssComponents/sideBar.css';
+// import './cssComponents/sideBar.css';
+import './cssComponents/sidebar2.css';
+import Context from '../context/Context';
+
 
 export default function SideBar({ userRole, active }) {
+  const { setCart, setTotal } = useContext(Context);
   const handleClick = () => {
     localStorage.clear();
+    setCart([]);
+    setTotal(0);
   };
   return (
     <aside className={`side-container ${active && 'appear'}`}>
       {userRole === 'client' && (
         <div className={`${active && 'side-menu-container'} side-bar`}>
-          <Link style={{ color: 'black' }} className="opened-menu" to="/products" data-testid="side-menu-item-products">
+          <Link style={{ color: 'white' }} className="opened-menu" to="/products" data-testid="side-menu-item-products">
             Produtos
           </Link>
-          <Link style={{ color: 'black' }} className="opened-menu" to="/orders" data-testid="side-menu-item-my-orders">
-            Meus Pedidos
+          <Link style={{ color: 'white' }} className="opened-menu" to="/orders" data-testid="side-menu-item-my-orders">
+            Pedidos
           </Link>
-          <Link style={{ color: 'black' }} className="opened-menu" to="/profile" data-testid="side-menu-item-my-profile">
-            Meu perfil
+          <Link style={{ color: 'white' }} className="opened-menu" to="/profile" data-testid="side-menu-item-my-profile">
+            Perfil
           </Link>
           <Link
             className="opened-menu"
             to="/login"
             onClick={handleClick}
             data-testid="side-menu-item-logout"
-            style={{ color: 'black' }}
+            style={{ color: 'white' }}
           >
             Sair
           </Link>
@@ -33,18 +39,17 @@ export default function SideBar({ userRole, active }) {
       )}
       {userRole === 'administrator' && (
         <div className="admin-side-bar-container side-bar">
-          <div>
-            <Link style={{ color: 'black' }} to="/admin/orders" data-testid="side-menu-item-orders">
+          <div className="side-menu-container side-bar">
+            <Link to="/admin/orders" data-testid="side-menu-item-orders">
               Pedidos
             </Link>
-            <Link style={{ color: 'black' }} to="/admin/profile" data-testid="side-menu-item-profile">
-              Meu perfil
+            <Link to="/admin/profile" data-testid="side-menu-item-profile">
+              Perfil
             </Link>
-          </div>
-          <Link style={{ color: 'black' }} to="/login" data-testid="side-menu-item-logout">
+          <Link to="/login" data-testid="side-menu-item-logout">
             Sair
           </Link>
-        </div>
+          </div></div>
       )}
     </aside>
   );

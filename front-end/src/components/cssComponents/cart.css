@@ -1,7 +1,11 @@
 .order-table {
-  margin-top: 30px;
-  margin-left: 5px;
-  margin-right: 5px;
+  width: 80%;
+  color: black;
+  background-color: #f48c06;
+  border-radius: 4px;
+  margin-top: 5vh;
+  margin-left: 5vh;
+  padding: 8px;
 }
 table {
   border:black 1px solid;
@@ -14,10 +18,10 @@ table {
 }
 .totalP {
   margin-top: 25px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin-left: 40px;
+  margin-right: 50px;
   display: flex;
-  color: black;
+  color: white;
   font-weight: bold;
 justify-content: space-between;
 }

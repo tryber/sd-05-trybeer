@@ -76,7 +76,6 @@ const Login = () => {
           </button>
         </div>
       </div>
-      {/* se gostarem eu tiro a marca dagua depois */}
       <img src={ logo } alt="logo" className="logo" />
     </div>
   );

@@ -10,13 +10,16 @@ const tam = 0;
 const casasDecimais = 2;
 
 const Products = () => {
-  const { beers, setBeers, total, setTotal, cart, setCart } = useContext(Context);
+  const { beers, setBeers, total, setTotal, cart, setCart } = useContext(
+    Context
+  );
   const [cartBtn, setCartBtn] = useState(false);
-  
+
   async function starter() {
-    await getProducts(localStorage.getItem('email'), localStorage.getItem('token')).then((data) =>
-      setBeers(data)
-    );
+    await getProducts(
+      localStorage.getItem('email'),
+      localStorage.getItem('token')
+    ).then((data) => setBeers(data));
     const lsCart = localStorage.getItem('cart');
     const lsBeer = localStorage.getItem('beer');
     if (lsCart && lsCart.length > tam) {
@@ -25,7 +28,7 @@ const Products = () => {
     if (lsBeer && lsBeer.length > tam) {
       setBeers(JSON.parse(lsBeer));
     } else {
-      localStorage.setItem('beer', beers);
+      localStorage.setItem('beer', JSON.stringify(beers));
     }
   }
   useEffect(() => {
@@ -71,21 +74,12 @@ const Products = () => {
   }
   return (
     <div className="background">
-      <div className="teste1">
-        <Header>Products</Header>
-        <button
-          className="verCarrinho"
-          disabled={!cartBtn}
-          type="submit"
-          data-testid="checkout-bottom-btn"
-        >
-          <Link to="/checkout">
-            <img src={Cart} alt='cart-btn'width="40px" />
-          </Link>
-        </button>
+      <div className="header-products">
+        <Header></Header>
       </div>
       <div className="corpo">
-        <span data-testid="checkout-bottom-btn-value">{`Preço total: R$ ${total}`}</span>
+        <span className="barra-produtos">Produtos</span>
+            
         {beers.map((element, index) => (
           <div key={element.name} className="product-card">
             <div className="product-data">
@@ -97,11 +91,15 @@ const Products = () => {
                 alt={element.name}
               />
               <p className="product-info">
-                <span style={{fontWeight:'bold'}} data-testid={`${index}-product-name`}>{element.name}</span>
-                <span data-testid={`${index}-product-price`}>{`R$ ${element.price.replace(
-                  '.',
-                  ','
-                )}`}</span>
+                <span
+                  style={{ fontWeight: 'bold' }}
+                  data-testid={`${index}-product-name`}
+                >
+                  {element.name}
+                </span>
+                <span
+                  data-testid={`${index}-product-price`}
+                >{`R$ ${element.price.replace('.', ',')}`}</span>
               </p>
             </div>
             <div className="action-buttons">
@@ -113,7 +111,10 @@ const Products = () => {
               >
                 -
               </button>
-              <span data-testid={`${index}-product-qtd`} id={`product-${index}`}>
+              <span
+                data-testid={`${index}-product-qtd`}
+                id={`product-${index}`}
+              >
                 {element.qty}
               </span>
               <button
@@ -127,7 +128,20 @@ const Products = () => {
             </div>
           </div>
         ))}
-      </div>
+          </div>
+        <footer className="total-price">
+          <span style={{fontWeight:'bold'}}data-testid="checkout-bottom-btn-value">{`Preço total: R$ ${total}`}</span>
+          <button
+            className="verCarrinho"
+            disabled={!cartBtn}
+            type="submit"
+            data-testid="checkout-bottom-btn"
+          >
+            <Link to="/checkout">
+              <img src={Cart} alt="cart-btn" width="40px" />
+            </Link>
+          </button>
+        </footer>
     </div>
   );
 };

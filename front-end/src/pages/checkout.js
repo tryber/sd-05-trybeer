@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 
+import Context from '../context/Context';
 import Cart from '../components/Cart';
 import SelectAddress from '../components/SelectAdress';
 import Header from '../components/Header';
-import { orderPlaced } from '../services/api';
+import { orderPlaced, getProducts } from '../services/api';
+
 import './css/checkout.css';
 
 const Checkout = () => {
   const [nameAdress, setNameAdress] = useState('');
   const [numberAdress, setNumberAdress] = useState('');
   const [purchase, setPurchase] = useState(false);
+  const { setCart, setTotal, setBeers } = useContext(Context);
   const history = useHistory();
   const timeInterval = 3000;
   if (purchase) {
@@ -23,12 +26,20 @@ const Checkout = () => {
     const addr = document.getElementById('select-add');
     const order = {
       totalPrice: total,
-      deliveryAddress: `${addr.value}: ${nameAdress}`,
+      deliveryAddress: `${addr.value} ${nameAdress}`,
       deliveryNumber: numberAdress,
       cart,
     };
     setPurchase(!purchase);
     orderPlaced(order, email, token);
+    setCart([]);
+    getProducts(email, token).then((data) => {
+      setBeers(data)
+      return localStorage.setItem('beer', JSON.stringify(data));
+    });
+    setTotal(0);
+    localStorage.setItem('cart', JSON.stringify([]));
+    localStorage.setItem('total', 0)
   };
   const lsToken = localStorage.getItem('token');
   if (!lsToken) {
@@ -38,7 +49,7 @@ const Checkout = () => {
   return (
     <div className="back">
       <div className="testeHeader">
-      <Header>Finalizar Pedido</Header>
+      <Header></Header>
       </div>
       <form id="form-checkout" className="form">
         <div className ="cart">
@@ -86,7 +97,7 @@ const Checkout = () => {
           </button>
         </div>
       </form>
-      {purchase && <h1>Compra realizada com sucesso!</h1>}
+      {purchase && <h3 style={{color:'white' ,textAlign:'center'}}>Compra realizada com sucesso!</h3>}
     </div>
   );
 };

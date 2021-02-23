@@ -32,7 +32,7 @@ const OrderDetails = (props) => {
   }
   return (
     <div>
-      <Header>Meus pedidos</Header>
+      <Header />
       <table>
         <caption data-testid="order-number">
           {`Pedido ${id}`}

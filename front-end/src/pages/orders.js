@@ -12,12 +12,12 @@ export default function Orders() {
   const role = localStorage.getItem('role');
   return role === 'client' ? (
     <div>
-      <Header>Meus Pedidos</Header>
+      <Header />
       <Sales />
     </div>
   ) : (
     <div>
-      <Header>Pedidos Pendentes</Header>
+      <Header />
       <OrdersAdmin />
     </div>
   );

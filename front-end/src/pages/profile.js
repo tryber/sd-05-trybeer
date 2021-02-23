@@ -33,45 +33,51 @@ const Profile = () => {
   return (
     <div>
       <div className="cabeça">
-        <Header>{role === 'administrator' ? 'Perfil' : 'Meu perfil'}</Header>
+        <Header></Header>
+        {/* {role === 'administrator' ? 'Perfil' : 'Meu perfil'} */}
       </div>
-      <form className="user-profile">
-        <label htmlFor="name" data-testid="profile-name">
-          {role === 'administrator' ? userName : 'Nome'}
-          <input
-            name="name"
-            type="text"
-            data-testid="profile-name-input"
-            // minLength acessibilidade
-            minLength="12"
-            placeholder={userName}
-            required
-            onChange={(event) => handleChange(event)}
-            readOnly={role === 'administrator'}
-          />
-        </label>{' '}
-        <br />
-        <label htmlFor="email" id="lblEmail" data-testid="profile-email">
-          {role === 'administrator' ? userEmail : 'Email'}
-          <input
-            name="email"
-            type="email"
-            data-testid="profile-email-input"
-            placeholder={userEmail}
-            readOnly
-          />
-        </label>
-        <br />
-        <button
-          className="save-btn"
-          type="button"
-          data-testid="profile-save-btn"
-          disabled={!disableBtn}
-          onClick={(e) => handleUpdate(e)}
-        >
-          Salvar
-        </button>
-      </form>
+      <div>
+        <span className="profile-title">Perfil</span>
+        <form className="user-profile">
+          <label htmlFor="name" data-testid="profile-name">
+            {/* {role === 'administrator' ? userName : 'Nome'} */}
+            Nome
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input
+              name="name"
+              type="text"
+              data-testid="profile-name-input"
+              minLength="12"
+              placeholder={userName}
+              required
+              onChange={(event) => handleChange(event)}
+              readOnly={role === 'administrator'}
+            />
+          </label>{' '}
+          <br />
+          <label htmlFor="email" id="lblEmail" data-testid="profile-email">
+            {/* {role === 'administrator' ? 'Email' : 'Email'} */} Email
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input
+              name="email"
+              type="email"
+              data-testid="profile-email-input"
+              placeholder={userEmail}
+              readOnly
+            />
+          </label>
+          <br />
+          <button
+            className="save-btn"
+            type="button"
+            data-testid="profile-save-btn"
+            disabled={!disableBtn}
+            onClick={(e) => handleUpdate(e)}
+          >
+            Salvar
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

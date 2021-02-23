@@ -1,71 +1,71 @@
 h1 {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }
 
 label {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-
 
 .end-order {
-	box-shadow: 0px 10px 14px -7px #87888a;
-	background:linear-gradient(to bottom, #40474a 5%, #222829 100%);
-	background-color:#40474a;
-	border-radius:8px;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:12px;
-	font-weight:bold;
-	padding:7px 12px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #000000;
+  box-shadow: 0px 10px 14px -7px #87888a;
+  background: linear-gradient(to bottom, #40474a 5%, #222829 100%);
+  background-color: #40474a;
+  border-radius: 8px;
+  display: inline-block;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: Arial;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 7px 12px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #000000;
 }
 .end-order:hover {
-	background:linear-gradient(to bottom, #222829 5%, #40474a 100%);
-	background-color:#222829;
+  background: linear-gradient(to bottom, #222829 5%, #40474a 100%);
+  background-color: #222829;
 }
 .end-order:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 .button {
-    display: flex;
-    justify-content: center;
-    padding: 15px;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
 }
 
 .back {
-    background-color: white;
-    min-height: 100vh;
+  background-color: #2f2f2f;
+  min-height: 100vh;
+  margin-top: 75px;
 }
 
 /* .cart {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
+}*/
 
 .entrega {
-    display: flex;
-    flex-direction: column;
-} */
+  margin:auto;
+  color: white;
+}
 
 .form {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 input {
-    margin-bottom: 1px;
+  margin-bottom: 1px;
 }
 
 select {
-    margin-bottom: 1px;
+  margin-bottom: 1px;
 }
