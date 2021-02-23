@@ -7,25 +7,43 @@ import helper from '../Helper';
 const NOONE = 0;
 const INITIAL = 0;
 
+const MOCK = {
+  total_price: 0,
+  delivery_address: 'endereço',
+  delivery_number: 'número',
+  sale_date: '2021-02-18T18:22:43.000Z',
+  status: 'Em preparo',
+  product: [
+    {
+      name: 'Produto',
+      price: 0,
+      url_image: 'http://localhost:3001/images/Heineken 600ml.jpg',
+      sales_product: {
+        quantity: 4,
+      },
+    },
+  ],
+};
+
 function OrderDetails({
   history,
   match: {
     params: { id },
   },
 }) {
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState(MOCK);
 
   useEffect(() => {
     helper.fetch.salesById(id).then((data) => {
-      // [REFATORAR]
-      setOrder([data]);
+      setOrder(data);
     });
   }, [id]);
 
-  const total = helper.transformPrice(helper.totalPriceOfProducts(order));
+  const total =
+    order.length !== NOONE ? helper.transformPrice(order.total_price) : 0;
   const date =
     order.length !== NOONE
-      ? helper.transformDate(order[INITIAL].sale_date)
+      ? helper.transformDate(order.sale_date)
       : null;
 
   return (
@@ -44,16 +62,19 @@ function OrderDetails({
           <hr style={{ border: '1px dashed' }} />
           <div className="horizontal-center">
             <ul>
-              {order.map((product, index) => (
+              {order.product.map((product, index) => (
                 <li key={product.name}>
                   <span data-testid={`${index}-product-qtd`}>
-                    {product.quantity} -{' '}
+                    {product.sales_product.quantity} -{' '}
                   </span>
                   <span data-testid={`${index}-product-name`}>
                     {product.name}{' '}
                   </span>
                   <span data-testid={`${index}-product-total-value`}>
-                    R$ {helper.transformPrice(product.price * product.quantity)}
+                    R${' '}
+                    {helper.transformPrice(
+                      product.price * product.sales_product.quantity,
+                    )}
                   </span>
                   <span>(R$ {helper.transformPrice(product.price)} un)</span>
                 </li>
