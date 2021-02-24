@@ -5,7 +5,10 @@ const requests = require('../services/usersRequests');
 
 module.exports = ({ mongoConnection, mysqlConnection }) => {
   const user = Router();
-  const { register, update, login } = service(mongoConnection, requests({ mysqlConnection }));
+  const { register, update, login } = service(
+    mongoConnection,
+    requests({ mysqlConnection }),
+  );
 
   user.get('/', (_req, res) => {
     res.status(200).json({});
@@ -25,4 +28,4 @@ module.exports = ({ mongoConnection, mysqlConnection }) => {
   });
 
   return user;
-}
+};

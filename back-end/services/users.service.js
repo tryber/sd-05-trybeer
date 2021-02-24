@@ -8,7 +8,6 @@ const {
 } = require('../utils/validation.utils');
 
 module.exports = (mongoConnection, requests) => {
-  
   // prettier-ignore
   const login = rescue(async (req, _res, next) => {
     validate(req.body)(LOGIN_SCHEMA);
@@ -18,11 +17,11 @@ module.exports = (mongoConnection, requests) => {
     const token = jwt.createToken(user);
     const dt = user.role === 'client'
       ? await messageCollection.find({
-          $or: [
-            { 'from.id': user.id },
-            { 'to.id': user.id },
-          ],
-        }) : await messageCollection.find({});
+        $or: [
+          { 'from.id': user.id },
+          { 'to.id': user.id },
+        ],
+      }) : await messageCollection.find({});
     user.messages = await dt.toArray();
     req.data = { user, token };
     next();

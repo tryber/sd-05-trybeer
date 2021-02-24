@@ -1,27 +1,41 @@
 const { Router } = require('express');
-const salesRequests = require('../services/salesRequests');
-const salesServices = require('../services/sales.services')(salesRequests);
 
-const sales = Router();
+const service = require('../services/sales.services');
+const requests = require('../services/salesRequests');
 
-sales.get('/', salesServices.getAllSales, (req, res) => { // todas as vendas
-  res.status(200).json(req.data);
-});
+module.exports = ({ mysqlConnection }) => {
+  const {
+    addSale,
+    getAllSales,
+    updateStatus,
+    getSaleByUserId,
+    detailByOrderId,
+  } = service(requests({ mysqlConnection }));
+  const sales = Router();
 
-sales.get('/user/:id', salesServices.getSaleByUserId, (req, res) => { // vendas especificas de um usuário
-  res.status(200).json(req.data);
-});
+  sales.get('/', getAllSales, (req, res) => {
+    // todas as vendas
+    res.status(200).json(req.data);
+  });
 
-sales.post('/', salesServices.addSale, (req, res) => { // adicionar um pedido
-  res.status(201).json(req.data);
-});
+  sales.get('/user/:id', getSaleByUserId, (req, res) => {
+    // vendas especificas de um usuário
+    res.status(200).json(req.data);
+  });
 
-sales.get('/:id', salesServices.detailByOrderId, (req, res) => { // obtendo os detalhes de uma venda
-  res.status(200).json(req.data);
-});
+  sales.post('/', addSale, (req, res) => {
+    // adicionar um pedido
+    res.status(201).json(req.data);
+  });
 
-sales.put('/status', salesServices.updateStatus, (req, res) => { // update no status do pedido
-  res.status(200).json(req.data);
-});
+  sales.get('/:id', detailByOrderId, (req, res) => {
+    // obtendo os detalhes de uma venda
+    res.status(200).json(req.data);
+  });
 
-module.exports = sales;
+  sales.put('/status', updateStatus, (req, res) => {
+    // update no status do pedido
+    res.status(200).json(req.data);
+  });
+  return sales;
+};

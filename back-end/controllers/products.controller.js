@@ -1,19 +1,26 @@
 const { Router } = require('express');
-const productsRequests = require('../services/productsRequests')
-const productsServices = require('../services/products.services')(productsRequests);
 
-const products = Router();
+const service = require('../services/products.services');
+const requests = require('../services/productsRequests');
 
-products.get('/', productsServices.getAllProducts, (req, res) => {
-  res.status(200).json(req.data);
-});
+module.exports = ({ mysqlConnection }) => {
+  const { getAllProducts, getProductById, addProduct } = service(
+    requests({ mysqlConnection }),
+  );
 
-products.get('/:id', productsServices.getProductById, (req, res) => {
-  res.status(200).json(req.data);
-});
+  const products = Router();
 
-products.post('/', productsServices.addProduct, (req, res) => {
-  res.status(200).json(req.data);
-});
+  products.get('/', getAllProducts, (req, res) => {
+    res.status(200).json(req.data);
+  });
 
-module.exports = products;
+  products.get('/:id', getProductById, (req, res) => {
+    res.status(200).json(req.data);
+  });
+
+  products.post('/', addProduct, (req, res) => {
+    res.status(200).json(req.data);
+  });
+
+  return products;
+};
