@@ -47,7 +47,7 @@ module.exports = (requests) => {
   });
 
   const updateStatus = rescue(async (req, _res, next) => {
-    const validOptions = ['Pendente', 'Em preparo', 'Realizado'];
+    const validOptions = ['Pendente', 'Em preparo', 'Entregue'];
     const { status, id } = req.body;
     if (!status || !validOptions.includes(status) || !id)
       throw new Error('Opção de status inválida');

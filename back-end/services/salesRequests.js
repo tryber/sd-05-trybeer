@@ -31,7 +31,7 @@ const orderByUserId = (user_id) => sale.findAll({ where: { user_id } });
 const allSales = () =>
   sale.findAll({
     order: [
-      ['status', 'ASC'],
+      ['status', 'DESC'],
       ['sale_date', 'ASC'],
     ],
   });

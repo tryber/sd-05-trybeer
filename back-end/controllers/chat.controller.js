@@ -59,6 +59,7 @@ const run = (...server) => async ({ mongoConnection, mysqlConnection }) => {
         }
       }
       await messageCollection.insertOne(messageBuffer);
+      io.emit('loja', messageBuffer);
       io.emit(socket.id, messageBuffer);
     });
 
