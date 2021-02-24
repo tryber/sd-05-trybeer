@@ -10,7 +10,7 @@ import './cssComponents/header.css';
 export default function Header({ children }) {
   // const userInfo = JSON.parse(localStorage.getItem('role') || '{}');
   const userInfo = localStorage.role || '';
-  const [btnBurguer, setBtnBurguer] = useState(userInfo === 'administrator');
+  const [btnBurguer, setBtnBurguer] = useState(false);
   // if (!userInfo) return <Redirect to="/login" />;
   // document.title = children === 'Products' ? 'TryBeer' : children;
   return (

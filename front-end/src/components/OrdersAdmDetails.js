@@ -44,7 +44,7 @@ const OrdersAdminDetails = (props) => {
         ))}
       </table>
       <p style={{color:'white',fontSize:'1.2em',textAlign:'center', marginTop:'10px'}}data-testid="order-total-value">{order[0] ? `Total do Pedido R$ ${String(order[0].total_price).replace('.', ',')}` : zero}</p>
-      {status === 'Pendente' ? <button type="button" className='order-adm-btn' data-testid="mark-as-delivered-btn" onClick={ handleClick }>Marcar como entregue</button> : zero}
+      {status === 'Pendente' ? <button type="button" className='order-adm-btn' data-testid="mark-as-delivered-btn" onClick={ handleClick }>Marcar como entregue</button> : <p style={{textAlign:'center'}}>Status alterado</p> }
     </div>
   );
 };

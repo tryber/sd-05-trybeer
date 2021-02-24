@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { getOrderById } from '../services/api';
 import Header from './Header';
-
+import './cssComponents/orderDetails.css';
 const OrderDetails = (props) => {
   const zero = 0;
   const two = 2;
@@ -33,8 +33,8 @@ const OrderDetails = (props) => {
   return (
     <div>
       <Header />
-      <table>
-        <caption data-testid="order-number">
+      <table className='order-details-table'>
+        <caption style={{color:'white', fontSize:'1.5em'}} data-testid="order-number">
           {`Pedido ${id}`}
         </caption>
         <tr>
@@ -51,10 +51,9 @@ const OrderDetails = (props) => {
             <td style={{textAlign: "center"}} data-testid={ `${index}-product-total-value` }>{`R$ ${(product.price * product.quantity).toFixed(two).replace('.', ',')}`}</td>
           </tr>
         ))}
-      </table>
-      {/* <p>{products[0]? products[0].total_price : 0}</p> */}
-      <p data-testid="order-total-value">{`R$ ${String(totalP).replace('.', ',')}`}</p>
-      <p data-testid="order-date">{formatDate(dataSale)}</p>
+      </table><br/>
+      <p style={{color:'white', textAlign:'center'}} data-testid="order-total-value">{`Total do pedido: R$${String(totalP).replace('.', ',')}`}</p>
+      <p style={{color:'white', textAlign:'center'}} data-testid="order-date">Data do pedido:{formatDate(dataSale)}</p>
     </div>
   );
 };
