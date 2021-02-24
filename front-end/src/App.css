@@ -173,6 +173,10 @@ button:hover {
   justify-content: space-around;
 }
 
+.row {
+  flex-direction: row;
+}
+
 .horizontal-center {
   display: flex;
   justify-content: center;
