@@ -43,20 +43,20 @@ const ChatMessage = ({ buffer, isSelf }) => {
   return (
     <div style={{ ...containerStyle, flexDirection }}>
       <div
-        className={`card-panel space-around   ${
+        className={`card space-around   ${
           isSelf ? 'blue-mid-bg' : 'blue-dark-bg'
         } lighten-3 z-depth-1`}
         style={{ ...cardStyle }}
       >
-        <div>
-          <span data-testid="text-message" className="white-mid-cl">
+        <div className="margin-bot">
+          <span data-testid="text-message" className="white-mid-cl ">
             {message}
           </span>
         </div>
 
-        <div className="space-between">
+        <div className="vertical-center horizontal-center space-between">
 
-          <div style={{ ...cardMessageStyle, textAlign: messageAlign }}>
+          <div style={{ ...cardMessageStyle }}>
             <span className="white-mid-cl">
               <small data-testid="nickname">{from?.email}</small> -{' '}
               <small data-testid="message-time">{getTime(date)}</small>

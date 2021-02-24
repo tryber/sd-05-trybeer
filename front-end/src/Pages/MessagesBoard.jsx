@@ -30,7 +30,7 @@ const MessagesBoard = () => {
     <Restrict>
       <AdminSideBar />
       <div className="container-main">
-        <div className="container-screen" style={containerStyle}>
+        <div style={containerStyle}>
           {
             lastMessages.length
               ? lastMessages.map(message => (

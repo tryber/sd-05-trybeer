@@ -69,7 +69,7 @@ const Chat = ({
               />
             )) }
           </div>
-          <div style={{ display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+          <div  style={{ display: 'flex', width: '100%', justifyContent: 'space-between', alignItems: "center" }}>
             <Input
               name="message"
               placeholder="Insira sua mensagem aqui"
@@ -77,7 +77,7 @@ const Chat = ({
               onChange={messageHandle()}
             />
             <button
-              className="btn"
+              className="waves-effect waves-teal btn-flat yellow-main-bg white-mid-cl"
               data-testid="send-message"
               disabled={!message.length}
               onClick={() => {
