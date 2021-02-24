@@ -62,7 +62,7 @@ module.exports = (requests) => {
 
   const getAllSales = rescue(async (req, _res, next) => {
     const allSales = await requests.allSales();
-    console.log(allSales, 'all Sales');
+    // console.log(allSales, 'all Sales');
     if (!allSales || allSales.length === 0)
       throw new Error('Não foram cadastradas vendas');
     if (allSales.sqlMessage) {

@@ -41,7 +41,7 @@ const ChatMessage = ({ buffer, isSelf }) => {
   return (
     <div style={{ ...containerStyle, flexDirection }}>
       <div
-        className={`card-panel ${isSelf ? 'yellow' : 'grey'} lighten-3 z-depth-1`}
+        className={`card-panel  ${isSelf ? 'blue-mid-bg' : 'blue-dark-bg' } lighten-3 z-depth-1`}
         style={{ ...cardStyle, flexDirection }}
       >
         <div style={cardPhotoStyle}>
@@ -52,14 +52,14 @@ const ChatMessage = ({ buffer, isSelf }) => {
           />
         </div>
         <div style={{ ...cardMessageStyle, textAlign: messageAlign }}>
-          <span className="green-text">
-            <small data-testid="nickname">{from?.email}</small> -
+          <span className="white-mid-cl">
+            <small data-testid="nickname">{from?.email}</small> - {' '}
             <small data-testid="message-time">{getTime(date)}</small>
           </span>
           <hr />
           <span
             data-testid="text-message"
-            className="black-text"
+            className="white-mid-cl"
           >
             { message }
           </span>

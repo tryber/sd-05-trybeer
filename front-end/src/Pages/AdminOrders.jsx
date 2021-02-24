@@ -17,7 +17,7 @@ const AdminOrders = ({ history }) => {
         { html: `<p>${result.message}</p>`, classes: 'dandrea' },
       );
     });
-    console.log(orders)
+    // console.log(orders)
   }, []);
 
   return (

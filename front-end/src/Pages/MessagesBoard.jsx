@@ -18,6 +18,7 @@ const MessagesBoard = () => {
   useEffect(() => {
     const { id } = helper.getUserData();
     const m = helper.getChatMessages() || [];
+    // console.log(m);
     const messageGroup = {};
     m.forEach(({ from }, i) => {
       if (from.id !== id) messageGroup[from.email] = m[i];
