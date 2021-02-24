@@ -29,8 +29,7 @@ const MessagesBoard = () => {
   return (
     <Restrict>
       <AdminSideBar />
-      <div className="container-main">
-        <div style={containerStyle}>
+      <div className="responsive-list">
           {
             lastMessages.length
               ? lastMessages.map(message => (
@@ -38,7 +37,6 @@ const MessagesBoard = () => {
               ))
               : <div>Nenhuma conversa por aqui.</div>
           }
-        </div>
       </div>
     </Restrict>
   );

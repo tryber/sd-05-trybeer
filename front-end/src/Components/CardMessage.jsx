@@ -34,16 +34,16 @@ const ChatMessage = ({ buffer }) => {
       }}
     >
       <div
-        className={`card-panel lighten-3 z-depth-1`}
+        className={`blue-mid-bg card margin-small`}
         style={cardStyle}
       >
         <div className="card-content">
-          <span className="card-title" data-testid="profile-name">
+          <span className="card-title white-mid-cl" data-testid="profile-name">
             { buffer.from.email }
           </span>
-          <p data-testid="last-message">
+          <small className="white-mid-cl" data-testid="last-message">
             Última mensagem às { getTime(date) }
-          </p>
+          </small>
         </div>
       </div>
   </div>  
