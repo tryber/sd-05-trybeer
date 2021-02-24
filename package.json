@@ -24,6 +24,8 @@
   "homepage": "https://github.com/betrybe/sd-0x-trybeer#readme",
   "dependencies": {
     "mysql2": "^2.1.0",
+    "node-sass": "^4.14.1",
+    "rm": "^0.1.8",
     "sequelize": "^6.3.4"
   },
   "devDependencies": {

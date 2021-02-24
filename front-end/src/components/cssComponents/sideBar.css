@@ -1,0 +1,101 @@
+.side-menu-container.side-bar {
+  display: flex;
+  flex-flow: column;
+  text-decoration: none;
+  color: black;
+  padding: 5px;
+  --borderWidth: 3px;
+  position: relative;
+  border-radius: var(--borderWidth);
+  /* width: 75vw; */
+  width: 300px;
+  /* height: 80vh; */
+}
+
+.appear {
+  display: flex;
+  flex-flow: column;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding: 5px;
+  border-radius: 10px;
+  --borderWidth: 3px;
+  position: fixed;
+  /* background-color: transparent; */
+  border-radius: var(--borderWidth);
+  animation: animatedgradient 3s infinite;
+  width: 75vw;
+  height: 45vh;
+  z-index: 2;
+}
+
+.appear:after{
+  content: '';
+  position: fixed;
+  top: 10vh;
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  height: 80vh;
+  width: 75vw;
+  background: linear-gradient(60deg,  #ced4da, #090a0a, #495057, #343a40, #212529);
+  border-radius: calc(2 * var(--borderWidth));
+  animation: animatedgradient 3s infinite;
+  background-size: 300% 300%;
+  z-index: 2;
+}
+
+/* .side-menu-container.side-bar:after {
+  content: '';
+  position: relative;
+  top: calc(-1 * var(--borderWidth));
+  left: calc(-1 * var(--borderWidth));
+  height: calc(100% + var(--borderWidth) * 2);
+  height: 80vh;
+  width: calc(100% + var(--borderWidth) * 2);
+  background: linear-gradient(60deg,  #ced4da, #adb5bd, #495057, #343a40, #212529);
+  border-radius: calc(2 * var(--borderWidth));
+  animation: animatedgradient 3s in infinite;
+  background-size: 300% 300%;
+} */
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
+.opened-menu {
+  display: flex;
+  color: black;
+  text-decoration:none;
+  padding: 14px;
+  background-color: transparent;
+  font-weight: bolder;
+  font-size: large;
+  width: 75vw;
+  z-index: 15;
+}
+
+/* .opened-menu:hover {
+  -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+} */
+
+
+aside a {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+aside a:visited {
+  text-decoration: none;
+  color: whitesmoke;
+  font-size: 20px;
+  font-weight: 700;
+}
