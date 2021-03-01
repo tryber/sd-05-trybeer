@@ -1,93 +1,86 @@
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import CheckoutProductsList from '../Components/CheckoutProductsList';
 import Header from '../Components/Header';
 import Input from '../Components/Input';
-import { submitOrderAct, repopulatingAct } from '../Redux/Actions/index';
 import Restrict from '../Components/Restrict';
+import helper from '../Helper/';
 
-const zero = 0;
-const tresMil = 3000;
+import M from 'materialize-css';
 
-function Checkout({
-  history, userData, cart, submitOrder, repopulatingStore,
-}) {
+const TIMEOUT = 3000;
+
+function Checkout({ history }) {
   const [buttonShoulBeDisabled, setbuttonShoulBeDisabled] = useState(false);
   const [street, setStreet] = useState('');
   const [houseNumber, setHouseNumber] = useState('');
-  const [isTotalZero, setisTotalZero] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(false);
   const [redirect, setRedirect] = useState(false);
 
-  useEffect(() => {
-    const localCart = JSON.parse(localStorage.getItem('cart'));
-    if (localCart) repopulatingStore(localCart);
-  }, [repopulatingStore]);
+  const [cart, setCart] = useState(helper.getCartInfo());
 
   useEffect(() => {
-    if (isTotalZero || street === '' || houseNumber === '') {
+    if (false || street === '' || houseNumber === '') {
       setbuttonShoulBeDisabled(true);
     } else {
       setbuttonShoulBeDisabled(false);
     }
-  }, [isTotalZero, setbuttonShoulBeDisabled, street, houseNumber]);
+  }, [setbuttonShoulBeDisabled, street, houseNumber]);
 
-  const total = cart.reduce(
-    (acc, product) => acc + product.quantity * product.price,
-    zero,
-  );
-
-  function submitHandler() {
-    setShouldRedirect(true);
-    submitOrder({
-      cart,
-      userData,
-      total,
-      street,
-      houseNumber,
+  const submitHandler = () => async () => {
+    await helper.fetch.submitOrderFetch({ cart, street, houseNumber });
+    M.toast({
+      html: '<p>Compra realizada com sucesso!</p>',
+      classes: 'orange-bg',
     });
-  }
+    setShouldRedirect(true);
+  };
 
   if (shouldRedirect) {
     setTimeout(() => {
       setRedirect(true);
-    }, tresMil);
+    }, TIMEOUT);
   }
   if (redirect) return <Redirect to="/products" />;
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      <h3>Produtos</h3>
-      {total === zero && <p>Não há produtos no carrinho</p>}
-      <CheckoutProductsList setisTotalZero={ setisTotalZero } />
-      <h3>Endereço</h3>
-      <p>Rua:</p>
-      <br />
-      <Input
-        test="checkout-street-input"
-        id="rua"
-        onChange={ (e) => setStreet(e.target.value) }
-      />
-      <br />
-      <p>Número da casa:</p>
-      <br />
-      <Input
-        test="checkout-house-number-input"
-        id="numero-da-casa"
-        onChange={ (e) => setHouseNumber(e.target.value) }
-      />
-      <button
-        disabled={ buttonShoulBeDisabled }
-        data-testid="checkout-finish-btn"
-        type="button"
-        onClick={ () => submitHandler() }
-      >
-        Finalizar Pedido
-      </button>
-      {shouldRedirect && <p>Compra realizada com sucesso!</p>}
+      <Header pathname={history.location.pathname} />
+      <div className="container-main">
+        <CheckoutProductsList cart={cart} onUpdate={setCart} />
+
+        <div
+          style={{ display: 'flex', flexDirection: 'column' }}
+          className="card"
+        >
+          <h6>Endereço</h6>
+          <p>Rua:</p>
+          <br />
+          <Input
+            test="checkout-street-input"
+            id="rua"
+            onChange={(e) => setStreet(e.target.value)}
+          />
+          <br />
+          <p>Número da casa:</p>
+          <br />
+          <Input
+            test="checkout-house-number-input"
+            id="numero-da-casa"
+            onChange={(e) => setHouseNumber(e.target.value)}
+          />
+          <button
+            className="btn btn-flat yellow-main-bg blue-mid-cl"
+            disabled={buttonShoulBeDisabled}
+            data-testid="checkout-finish-btn"
+            type="button"
+            onClick={submitHandler()}
+          >
+            Finalizar Pedido
+          </button>
+        </div>
+      </div>
     </Restrict>
   );
 }
@@ -109,14 +102,4 @@ Checkout.propTypes = {
   repopulatingStore: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ userRequestReducer, productsRequestReducer }) => ({
-  userData: userRequestReducer.userData,
-  cart: productsRequestReducer.cart,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  submitOrder: (data) => dispatch(submitOrderAct(data)),
-  repopulatingStore: (cart) => dispatch(repopulatingAct(cart)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default Checkout;

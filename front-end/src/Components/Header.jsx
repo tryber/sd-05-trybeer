@@ -1,35 +1,34 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import titleForHeader from '../Helper/titleForHeader';
 import SideBar from './SideBar';
 
+import M from 'materialize-css';
+
 const headerStyle = {
+  alignItems: 'center',
   display: 'flex',
   justifyContent: 'space-between',
-  background: 'var(--dark)',
+  background: 'var(--orange)',
   color: 'var(--white)',
   margin: 0,
-  padding: '8px',
+  paddingBotton: '8px',
 };
 
 const Header = ({ pathname }) => {
   const [showSideBar, setShowSideBar] = useState(false);
   const [redirect, setRedirect] = useState(null);
+  const [title, setTitle] = useState('');
 
-  // func que retorna o título do header baseado no caminho
-  const title = titleForHeader(pathname);
-
-  // useEffect(() => {
-  // console.log(showSideBar);
-  // }, [showSideBar]);
-
-  const toggleDrawer = () => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
+  useEffect(() => {
+    const curTitle = titleForHeader(pathname);
+    setTitle(curTitle);
+    const sidenav = document.querySelector('.sidenav');
+    M.Sidenav.init(sidenav, {});
+  }, [])
+  
+  const toggleDrawer = () => () => {
     setShowSideBar(!showSideBar);
   };
 
@@ -38,24 +37,28 @@ const Header = ({ pathname }) => {
   return (
     <div pathname={ pathname }>
       <div style={ headerStyle }>
-        <Button onClick={ toggleDrawer() } data-testid="top-hamburguer">
+        <button
+          data-target="slide-out"
+          data-testid="top-hamburguer"
+          className="sidenav-trigger btn-flat"
+          onClick={ toggleDrawer() }
+        >
           <i
             className="material-icons"
-            style={ { color: 'var(--white)', fontSize: '32px' } }
-          >
-            menu
+            style={ { color: 'var(--white)', fontSize: '32px' } }>
+              menu
           </i>
-        </Button>
-        <h3 data-testid="top-title">{ title }</h3>
-        <div style={ { marginRight: '70px' } } />
-        <span className="side-menu-container" style={ { display: showSideBar ? 'block' : 'none' } }>.</span>
-        <Drawer open={ showSideBar } onClose={ toggleDrawer() }>
-          <SideBar
-            toggleDrawer={ toggleDrawer }
-            redirect={ setRedirect }
-          />
-        </Drawer>
+        </button>
+        <h5 data-testid="top-title">{ title }</h5>
+        <div style={ { marginRight: '50px' } } />
+        <span
+          className="side-menu-container"
+          style={ { display: showSideBar ? 'block' : 'none' } }
+        >
+          .
+        </span>
       </div>
+      <SideBar redirect={ setRedirect }/>
     </div>
   );
 };

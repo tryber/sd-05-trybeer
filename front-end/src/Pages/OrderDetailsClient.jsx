@@ -2,11 +2,28 @@ import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import Restrict from '../Components/Restrict';
 import Header from '../Components/Header';
-import Helper from '../Helper';
-import { salesById } from '../Redux/Services';
+import helper from '../Helper';
 
 const NOONE = 0;
 const INITIAL = 0;
+
+const MOCK = {
+  total_price: 0,
+  delivery_address: 'endereço',
+  delivery_number: 'número',
+  sale_date: '2021-02-18T18:22:43.000Z',
+  status: 'Em preparo',
+  product: [
+    {
+      name: 'Produto',
+      price: 0,
+      url_image: 'http://localhost:3001/images/Heineken 600ml.jpg',
+      sales_product: {
+        quantity: 4,
+      },
+    },
+  ],
+};
 
 function OrderDetails({
   history,
@@ -14,62 +31,57 @@ function OrderDetails({
     params: { id },
   },
 }) {
-  const [order, setOrder] = useState([]);
+  const [order, setOrder] = useState(MOCK);
 
   useEffect(() => {
-    salesById(id).then((data) => setOrder(data));
+    helper.fetch.salesById(id).then((data) => {
+      setOrder(data);
+    });
   }, [id]);
 
-  const total = Helper.transformPrice(Helper.totalPriceOfProducts(order));
-  const date = (order.length !== NOONE)
-    ? Helper.transformDate(order[INITIAL].sale_date)
-    : null;
+  const total =
+    order.length !== NOONE ? helper.transformPrice(order.total_price) : 0;
+  const date =
+    order.length !== NOONE
+      ? helper.transformDate(order.sale_date)
+      : null;
 
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      <div>
-        <h2 data-testid="order-number">
-          Pedido
-          {' '}
-          {id}
-        </h2>
-        <h2 data-testid="order-date">{date}</h2>
-      </div>
-      <div className="lista-dos-produtos">
-        {order.map((product, index) => (
-          // Usar component de card usado em outro requisito
-
-          <div key={ product.name }>
-            <span data-testid={ `${index}-product-qtd` }>
-              {product.quantity}
-              {' '}
-              -
-              {' '}
-            </span>
-            <span data-testid={ `${index}-product-name` }>
-              {product.name}
-              {' '}
-            </span>
-            <span data-testid={ `${index}-product-total-value` }>
-              R$
-              {' '}
-              {Helper.transformPrice(product.price * product.quantity)}
-            </span>
-            <span>
-              (R$
-              {' '}
-              {Helper.transformPrice(product.price)}
-              {' '}
-              un)
-            </span>
+      <Header pathname={history.location.pathname} />
+      <div className="container-main">
+        <div className="blue-mid-bg white-text card">
+          <div className="space-between">
+            <h6 data-testid="order-number">Pedido {id}</h6>
+            <h6 data-testid="order-date">{date}</h6>
           </div>
-        ))}
-      </div>
-      <div data-testid="order-total-value">
-        Total: R$
-        {' '}
-        {total}
+          <div className="horizontal-center">
+            <div></div>
+            <h6 data-testid="order-total-value">Total: R$ {total}</h6>
+          </div>
+          <hr style={{ border: '1px dashed' }} />
+          <div className="horizontal-center">
+            <ul>
+              {order.product.map((product, index) => (
+                <li key={product.name}>
+                  <span data-testid={`${index}-product-qtd`}>
+                    {product.sales_product.quantity} -{' '}
+                  </span>
+                  <span data-testid={`${index}-product-name`}>
+                    {product.name}{' '}
+                  </span>
+                  <span data-testid={`${index}-product-total-value`}>
+                    R${' '}
+                    {helper.transformPrice(
+                      product.price * product.sales_product.quantity,
+                    )}
+                  </span>
+                  <span>(R$ {helper.transformPrice(product.price)} un)</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </Restrict>
   );

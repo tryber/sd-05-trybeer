@@ -1,44 +1,38 @@
 import PropTypes from 'prop-types';
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { repopulatingAct } from '../Redux/Actions';
+import React from 'react';
 import CheckoutProductCard from './CheckoutProductCard';
 import helper from '../Helper/index';
 
-const zero = 0;
-// const toFixedParam = 2;
+const flexItems = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+};
 
-const CheckoutProductsList = ({ repopulatingStore, cart, setisTotalZero }) => {
-  const total = cart.reduce(
-    (acc, product) => acc + product.quantity * product.price,
-    zero,
-  );
-
-  useEffect(() => {
-    if (total <= zero) {
-      setisTotalZero(true);
-    }
-  }, [total, setisTotalZero]);
-
-  const triggerDelete = (index, productId) => {
-    const cartClone = [...cart];
-    cartClone.splice(index, 1);
-    repopulatingStore(cartClone);
-
-    helper.deleteProductFromLocalStorage(productId);
-  };
-
+const CheckoutProductsList = ({ cart, onUpdate }) => {
   return (
-    <div>
-      {cart.map((item, index) => (
+    <div style={flexItems}>
+    <div className="responsive-list">
+      {(cart.itemArray || []).map((item, index) => (
         <CheckoutProductCard
-          key={ item }
-          item={ item }
-          i={ index }
-          triggerDelete={ triggerDelete }
+         
+          key={item.id}
+          item={item}
+          index={index}
+          callbackDelete={(id) => {
+            helper.removeProductFromCartById(id);
+            onUpdate(helper.getCartInfo());
+          }}
         />
       ))}
-      <div data-testid="order-total-value">{`Total: R$ ${helper.transformPrice(total)}`}</div>
+    </div>
+      <h4 className="white-mid-cl" data-testid="order-total-value">
+        {cart.total ? (
+          `Total: R$ ${helper.transformPrice(cart.total)}`
+        ) : (
+          <p>Não há produtos no carrinho</p>
+        )}
+      </h4>
     </div>
   );
 };
@@ -52,13 +46,4 @@ CheckoutProductsList.propTypes = {
   setisTotalZero: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cart: state.productsRequestReducer.cart,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  repopulatingStore: (cart) => dispatch(repopulatingAct(cart)),
-  // deleteProductFromStore: (productId) => dispatch(deleteProductFromStore(productId)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutProductsList);
+export default CheckoutProductsList;

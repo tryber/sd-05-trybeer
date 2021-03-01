@@ -9,6 +9,13 @@ import { updateUserAct } from '../Redux/Actions/user';
 
 const changeInput = (event, setFunction) => setFunction(event.target.value);
 
+// const containerStyle = {
+//   justifyContent: 'space-between',
+//   height: '250px',
+//   // marginTop: '250px',
+// };
+
+
 function Profile({ history, updateUser }) {
   const [id, setId] = useState('');
   const [email, setEmail] = useState('');
@@ -26,43 +33,48 @@ function Profile({ history, updateUser }) {
 
   return (
     <Restrict>
-      <div className="container-main">
-        <Header pathname={ history.location.pathname } />
-        <div className="container-page">
-          <strong>Perfil</strong>
-          <form>
-            <p>Nome :</p>
-            <input
-              type="text"
-              data-testid="profile-name-input"
-              value={ name }
-              onChange={ (event) => {
-                changeInput(event, setName);
-                setChanged(true);
-              } }
-            />
-            <p>Email :</p>
-            <input
-              type="email"
-              data-testid="profile-email-input"
-              value={ email }
-              readOnly
-            />
-          </form>
-          <button
-            disabled={ !changed }
-            data-testid="profile-save-btn"
-            onClick={ () => {
-              updateUser({ id, name });
-              setShouldRefresh(true);
-            } }
-            type="button"
+      <Header pathname={history.location.pathname} />
+      <div className="container-main horizontal-center">
+        {/* <div className="container-screen"> */}
+          <div
+            className="card "
           >
-            Salvar
-          </button>
-          {shouldRefresh && <p>Atualização concluída com sucesso</p>}
+            <strong>Perfil</strong>
+            <form>
+              <p>Nome:</p>
+              <input
+                type="text"
+                data-testid="profile-name-input"
+                value={name}
+                onChange={(event) => {
+                  changeInput(event, setName);
+                  setChanged(true);
+                }}
+              />
+              <p>Email :</p>
+              <input
+                type="email"
+                data-testid="profile-email-input"
+                value={email}
+                readOnly
+              />
+            </form>
+            <button
+              className="btn btn-flat yellow-main-bg blue-mid-cl"
+              disabled={!changed}
+              data-testid="profile-save-btn"
+              onClick={() => {
+                updateUser({ id, name });
+                setShouldRefresh(true);
+              }}
+              type="button"
+            >
+              Salvar
+            </button>
+            {shouldRefresh && <p>Atualização concluída com sucesso</p>}
+          </div>
         </div>
-      </div>
+      {/* </div> */}
     </Restrict>
   );
 }

@@ -1,49 +1,72 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { increaseQuantityAct, decreaseQuantityAct } from '../Redux/Actions';
 import Helpers from '../Helper/index';
+import ourLogo from '../fetch-beer-3.png';
 
-const zero = 0;
+function ProductCard({ product, onRefresh }) {
+  const { id, name, price, url_image: urlImage } = product;
 
-function ProductCard({
-  product,
-  increaseQuantity,
-  decreaseQuantity,
-  cart,
-}) {
-  const [quantity, setQuantity] = useState(Helpers.verifyQuantity(JSON.parse(localStorage.getItem('cart')), product) || Helpers.verifyQuantity(cart, product) || zero);
-  const {
-    id, name, price, url_image: urlImage,
-  } = product;
+  const [quantity, setQuantity] = useState(
+    Helpers.getProductFromCartById(id)?.quantity,
+  );
+
+ 
   return (
-    <div>
-      <div data-testid={ `${id - 1}-product-price` }>{`R$ ${Helpers.transformPrice(price)}`}</div>
-      <img data-testid={ `${id - 1}-product-img` } src={ urlImage } alt={ name } />
-      <div data-testid={ `${id - 1}-product-name` }>{ name }</div>
-      <button
-        type="button"
-        data-testid={ `${id - 1}-product-minus` }
-        onClick={ () => {
-          decreaseQuantity(product);
-          if (quantity > zero) setQuantity(quantity - 1);
-          Helpers.decreaseProductToLocalStorage(product, quantity - 1);
-        } }
-      >
-        -
-      </button>
-      <span data-testid={ `${id - 1}-product-qtd` }>{quantity}</span>
-      <button
-        type="button"
-        data-testid={ `${id - 1}-product-plus` }
-        onClick={ () => {
-          increaseQuantity(product);
-          setQuantity(quantity + 1);
-          Helpers.addingProductToLocalStorage(product, quantity + 1);
-        } }
-      >
-        +
-      </button>
+    <div className="card padding-zero blue-mid-bg margin-small">
+      <div class="card-content padding-8px white-text">
+        <div className="card-image">
+          <img
+            className="responsive-img"
+            data-testid={`${id - 1}-product-img`}
+            // src={ourLogo}
+            src={urlImage} // usar esta quando tiver as imagens vindo do back
+            alt={name}
+          />
+        </div>
+
+        <div className="card-title" data-testid={`${id - 1}-product-name`}>
+          {name}
+        </div>
+        
+
+        <h6 className='margin-bot' data-testid={`${id - 1}-product-price`}>
+          {`R$ ${Helpers.transformPrice(price)}`}
+        </h6>
+
+        <div className="quantity-and-btn">
+          <div className="card-quantity">
+            <div className='quantity'>
+              <h6 data-testid={`${id - 1}-product-qtd`}>{quantity || '0'}</h6>
+            </div>
+          </div>
+
+          <div className="qty-btns">
+            <button
+              className="waves-effect waves-light btn-flat  yellow-main-bg white-mid-cl"
+              type="button"
+              data-testid={`${id - 1}-product-minus`}
+              onClick={() => {
+                setQuantity(Helpers.setProductToCart(product, -1));
+                onRefresh();
+              }}
+            >
+              -
+            </button>
+
+            <button
+              className="waves-effect waves-teal btn-flat yellow-main-bg white-mid-cl"
+              type="button"
+              data-testid={`${id - 1}-product-plus`}
+              onClick={() => {
+                setQuantity(Helpers.setProductToCart(product, 1));
+                onRefresh();
+              }}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -60,14 +83,4 @@ ProductCard.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  cart: state.productsRequestReducer.cart,
-  totalPrice: state.productsRequestReducer.totalPrice,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  increaseQuantity: (product) => dispatch(increaseQuantityAct(product)),
-  decreaseQuantity: (product) => dispatch(decreaseQuantityAct(product)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
+export default ProductCard;

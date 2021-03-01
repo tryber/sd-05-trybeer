@@ -1,8 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import propTypes from 'prop-types';
 import { registerUserAct } from '../Redux/Actions/user';
+
+import Input from '../Components/Input';
+
+import M from 'materialize-css';
+
+
+const pageStyle = {
+  justifyContent: 'center',
+};
 
 const Register = ({ registerUser, userError }) => {
   const [name, setName] = useState(null);
@@ -20,17 +29,14 @@ const Register = ({ registerUser, userError }) => {
     else isSetDisabled(true);
   }
 
-  // ++++++++++++++++++++++++++
-
-  // useEffect precisa colocar a função que sera usada nas dependências
-  // Que por sua vez, se for uma função que que muda algum state local, pode dar um loop estranho.
-  // Lint não permite
-
-  // useEffect(() => {
-  //   validate();
-  // }, [name, email, password, validate]);
-
-  // ++++++++++++++++++++++++++
+  useEffect(() => {
+    if (userError) {
+      M.toast({
+        html: '<p>E-mail already in database.</p>',
+        classes: 'orange-bg',
+      });
+    }
+  }, [userError]);
 
   if (shouldRedirect && !userError) {
     if (!isSeller) {
@@ -52,67 +58,63 @@ const Register = ({ registerUser, userError }) => {
   }
 
   return (
-    <div className="container-main" id="Register">
-      <div className="container-page">
-        <h1>Register</h1>
-        { /* Se usar o component Input o lint não o reconhece como 'controle do label form' */ }
-        <label htmlFor="name">
-          Nome
-          <input
-            data-testid="signup-name"
-            id="name"
+    <div className="container-main" id="Register" style={pageStyle}>
+      <div className="container-screen">
+        <div className="card">
+          <Input
+            test="signup-name"
+            label="Nome"
             placeholder="Digite seu nome"
-            onChange={ (e) => {
+            onChange={(e) => {
               setName(e.target.value);
               validate();
-            } }
+            }}
           />
-        </label>
-        <label htmlFor="email">
-          Email
-          <input
-            data-testid="signup-email"
-            id="email"
+          <Input
+            test="signup-email"
+            label="Email"
+            type="email"
             placeholder="Digite seu e-mail"
-            onChange={ (e) => {
+            onChange={(e) => {
               setEmail(e.target.value);
               validate();
-            } }
+            }}
           />
-        </label>
-        <label htmlFor="password">
-          Senha
-          <input
+          <Input
+            test="signup-password"
+            label="Senha"
             type="password"
-            data-testid="signup-password"
-            id="password"
             placeholder="Digite sua senha"
-            onChange={ (e) => {
+            onChange={(e) => {
               setPassword(e.target.value);
               validate();
-            } }
+            }}
           />
-        </label>
-        <label htmlFor="quero-vender">
-          Quero Vender
-          <input
-            type="checkbox"
-            id="quero-vender"
-            data-testid="signup-seller"
-            onChange={ ({ target: { checked } }) => {
-              setIsSeller(checked);
-            } }
-          />
-        </label>
-        <button
-          disabled={ isDisabled }
-          type="button"
-          data-testid="signup-btn"
-          onClick={ () => registerHandle() }
-        >
-          Cadastrar
-        </button>
-        {userError && <p>E-mail already in database.</p>}
+          <div
+            style={{ display: 'flex', flexDirection: 'column' }}
+            className="space-between"
+          >
+            <label data-testid="signup-seller">
+              <input
+                type="checkbox"
+                onChange={({ target: { checked } }) => {
+                  setIsSeller(checked);
+                }}
+              />
+              <span>Quero Vender</span>
+            </label>
+            <button
+              disabled={isDisabled}
+              type="button"
+              className="btn btn-large yellow-main-bg"
+              data-testid="signup-btn"
+              onClick={() => registerHandle()}
+            >
+              Cadastrar
+            </button>
+            {/* {userError && <p>E-mail already in database.</p>} */}
+          </div>
+        </div>
       </div>
     </div>
   );

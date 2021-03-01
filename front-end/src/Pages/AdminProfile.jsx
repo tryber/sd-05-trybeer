@@ -1,29 +1,41 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import AdminSideBar from '../Components/AdminSideBar';
+import getUserData from '../../src/Services/utils';
 
-const AdminProfile = ({ userData }) => {
-  if (!userData.user) {
-    return <Redirect to="/login" />;
-  }
+import Restrict from '../Components/Restrict';
 
-  // getlocalStorage - pegar funcao do luis para solução MUNDO REAL --
+const AdminProfile = () => {
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
 
-  const { name, email } = userData.user;
+  useEffect(() => {
+    const user = getUserData();
+    if (!user) return;
+    setEmail(user.email);
+    setName(user.name);
+  }, []);
+
   return (
-    <div>
-      <AdminSideBar />
-
-      <h3>Perfil</h3>
-      <p>Nome: </p>
-      <p data-testid="profile-name">
-        {name}
-      </p>
-      <p>Email: </p>
-      <p data-testid="profile-email">{email}</p>
-    </div>
+    <Restrict>
+      <div>
+        <AdminSideBar />
+        <div className="responsive-list">
+          <div className="card" style={{ margin: ' 16px 16px' }}>
+            <div className="space-between">
+              <span>Nome: </span>
+              <span data-testid="profile-name">{name}</span>
+            </div>
+            <br />
+            <div className="space-between">
+              <span>Email: </span>
+              <span data-testid="profile-email">{email}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Restrict>
   );
 };
 

@@ -1,32 +1,49 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-// import { getUserData } from '../Services/utils';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
+import ourLogo from '../fetch-beer-3.png';
 import { clear } from '../Redux/Actions/user';
+import helper from '../Helper';
 import Item from './SidebarItem';
 
 const sideBarStyle = {
-  background: 'var(--dark)',
+  background: 'var(--orange)',
   color: 'var(--white)',
-  height: '100vh',
-  width: '90vw',
 };
 
-const SideBar = ({ toggleDrawer, logout }) => (
-  <div
-    style={ sideBarStyle }
-    role="presentation"
-    onClick={ toggleDrawer() }
-    onKeyDown={ toggleDrawer() }
-  >
-    <List style={ { background: 'var(--dark)' } }>
-      <Divider />
-      <Item action="side-menu-item-products">Produtos</Item>
-      <Item action="side-menu-item-my-orders">Pedidos</Item>
-      <Item action="side-menu-item-my-profile">Meu Perfil</Item>
-      <Divider />
+const SideBar = ({ logout }) => {
+  const [role, setRole] = useState('client');
+  useEffect(() => {
+    const { role = 'client' } = helper.getUserData();
+    setRole(role);
+  }, []);
+
+  return (
+    <ul id="slide-out" className="sidenav" style={ sideBarStyle }>
+      <div className="horizontal-center">
+        <img className="circle" src={ourLogo} style={{width: '100px'}} />
+      </div>
+      <li className="divider"></li>
+      {
+        role === 'client' ? (
+          <>
+            <Item action="side-menu-item-products">Produtos</Item>
+            <Item action="side-menu-item-orders">Meus Pedidos</Item>
+            <Item action="side-menu-item-my-orders">
+              Pedidos
+            </Item>
+            <Item action="side-menu-item-my-profile">Meu Perfil</Item>
+            <Item action="side-menu-item-chat">Conversar com a loja</Item>
+          </>
+        ) : (
+          <>
+            <Item action="side-menu-item-orders" to="/admin/orders">Pedidos</Item>
+            <Item action="side-menu-item-profile" to="/profile">Meu Perfil</Item>
+            <Item action="side-menu-item-chat" to="/admin/chats">Conversas</Item>
+          </>
+        )
+      }
+      <li className="divider"></li>
       <Item
         action="side-menu-item-logout"
         to="/login"
@@ -34,9 +51,9 @@ const SideBar = ({ toggleDrawer, logout }) => (
       >
         Sair
       </Item>
-    </List>
-  </div>
-);
+    </ul>
+  );
+};
 
 SideBar.propTypes = {
   logout: PropTypes.func.isRequired,

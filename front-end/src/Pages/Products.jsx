@@ -1,51 +1,69 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import Header from '../Components/Header';
 import ProductCard from '../Components/ProductCard';
-import Helpers from '../Helper/index';
-import { repopulatingAct } from '../Redux/Actions';
+import helper from '../Helper';
 import Restrict from '../Components/Restrict';
 
-const zero = 0;
+const fontStyle = { fontSize: '24px', fontWeight: '300' };
 
-function Products({
-  products, totalPrice, history, isLoading, cart, repopulatingStore,
-}) {
+const checkoutBtnStyle = { display: 'flex', justifyContent: 'space-around' };
+
+const INITIAL_VALUE = 0;
+
+function Products({ history, isLoading }) {
   const [redirect, setRedirect] = useState(null);
-
-  const total = cart.reduce((acc, product) => acc + (product.quantity * product.price), zero);
+  const [products, setProducts] = useState([]);
+  const [total, setTotal] = useState(
+    helper.getCartInfo()?.total || INITIAL_VALUE,
+  );
 
   useEffect(() => {
-    const localCart = JSON.parse(localStorage.getItem('cart'));
-    if (localCart) repopulatingStore(localCart);
-  }, [repopulatingStore]);
+    helper.fetch.getProducts().then((productsArray) => {
+      setProducts(productsArray);
+    });
+  }, []);
+
+  const onRefresh = () => {
+    const t = helper.getCartInfo()?.total || INITIAL_VALUE;
+    setTotal(t);
+  };
 
   if (isLoading) return <p>Loading...</p>;
-  const totalPriceLocal = localStorage.getItem('totalPrice');
-  if (redirect) return <Redirect to={ redirect } />;
-  // if (condição massa ) return <Redirect to="/login" />;
+  if (redirect) return <Redirect to={redirect} />;
+
   return (
     <Restrict>
-      <Header pathname={ history.location.pathname } />
-      <h1>Produtos</h1>
-      {products.map((product) => (
-        <ProductCard key={ product.id } product={ product } />
-      ))}
-      <button
-        type="button"
-        disabled={ !totalPrice && !totalPriceLocal }
-        data-testid="checkout-bottom-btn"
-        onClick={ () => setRedirect('/checkout') }
-        to="/checkout"
-      >
-        Ver Carrinho
-        <p on data-testid="checkout-bottom-btn-value">
-          {/* transferi a lógica de duas casas decimais diretamente para a funcao transformPrice */}
-          {`R$ ${Helpers.transformPrice(total)}`}
-        </p>
-      </button>
+      <Header pathname={history.location.pathname} />
+      <div className="container-pages">
+        <div className="responsive-list">
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onRefresh={onRefresh}
+            />
+          ))}
+        </div>
+        <button
+          style={checkoutBtnStyle}
+          type="button"
+          disabled={total === 0}
+          data-testid="checkout-bottom-btn"
+          onClick={() => setRedirect('/checkout')}
+          to="/checkout"
+          className="btn btn-large orange-bg blue-mid-cl width-380px"
+        >
+          <span
+            data-testid="checkout-bottom-btn-value"
+            style={fontStyle}
+          >{`R$ ${helper.transformPrice(total)}`}</span>
+          <span>{'   '}</span>
+          <span>Ver Carrinho</span>
+        </button>
+      </div>
     </Restrict>
   );
 }
@@ -53,7 +71,6 @@ function Products({
 Products.propTypes = {
   isLoading: PropTypes.bool.isRequired,
   cart: PropTypes.shape(Object).isRequired,
-  repopulatingStore: PropTypes.func.isRequired,
   history: PropTypes.shape({
     location: PropTypes.shape({
       pathname: PropTypes.string,
@@ -65,15 +82,4 @@ Products.propTypes = {
   totalPrice: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  products: state.productsRequestReducer.products,
-  totalPrice: state.productsRequestReducer.totalPrice,
-  userData: state.userRequestReducer.userData,
-  cart: state.productsRequestReducer.cart,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  repopulatingStore: (cart) => dispatch(repopulatingAct(cart)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Products);
+export default Products;

@@ -1,28 +1,36 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import ListItem from '@material-ui/core/ListItem';
 
-const magicNumberLOL = -1;
+const LAST = -1;
 
-const SideBarItem = ({
-  children, action, to, onClick,
-}) => {
+const sidebarStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: 'var(--orange-bright)',
+  padding: '8px 16px',
+  margin: '1px',
+};
+
+const SideBarItem = ({ children, action, to, onClick }) => {
   const [redirect, setRedirect] = useState(null);
 
   if (redirect) return <Redirect to={ redirect } />;
 
   return (
-    <ListItem
-      button
-      data-testid={ action }
-      onClick={ () => {
-        if (typeof onClick === 'function') onClick();
-        setRedirect(to || `/${action.split('-').slice(magicNumberLOL)}`);
-      } }
-    >
-      {children}
-    </ListItem>
+    <li>
+      <div
+        className="sidenav-close"
+        data-testid={ action }
+        onClick={ () => {
+          if (typeof onClick === 'function') onClick();
+          setRedirect(to || `/${action.split('-').slice(LAST)}`);
+        }}
+        style={ sidebarStyle }
+      >
+        {children}
+      </div>
+    </li>
   );
 };
 

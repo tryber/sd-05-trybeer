@@ -5,40 +5,58 @@ import { Link } from 'react-router-dom';
 import { clear } from '../Redux/Actions/user';
 
 const sideBarStyle = {
-  background: 'var(--dark)',
+  background: 'var(--orange)',
   color: 'var(--white)',
-  height: '100vh',
-  width: '10vw',
+  height: '300vh',
+  width: '25vw',
   display: 'flex',
   flexDirection: 'column',
   textAlign: 'center',
   float: 'left',
 };
 
+const sidebarItemStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: 'var(--orange-bright)',
+  padding: '8px',
+  margin: '1px',
+};
+
 const AdminSideBar = ({ logout }) => (
-  <div className="admin-side-bar-container" style={ sideBarStyle }>
-    <Link
-      style={ { color: 'white' } }
-      to="/admin/orders"
-      data-testid="side-menu-item-orders"
-    >
-      Meus Pedidos
-    </Link>
-    <Link
-      style={ { color: 'white' } }
-      to="/admin/profile"
-      data-testid="side-menu-item-profile"
-    >
-      Perfil
-    </Link>
-    <Link
-      style={ { color: 'white' } }
-      onClick={ () => logout() }
-      to="/login"
-      data-testid="side-menu-item-logout"
-    >
-      Sair
-    </Link>
+  <div className="admin-side-bar-container" style={sideBarStyle}>
+    <nav>
+      <Link
+        style={sidebarItemStyle}
+        to="/admin/orders"
+        data-testid="side-menu-item-orders"
+      >
+        Pedidos
+      </Link>
+      <Link
+        style={sidebarItemStyle}
+        to="/admin/profile"
+        data-testid="side-menu-item-profile"
+      >
+        Perfil
+      </Link>
+      <Link
+        style={sidebarItemStyle}
+        to="/admin/chats"
+        data-testid="side-menu-item-chat"
+      >
+        Conversas
+      </Link>
+      <Link
+        style={sidebarItemStyle}
+        onClick={() => logout()}
+        to="/login"
+        data-testid="side-menu-item-logout"
+      >
+        Sair
+      </Link>
+    </nav>
   </div>
 );
 

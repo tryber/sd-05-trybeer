@@ -1,24 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Restrict from '../Components/Restrict';
 import AdminSideBar from '../Components/AdminSideBar';
-import { getSalesOrder } from '../Redux/Services/index';
-import Helper from '../Helper/index';
+import helper from '../Helper';
 
-const AdminOrders = () => {
+import M from 'materialize-css';
+
+const AdminOrders = ({ history }) => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    getSalesOrder().then((result) => setOrders(result));
+    helper.fetch.getSalesOrder().then((result) => {
+      console.log(typeof result);
+      if (!result.message) setOrders(result);
+      if(result.message) M.toast(
+        { html: `<p>${result.message}</p>`, classes: 'dandrea' },
+      );
+    });
+    console.log(orders)
   }, []);
 
   return (
-    <div>
-      Admin - Pedidos
-      <AdminSideBar />
+    <Restrict>
+      {' '}
       <div>
-        <div>
-          {orders
-            && orders.map(
+        <AdminSideBar />
+        <div className="responsive-list">
+          {orders &&
+            orders.map(
               (
                 {
                   id: orderNumber,
@@ -29,41 +38,50 @@ const AdminOrders = () => {
                 },
                 index,
               ) => (
-                <Link to={ `/admin/orders/${orderNumber}` } key={ orderNumber }>
-                  <div>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-number` }
-                    >
-                      {`Pedido ${orderNumber}`}
-                    </h4>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-address` }
-                    >
-                      {`${address}, ${addressNumber}`}
-                    </h4>
-                  </div>
-                  <div>
-                    <h4
-                      className="product-card"
-                      data-testid={ `${index}-order-total-value` }
-                    >
-                      {`R$ ${Helper.transformPrice(orderPrice)}`}
-                    </h4>
-                  </div>
-                  <div
-                    data-testid={ `${index}-order-status` }
-                    className="order-status"
+                <div className="blue-mid-bg card margin-small">
+                  <Link
+                    className="white-text"
+                    to={`/admin/orders/${orderNumber}`}
+                    key={orderNumber}
                   >
-                    {status}
-                  </div>
-                </Link>
+                    <div className="space-between">
+                      <span
+                        className="elements"
+                        data-testid={`${index}-order-number`}
+                      >
+                        {`Pedido ${orderNumber}`}
+                      </span>
+                      <span
+                        data-testid={`${index}-order-status`}
+                        className="elements"
+                      >
+                        {status}
+                      </span>
+                    </div>
+                    <div className="horizontal-center">
+                      <h6
+                        className="elements"
+                        data-testid={`${index}-order-total-value`}
+                      >
+                        {`R$ ${helper.transformPrice(orderPrice)}`}
+                      </h6>
+                    </div>
+                    <hr style={{ border: '1px dashed' }} />
+                    <div className="horizontal-center">
+                      <span
+                        className="elements"
+                        data-testid={`${index}-order-address`}
+                      >
+                        {`${address}, ${addressNumber}`}
+                      </span>
+                    </div>
+                  </Link>
+                </div>
               ),
             )}
         </div>
       </div>
-    </div>
+    </Restrict>
   );
 };
 
